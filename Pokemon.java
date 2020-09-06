@@ -7,6 +7,7 @@ public class Pokemon {
 	private int maxHp, hp;
 	private boolean isFainted;
 	private MovesTracker movesTracker;
+	private Trainer trainer;
 
 
 	public Pokemon() {
@@ -234,8 +235,36 @@ public class Pokemon {
 		System.out.println( movesTracker.toString() );
 	}
 
+	public int getNumMoves() {
+		return movesTracker.getNumMoves();
+	}
+	
+	/**
+	 * 
+	 * @return the trainer that owns this pokemon
+	 */
+	public Trainer getTrainer() {
+		return trainer;
+	}
 
-
+	/**
+	 * 
+	 */
+	public void releaseFromTrainer() {
+		trainer = null;
+	}
+	
+	/**
+	 * Makes newTrainer the owner of this pokemon.
+	 * Fails if this pokemon already has a trainer.
+	 */
+	public boolean setNewTrainer(Trainer newTrainer) {
+		if( trainer == null ) {
+			trainer = newTrainer;
+			return true;
+		}
+		return false;
+	}
 
 
 
@@ -248,7 +277,7 @@ public class Pokemon {
 
 	private class MovesTracker{
 
-		private static final int MAX_NUM_MOVES = 5;
+		private static final int MAX_NUM_MOVES = 4;
 		
 		private Attack[] moves;
 		//private int[] ppTracker;
@@ -277,7 +306,8 @@ public class Pokemon {
 		// getters and setters //
 		/**
 		 * Returns the move at moves[index].
-		 * If no such move exists, returns a basic attack.
+		 * Returns null if the pokemon has no move at that position.
+		 * If no such move exists, returns null.
 		 * 
 		 * @param index
 		 * @return the attack at moves[index]
@@ -286,7 +316,7 @@ public class Pokemon {
 			try{
 				return moves[index];
 			}catch(Exception e) {
-				return Attack.BASIC_ATTACK;
+				return null;
 			}
 		}
 
@@ -306,6 +336,10 @@ public class Pokemon {
 			}
 
 			return false;
+		}
+		
+		private int getNumMoves() {
+			return numMoves;
 		}
 	}
 

@@ -1,43 +1,58 @@
 package pokemon;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeMap;
+
+import items.Bag;
+
 /**
-* The Trainer class stands has a pool of pokemon and bag-items.
-*
-* @author  David Clark
-* @version 1.0
-* @since   2020-09-05 
-*/
+ * The Trainer class stands has a pool of pokemon and bag-items.
+ *
+ * @author  David Clark
+ * @version 1.0
+ * @since   2020-09-05 
+ */
 public class Trainer {
 
-	private static final int MAX_HELD_POKEMON = 6;
-	
 	private PokemonTracker team;
-	
+	private Bag bag;
+
 	public Trainer() {
-		team = new PokemonTracker(MAX_HELD_POKEMON);
+		team = new PokemonTracker();
+		bag = new Bag();
 	}
-	
+
+	public Pokemon getPokemon(int index) {
+		return team.getPokemon(index);
+	}
+
 	public boolean addPokemon(Pokemon pokemon) {
+		pokemon.setNewTrainer(this);
 		return team.addPokemon(pokemon);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public Bag getBag() {
+		return bag;
+	}
+
+
+
+
 	///////// inner classes /////////////////
-	
+
 	private class PokemonTracker{
+
+		private static final int MAX_HELD_POKEMON = 6;
+
 		private Pokemon[] team;
 		private int teamSize;
-		
-		private PokemonTracker(int maxNumPokemon) {
-			team = new Pokemon[maxNumPokemon];
+
+		private PokemonTracker() {
+			team = new Pokemon[MAX_HELD_POKEMON];
 			teamSize = 0;
 		}
-		
+
 		/**
 		 * 
 		 * @param index Must be between 0 and numHeldPokemon.
@@ -46,7 +61,7 @@ public class Trainer {
 		private Pokemon getPokemon(int index) {
 			return team[index];
 		}
-		
+
 		/**
 		 * 
 		 * @param pokemon The pokemon to be added
@@ -57,9 +72,12 @@ public class Trainer {
 				team[teamSize] = pokemon;
 				return true;
 			}
-			
+
 			return false;
 		}
 	}
+
+	
+	
 
 }
