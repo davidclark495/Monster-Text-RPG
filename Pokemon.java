@@ -4,10 +4,8 @@ public class Pokemon {
 
 	private String name;
 	private PkType type;
-	private int maxHp, hp;// hp represents the current health of the pokemon
+	private int maxHp, hp;
 	private boolean isFainted;
-	//private int attack, defense;
-	//private int level;
 	private MovesTracker movesTracker;
 
 
@@ -15,6 +13,10 @@ public class Pokemon {
 		this("Pokemon", PkType.NORMAL, 100);
 	}
 
+	public Pokemon(String nm, PkType type) {
+		this(nm, type, 100);
+	}
+	
 	public Pokemon(String nm, PkType type, int maxHp) {
 		this.name = nm;
 		this.type = type;
@@ -246,12 +248,14 @@ public class Pokemon {
 
 	private class MovesTracker{
 
+		private static final int MAX_NUM_MOVES = 5;
+		
 		private Attack[] moves;
 		//private int[] ppTracker;
 		private int numMoves;
 
 		private MovesTracker() {
-			moves = new Attack[4];
+			moves = new Attack[MAX_NUM_MOVES];
 			//ppTracker = new int[4];
 			numMoves = 0;
 		}
@@ -295,7 +299,7 @@ public class Pokemon {
 		 * @return
 		 */
 		private boolean addMove(Attack newMove) {
-			if(numMoves < 4) {
+			if(numMoves < MAX_NUM_MOVES) {
 				moves[numMoves] = newMove;
 				numMoves++;
 				return true;

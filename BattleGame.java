@@ -17,8 +17,12 @@ public class BattleGame {
 		Pokemon p1 = new Pokemon("Charmander", PkType.FIRE, 80);
 		p1.teachMove(Attack.BASIC_ATTACK);
 		p1.teachMove(Attack.EMBER);
+		p1.teachMove(new Attack("Hyper Beam", 50, PkType.NORMAL));
+		p1.teachMove(new Attack("Punch in the Face", 100, PkType.NORMAL));
+		p1.teachMove(new Attack("Flamethrower", 40, PkType.FIRE));
 		Pokemon p2 = new Pokemon("Eevee", PkType.NORMAL, 60);
 		p2.teachMove(Attack.BASIC_ATTACK);
+		p2.teachMove(Attack.TACKLE);
 
 		BattleGame game = new BattleGame(p1, p2);
 		game.run();
@@ -147,7 +151,7 @@ public class BattleGame {
 	 * Helper for runBattleMenu()
 	 */
 	public void choiceBagMenu() {
-		System.out.println("Your bag is empty.");
+		System.out.println("Your bag is empty.\n");
 	}
 
 	/**
