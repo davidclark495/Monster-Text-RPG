@@ -19,6 +19,11 @@ public class Pokeball extends Item{
 		this.ballBonus = bonus;
 	}
 
+	
+	
+	
+	
+	
 	/**
 	 * Attempts to catch the pokemon, does not print results
 	 * The chance of success is a product of the pokemon's current Hp, etc.

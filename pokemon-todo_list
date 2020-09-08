@@ -1,11 +1,10 @@
 misc errors
 
 BattleGame
-- runBattleMenu()
-	- "Input not recognized" counts as a turn, fix w/ while loop
-	- "run away" does nothing
 - delay()
 	- inputs will still be recognized after the delay, can cause problems
+	- currently deactivated
+- requires pressing enter multiple times
 
 
 
@@ -18,9 +17,6 @@ misc features
 	- add atk., def. (requires interaction w/ Attack.class)
 	- add type-relationships (requires interaction w/ Attack.class, PkType.enum
 - BattleGame
-	- make enemy use multiple attacks
-	- add "bag" option
 	- change framework, allow Trainer vs Trainer battles
-		- allow changing pokemon
-- Trainer
-	- implement new class, holds 6 pokemon
+- MainGame
+	- allow shifting between different activities: battle, shop, etc.

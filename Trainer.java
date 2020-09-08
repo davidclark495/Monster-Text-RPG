@@ -36,6 +36,14 @@ public class Trainer {
 		return bag;
 	}
 
+	public String getAllPokemon() {
+		return team.getAllPokemon();
+	}
+
+	public boolean swapPokemonToFront(int newFrontIndex) {
+		return team.swapPokemonToFront(newFrontIndex);
+	}
+
 
 
 
@@ -70,14 +78,40 @@ public class Trainer {
 		private boolean addPokemon(Pokemon pokemon) {
 			if(teamSize < MAX_HELD_POKEMON) {
 				team[teamSize] = pokemon;
+				teamSize++;
 				return true;
 			}
 
 			return false;
 		}
+
+		/**
+		 * @return a numbered list of all pokemon in the team
+		 */
+		private String getAllPokemon() {
+			String str = "Number of Pokemon: " + teamSize + "\n";
+			for(int i = 0; i < teamSize; i++) {
+				str += i + " - " + team[i];
+			}
+			return str;
+		}
+
+		private boolean swapPokemonToFront(int newFrontIndex) {
+			try {
+				Pokemon oldFrontPoke = team[0];
+				Pokemon newFrontPoke = team[newFrontIndex];
+
+				team[0] = newFrontPoke;
+				team[newFrontIndex] = oldFrontPoke;
+				return true;
+			}catch(Exception e) {
+				return false;
+			}
+
+		}
 	}
 
-	
-	
+
+
 
 }

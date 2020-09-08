@@ -102,7 +102,7 @@ public class Pokemon {
 	 */
 	public String toString() {
 		String message = "";
-		message += name + " is a " + type + " type and has " + maxHp + " max HP. Current HP is " + hp + ".\n";
+		message += name + ": [" + type + "] " + hp + "/" + maxHp + " hp\n";
 		return message;
 	}
 
