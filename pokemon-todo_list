@@ -15,7 +15,8 @@ misc features
 - Pokemon
 	- add exp., level
 	- add atk., def. (requires interaction w/ Attack.class)
-	- add type-relationships (requires interaction w/ Attack.class, PkType.enum
+	- add type-relationships (requires interaction w/ Attack.class, PkType.enum)
+	- add PP for each move (requires interaction w/ Attack.class, BattleGame.class)
 - BattleGame
 	- change framework, allow Trainer vs Trainer battles
 - MainGame

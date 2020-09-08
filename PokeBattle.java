@@ -3,6 +3,7 @@ package game;
 import java.util.Random;
 import java.util.Scanner;
 
+import io.StandardIO;
 import items.Item;
 import items.Pokeball;
 import items.Potion;
@@ -16,6 +17,7 @@ public class PokeBattle {
 	private Trainer playerTrainer, enemyTrainer;
 	private Pokemon playerPokemon, enemyPokemon;
 	private boolean continueBattle;
+	private StandardIO io;
 
 	/**
 	 * The player (trainer) vs. an enemy (trainer)
@@ -24,15 +26,13 @@ public class PokeBattle {
 	 * @param t2
 	 */
 	public PokeBattle(Trainer t1, Trainer t2) {
-		this.playerTrainer = t1;
+		this(t1, t2.getPokemon(0));
 		this.enemyTrainer = t2;
-
-		this.playerPokemon = t1.getPokemon(0);
-		this.enemyPokemon = t2.getPokemon(0);
 	}
 
 	/**
 	 * The player (trainer) vs. a wild pokemon
+	 * PlayerTrainer must have a pokemon at index 0
 	 * 
 	 * @param playerTrainer
 	 * @param enemyPokemon
@@ -43,6 +43,8 @@ public class PokeBattle {
 
 		this.playerPokemon = playerTrainer.getPokemon(0);
 		this.enemyPokemon = enemyPokemon;
+		
+		io = new StandardIO();
 	}
 
 
@@ -60,7 +62,7 @@ public class PokeBattle {
 			// print menus, communicates with player
 			runBattleMenu(); if(!continueBattle) break;// if player flees, exit the loop
 			runEnemyTurn();
-			delay();
+			io.delay();
 
 			// check for end of battle
 			if( playerPokemon.isFainted() ) {
@@ -85,8 +87,8 @@ public class PokeBattle {
 	 */
 	private void runStart() {
 		System.out.println("A wild " + enemyPokemon.getName() + " jumped out of the tall grass!");
-		printLineBreak();
-		delay();
+		io.printLineBreak();
+		io.delay();
 	}
 
 	/**
@@ -96,7 +98,7 @@ public class PokeBattle {
 	 */
 	private void runBattleMenu() {
 		// print battle info
-		printDivider();
+		io.printDivider();
 		String status = playerPokemon.getName() + ": " + playerPokemon.getHp() + " HP\n"
 				+ enemyPokemon.getName() + ": " + enemyPokemon.getHp() + " HP\n";
 		System.out.println(status);
@@ -110,9 +112,9 @@ public class PokeBattle {
 		System.out.println(options);
 
 		// respond to user choice
-		int choice = promptInt();
-		printLineBreak();
-		printDivider();
+		int choice = io.promptInt();
+		io.printLineBreak();
+		io.printDivider();
 		switch(choice) {		
 		case 1:
 			// "attack" 
@@ -146,9 +148,9 @@ public class PokeBattle {
 		do {
 			// handle menu
 			playerPokemon.getAllMoves();
-			printEscCharReminder();
-			choice = promptInt();
-			printLineBreak();
+			io.printEscCharReminder();
+			choice = io.promptInt();
+			io.printLineBreak();
 
 			// handle escape request
 			if( choice == -1 ){
@@ -199,9 +201,9 @@ public class PokeBattle {
 		do {
 			// handle menu
 			System.out.println( playerTrainer.getBag().getAllItemsSummary() );
-			printEscCharReminder();
-			choice = promptInt();
-			printLineBreak();
+			io.printEscCharReminder();
+			choice = io.promptInt();
+			io.printLineBreak();
 
 			// handle escape request
 			if( choice == -1 ){
@@ -231,9 +233,9 @@ public class PokeBattle {
 		do {
 			// handle menu
 			System.out.println(playerTrainer.getAllPokemon());
-			printEscCharReminder();
-			choice = promptInt();
-			printLineBreak();
+			io.printEscCharReminder();
+			choice = io.promptInt();
+			io.printLineBreak();
 
 			// handle escape request
 			if( choice == -1 ){
@@ -258,7 +260,7 @@ public class PokeBattle {
 		playerTrainer.swapPokemonToFront(choice);
 		playerPokemon = playerTrainer.getPokemon(0);
 		System.out.println("You sent out " + playerPokemon.getName() + ".\n");
-		printDivider();
+		io.printDivider();
 	}
 
 	/**
@@ -284,9 +286,9 @@ public class PokeBattle {
 				// handle menu
 				System.out.println("Which pokemon should be healed?\n");
 				System.out.println(playerTrainer.getAllPokemon());
-				printEscCharReminder();
-				choice = promptInt();
-				printLineBreak();
+				io.printEscCharReminder();
+				choice = io.promptInt();
+				io.printLineBreak();
 
 				// handle escape request
 				if( choice == -1 ){
@@ -328,14 +330,14 @@ public class PokeBattle {
 	 */
 	private void runPlayerWinsEnding() {
 		// print message
-		printDivider();
-		String message = enemyPokemon.getName() + " fainted! " + playerPokemon.getName() + " won the battle!";
+		io.printDivider();
+		String message = enemyPokemon.getName() + " fainted! " + playerPokemon.getName() + " won the battle!\n";
 		System.out.println(message);
 	}
 
 	private void runPlayerLosesEnding() {
-		printDivider();
-		String message = playerPokemon.getName() + " fainted. " + playerPokemon.getName() + " lost the battle.";
+		io.printDivider();
+		String message = playerPokemon.getName() + " fainted. " + playerPokemon.getName() + " lost the battle.\n";
 		System.out.println(message);
 	}
 
@@ -343,48 +345,5 @@ public class PokeBattle {
 
 
 
-	// get input //
-	public String promptInput() {
-		System.out.print("Your Input: ");
-		Scanner reader = new Scanner(System.in);
-		try{
-			return reader.next();
-		}catch(Exception e) {
-			return "";
-		}
-	}
-	public int promptInt() {
-		System.out.print("Your Input: ");
-		Scanner reader = new Scanner(System.in);
-		try {
-			return reader.nextInt();
-		}catch(Exception e) {
-			return -1;
-		}
-	}
-
-	// standard output //
-	public void printDivider() {
-		System.out.println("--------------------\n");
-	}
-	public void printLineBreak() {
-		System.out.println();
-	}
-	public void delay() {	
-		//System.out.println("Press [enter] to continue.");
-		//Scanner reader = new Scanner(System.in);
-		//reader.nextLine();
-
-		try {
-			Thread.sleep(1000);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public void printInputNotRecognized() {
-		System.out.println("Input not recognized.\n");
-	}
-	public void printEscCharReminder() {
-		System.out.println("(Press -1 to go back.)\n");
-	}
+	
 }

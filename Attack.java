@@ -35,12 +35,6 @@ public class Attack {
 		return type;
 	}
 	
-	public static final Attack BASIC_ATTACK = new Attack();
-	public static final Attack 
-			TACKLE = new Attack("Tackle", 10, PkType.NORMAL),
-			EMBER = new Attack("Ember", 20, PkType.FIRE),
-			BUBBLE = new Attack("Bubble", 15, PkType.WATER),
-			VINE_WHIP = new Attack("Vine Whip", 25, PkType.GRASS);
 	
 
 }

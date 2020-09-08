@@ -1,7 +1,7 @@
 package pokemon;
 
 public class Pokemon {
-
+	
 	private String name;
 	private PkType type;
 	private int maxHp, hp;
@@ -25,37 +25,16 @@ public class Pokemon {
 		isFainted = false;
 		movesTracker = new MovesTracker();
 	}
-
-	//	public Pokemon(String nm, PkType type, int maxHp, int atk, int def) {
-	//		this.name = nm;
-	//		this.type = type;
-	//		this.maxHp = maxHp;
-	//		
-	//	}
-
-
-
-
+	
+	public Pokemon(String nm, PkType type, int maxHp, Attack[] moves) {
+		this(nm, type, maxHp);
+		this.teachAllMoves(moves);
+	}
 
 
 
 
 	// battle methods //
-	/**
-	 * Uses a basic attack on the other pokemon. Calls the other pokemon's getAttacked() method.
-	 * This pokemon cannot attack if fainted.
-	 * 
-	 * @param other The pokemon that this is attacking
-	 */
-	public void attackBasic(Pokemon other) {
-		if( ! isFainted ) {
-			String message = "* " + name + " attacked " + other.getName() + ".\n";
-			System.out.println(message);
-
-			other.getAttacked(Attack.BASIC_ATTACK);
-		}
-	}
-
 	/**
 	 * Uses the attack at moves[index] on the other pokemon. Calls the other pokemon's getAttacked() method.
 	 * This pokemon cannot attack if fainted.
@@ -137,12 +116,25 @@ public class Pokemon {
 
 
 	// getters and setters //
+	/**
+	 * 
+	 * @return the pokemon's maximum health
+	 */
 	public int getMaxHp() {
 		return maxHp;
 	}
 
+	/**
+	 * Sets the pokemon's maxHp to a new value.
+	 * If the new maxHp is lower than the current hp, sets hp to the maxHp
+	 * 
+	 * @param maxHp The pokemon's new maxHp
+	 */
 	public void setMaxHp(int maxHp) {
 		this.maxHp = maxHp;
+		if(hp > maxHp) {
+			hp = maxHp;			
+		}
 	}
 
 	public int getHp() {
@@ -230,6 +222,15 @@ public class Pokemon {
 	public boolean teachMove(Attack move) {
 		return movesTracker.addMove(move);
 	}
+	
+	/**
+	 * 
+	 * @param move
+	 * @return
+	 */
+	public boolean teachAllMoves(Attack[] moves) {
+		return movesTracker.addAllMoves(moves);
+	}
 
 	public void getAllMoves() {
 		System.out.println( movesTracker.toString() );
@@ -248,7 +249,7 @@ public class Pokemon {
 	}
 
 	/**
-	 * 
+	 * Removes this pokemon's reference to a trainer, makes it "wild"
 	 */
 	public void releaseFromTrainer() {
 		trainer = null;
@@ -280,18 +281,23 @@ public class Pokemon {
 		private static final int MAX_NUM_MOVES = 4;
 		
 		private Attack[] moves;
-		//private int[] ppTracker;
 		private int numMoves;
 
 		private MovesTracker() {
 			moves = new Attack[MAX_NUM_MOVES];
-			//ppTracker = new int[4];
 			numMoves = 0;
+		}
+		
+		private MovesTracker(Attack[] moves) {
+			moves = new Attack[MAX_NUM_MOVES];
+			numMoves = 0;
+			this.addAllMoves(moves);
 		}
 
 
 		/**
-		 * returns a list of available moves
+		 * 
+		 * @return a numbered list of available moves
 		 */
 		public String toString() {
 			String str = "Available Moves: " + numMoves + "\n";
@@ -322,11 +328,11 @@ public class Pokemon {
 
 		/**
 		 * Add a move to the end of the pokemon's move list.
-		 * Will fail if the pokemon already knows 4 moves.
+		 * Will fail if the pokemon already knows the maximum number of moves.
 		 * Updates numMoves to be the length of moves.
 		 * 
 		 * @param newMove
-		 * @return
+		 * @return true if move was added, false if move couldn't be added
 		 */
 		private boolean addMove(Attack newMove) {
 			if(numMoves < MAX_NUM_MOVES) {
@@ -334,10 +340,31 @@ public class Pokemon {
 				numMoves++;
 				return true;
 			}
-
 			return false;
 		}
 		
+		/**
+		 * Add the moves in the array to the pokemon's move list.
+		 * Will fail if the pokemon doesn't have enough space to learn each move.
+		 * Updates numMoves to be the length of moves.
+		 * 
+		 * @param newMoves An array of Attacks to teach the pokemon
+		 * @return true if moves were added, false if moves couldn't be added
+		 */
+		private boolean addAllMoves(Attack[] newMoves) {
+			if(newMoves.length + numMoves <= MAX_NUM_MOVES) {
+				for(int i = 0; i < newMoves.length; i++) {
+					moves[numMoves] = newMoves[i];
+					numMoves++;
+				}
+			}
+			return false;
+		}
+		
+		/**
+		 * 
+		 * @return the number of moves currently known
+		 */
 		private int getNumMoves() {
 			return numMoves;
 		}
