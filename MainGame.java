@@ -32,9 +32,24 @@ public class MainGame {
 	 * should prompt user w/ "Walk in the tall grass?"; 'yes' initiates battle, 'no' ends program
 	 */
 	private void walkInGrassLoop() {
+		boolean runLoop;
+		runLoop = walkInGrassPrompt();
+		while(runLoop) {
+			// run the battle
+			PokeBattle battle = new PokeBattle(playerTrainer, new Pokemon(Dex.whooper));
+			battle.run();
+			// repeat?
+			runLoop = walkInGrassPrompt();
+		}
+	}
+	
+	/**
+	 * Helper for walkInGrassLoop
+	 * Loops until the player chooses "No" (false) or "Yes" (true)
+	 */
+	private boolean walkInGrassPrompt() {
 		int choice;
-		boolean loopAgain = false;
-		do {
+		while(true) {
 
 			// handle menu
 			System.out.println("Walk in the tall grass?\n"
@@ -42,20 +57,20 @@ public class MainGame {
 					+ "1 - Yes\n");
 			choice = io.promptInt();
 
-			// end the game
+			// option 0: don't walk in grass
 			if( choice == 0 ){
-				return;
+				return false;
 			}
-			// handle bad inputs
-			if(choice == 1) {
-				loopAgain = true;
-				
+			// option 1: walk in grass 
+			else if(choice == 1) {
+				return true;
 			}
-			// start a battle w/ a wild pokemon
-			PokeBattle battle = new PokeBattle(playerTrainer, new Pokemon(Dex.eevee));
-			battle.run();
+			// bad input: allow loop to repeat
+			else {
+				io.printInputNotRecognized();
+			}
 			io.printDivider();
-		}while(loopAgain);
+		}
 	}
 
 	/**

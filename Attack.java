@@ -7,7 +7,7 @@ public class Attack {
 	private PkType type;
 	
 	public Attack() {
-		this("Basic Attack", 10, PkType.NORMAL);
+		this("Basic Attack", 10, PkType.normal);
 	}
 	
 	public Attack(String name, int dmg, PkType type) {

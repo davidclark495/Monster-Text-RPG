@@ -11,7 +11,7 @@ public class Pokemon {
 
 
 	public Pokemon() {
-		this("Pokemon", PkType.NORMAL, 100);
+		this("Pokemon", PkType.normal, 100);
 	}
 
 	public Pokemon(String nm, PkType type) {
@@ -52,7 +52,7 @@ public class Pokemon {
 		if( ! isFainted ) {
 
 			Attack move = movesTracker.getMove(index);
-			String message = "* " + name + " used " + move.getName() + " against " + other.getName() + ".\n";
+			String message = "* " + name + " used " + move.getName() + " against " + other.getName() + ".";
 			System.out.println(message);
 
 			other.getAttacked(move);
@@ -63,15 +63,38 @@ public class Pokemon {
 
 	/**
 	 * Makes this pokemon respond to being hit. Updates hp based on the base damage of the attack.
+	 * baseDamage is the damage defined by the attack
+	 * netDamage is the damage multiplied by modifiers (i.e. type-relationships)
 	 * 
 	 * @param attack The attack that this pokemon is being hit with.
 	 */
 	public void getAttacked(Attack attack) {
-		int netDamage = attack.getDamage();
+		String typeMatchupSummary = "", dmgSummary = "", finalSummary = "";
+		int baseDamage, netDamage;
+		
+		// set the base damage of the attack
+		baseDamage = attack.getDamage();
+		
+		// calculate modifiers on the net damage (type
+		if( type.isWeakTo(attack.getType()) ) {
+			netDamage = baseDamage * 2;
+			typeMatchupSummary = "* It was super effective!\n";
+		}
+		else if( type.isResistantTo(attack.getType()) ) {
+			netDamage = baseDamage / 2;
+			typeMatchupSummary = "* It wasn't very effective...\n";
+		}
+		else {
+			netDamage = baseDamage;
+		}
+		
+		// respond to the final damage dealt
 		takeDamage(netDamage);
-
-		String message = "* " + name + " took " + netDamage + " damage.\n";
-		System.out.println(message);
+		dmgSummary = "* " + name + " took " + netDamage + " damage.\n";
+		
+		// build a summary of what happened (dmg, typeMatchup)
+		finalSummary = dmgSummary + typeMatchupSummary;
+		System.out.println(finalSummary);
 	}
 
 
