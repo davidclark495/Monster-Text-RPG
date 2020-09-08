@@ -52,7 +52,7 @@ public class MainGame {
 				
 			}
 			// start a battle w/ a wild pokemon
-			PokeBattle battle = new PokeBattle(playerTrainer, Dex.eevee);
+			PokeBattle battle = new PokeBattle(playerTrainer, new Pokemon(Dex.eevee));
 			battle.run();
 			io.printDivider();
 		}while(loopAgain);
@@ -64,8 +64,8 @@ public class MainGame {
 	private void setUpPlayer() {
 		// set up the player's team
 		playerTrainer = new Trainer();
-		playerTrainer.addPokemon(Dex.charmander);
-		playerTrainer.addPokemon(Dex.whooper);
+		playerTrainer.addPokemon(new Pokemon(Dex.charmander));
+		playerTrainer.addPokemon(new Pokemon(Dex.whooper));
 
 		playerTrainer.getBag().addItem(Pokeball.POKEBALL, 3);
 		playerTrainer.getBag().addItem(Pokeball.GREATBALL);

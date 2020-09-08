@@ -37,7 +37,11 @@ public class Trainer {
 	}
 
 	public String getAllPokemon() {
-		return team.getAllPokemon();
+		return team.getAllPokemonString();
+	}
+	
+	public int getNumPokemon() {
+		return team.getNumPokemon();
 	}
 
 	public boolean swapPokemonToFront(int newFrontIndex) {
@@ -88,12 +92,16 @@ public class Trainer {
 		/**
 		 * @return a numbered list of all pokemon in the team
 		 */
-		private String getAllPokemon() {
+		private String getAllPokemonString() {
 			String str = "Number of Pokemon: " + teamSize + "\n";
 			for(int i = 0; i < teamSize; i++) {
 				str += i + " - " + team[i];
 			}
 			return str;
+		}
+		
+		private int getNumPokemon() {
+			return teamSize;
 		}
 
 		private boolean swapPokemonToFront(int newFrontIndex) {

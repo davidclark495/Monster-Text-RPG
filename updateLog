@@ -2,9 +2,14 @@ v0.2 (committed)
 - added ability to switch pokemon in battle
 
 
-v0.2.1
+v0.2.1 (committed)
 - added a Dex class, holds static references to Pokemon / Attacks
 - new: LaunchGame has the main method, calls MainGame which calls BattleGame
 - added a StandardIO class to handle i/o operations
 - MainGame now puts Battle in a loop
 - (I accidentally created a creepypasta. The eevee won't stay dead.)
+
+v0.2.15
+- fixed the zombie-eevee glitch
+- (the player can still become a zombie; can send out a 0-hp pokemon)
+- fixed the player-zombie glitch

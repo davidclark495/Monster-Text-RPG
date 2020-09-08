@@ -30,6 +30,11 @@ public class Pokemon {
 		this(nm, type, maxHp);
 		this.teachAllMoves(moves);
 	}
+	
+	public Pokemon(Pokemon poke) {
+		this(poke.getName(), poke.getType(), poke.getMaxHp());
+		this.movesTracker = new MovesTracker(poke.getMovesTracker());
+	}
 
 
 
@@ -232,12 +237,21 @@ public class Pokemon {
 		return movesTracker.addAllMoves(moves);
 	}
 
-	public void getAllMoves() {
+	public void printAllMoves() {
 		System.out.println( movesTracker.toString() );
 	}
+	
 
 	public int getNumMoves() {
 		return movesTracker.getNumMoves();
+	}
+
+	public Attack[] getAllMoves() {
+		return movesTracker.getAllMoves();
+	}
+	
+	public MovesTracker getMovesTracker() {
+		return movesTracker;
 	}
 	
 	/**
@@ -293,6 +307,11 @@ public class Pokemon {
 			numMoves = 0;
 			this.addAllMoves(moves);
 		}
+		
+		private MovesTracker(MovesTracker mvsTrckr) {
+			moves = mvsTrckr.getAllMoves();
+			numMoves = mvsTrckr.getNumMoves();
+		}
 
 
 		/**
@@ -324,6 +343,14 @@ public class Pokemon {
 			}catch(Exception e) {
 				return null;
 			}
+		}
+		
+		/**
+		 * 
+		 * @return an array of all this pokemon's moves.
+		 */
+		private Attack[] getAllMoves() {
+			return moves;
 		}
 
 		/**

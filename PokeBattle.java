@@ -38,13 +38,18 @@ public class PokeBattle {
 	 * @param enemyPokemon
 	 */
 	public PokeBattle(Trainer playerTrainer, Pokemon enemyPokemon) {
-		this.playerTrainer = playerTrainer;
-
-
-		this.playerPokemon = playerTrainer.getPokemon(0);
-		this.enemyPokemon = enemyPokemon;
-		
 		io = new StandardIO();
+		this.playerTrainer = playerTrainer;
+		this.enemyPokemon = enemyPokemon;
+
+		// find the trainer's first non-fainted pokemon
+		for(int i = 0; i < playerTrainer.getNumPokemon(); i++){
+			if( ! playerTrainer.getPokemon(i).isFainted() ) {
+				this.playerPokemon = playerTrainer.getPokemon(i);
+				break;
+			}
+		}
+		
 	}
 
 
@@ -147,7 +152,7 @@ public class PokeBattle {
 		boolean loopAgain;
 		do {
 			// handle menu
-			playerPokemon.getAllMoves();
+			playerPokemon.printAllMoves();
 			io.printEscCharReminder();
 			choice = io.promptInt();
 			io.printLineBreak();
@@ -243,9 +248,13 @@ public class PokeBattle {
 				return;
 			}
 			// catch bad inputs
-			if(choice == 0) {// bad input: can't send out pokemon who is already out
+			if(playerTrainer.getPokemon(choice) == playerPokemon) {// bad input: can't send out pokemon who is already out
 				loopAgain = true;
 				System.out.println(playerPokemon.getName() + " is already on the field!\n");
+			}
+			else if(playerTrainer.getPokemon(choice).isFainted()) {// bad input: pokemon at index "choice" is fainted
+				loopAgain = true;
+				System.out.println(playerTrainer.getPokemon(choice).getName() + " is resting. Give them a moment.\n");
 			}
 			else if(playerTrainer.getPokemon(choice) == null) {// bad input: pokemon at index "choice" doesn't exist
 				loopAgain = true;

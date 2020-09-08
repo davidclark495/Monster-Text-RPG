@@ -19,5 +19,13 @@ misc features
 	- add PP for each move (requires interaction w/ Attack.class, BattleGame.class)
 - BattleGame
 	- change framework, allow Trainer vs Trainer battles
-- MainGame
-	- allow shifting between different activities: battle, shop, etc.
+	
+	
+
+- Player class
+	- has Location reference	
+- Location class
+	- Store extends Location
+	- Field extends Location
+
+
