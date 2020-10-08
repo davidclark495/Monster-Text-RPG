@@ -1,6 +1,9 @@
-package pokemon;
+package location;
 
-import location.Location;
+/**
+ * 
+ */
+import pokemon.Trainer;
 
 public class Player {
 
@@ -14,18 +17,12 @@ public class Player {
 		this.trainer = trainer;
 	}
 	
-	public Trainer getTrainer() {
-		return trainer;
-	}
-	public void setTrainer(Trainer trnr) {
-		this.trainer = trnr;
-	}
 	public Location getLocation() {
 		return location;
 	}
 	public void setLocation(Location newLocation) {
 		location = newLocation;
-		location.setPlayer(this);
+		location.setTrainer(this.trainer);
 	}
 
 }

@@ -13,25 +13,16 @@ public class WorldMap {
 	}
 	
 	public void setUp() {
+		// list to foster connections
+		ArrayList<Location> tempLocations = new ArrayList<>();
+
 		// make places
-		Location starterField = new Field("Starter Field");
-		Location pokeCenter = new PokeCenter("Hometown PokeCenter");
-		Location nearbyCave = new Cave("Nearby Cave");
-		Location highCliff = new Cliff("High Cliff");
-		
+		Location start = new Field("Starter Field");
+		Location pokeCenter = new PokeCenter();
 		
 		// make connections
-		starterField.addMutualPath(pokeCenter);
-		starterField.addMutualPath(nearbyCave);
-		nearbyCave.addMutualPath(highCliff);
-		
-		
-		// set start
-		start = starterField;
-	}
-	
-	public Location getStart() {
-		return start;
+		tempLocations.add(pokeCenter);
+		start.setPathsAway(tempLocations);
 	}
 	
 }
