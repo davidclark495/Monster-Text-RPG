@@ -18,7 +18,9 @@ public class Dex {
 		EMBER = new Attack("Ember", 20, PkType.fire),
 		BUBBLE = new Attack("Bubble", 15, PkType.water),
 		VINE_WHIP = new Attack("Vine Whip", 25, PkType.grass),
-		SPARK = new Attack("Spark", 15, PkType.electric);
+		SPARK = new Attack("Spark", 15, PkType.electric),
+		GUST = new Attack("Gust", 20, PkType.flying),
+		ROCK_THROW = new Attack("Rock Throw", 25, PkType.rock);
 
 	public static Pokemon 
 		eevee = new Pokemon("Eevee", PkType.normal, 60, new Attack[] {Dex.TACKLE}),
@@ -26,6 +28,9 @@ public class Dex {
 		whooper = new Pokemon("Whooper", PkType.water, 50, new Attack[] {Dex.TACKLE, Dex.BUBBLE}),
 		carnivine = new Pokemon("Carnivine", PkType.grass, 90, new Attack[] {Dex.SCRATCH, Dex.VINE_WHIP}),
 		pikachu = new Pokemon("Pikachu", PkType.electric, 80, new Attack[] {Dex.TACKLE, Dex.SPARK}),
+		swoobat = new Pokemon("Swoobat", PkType.flying, 50, new Attack[] {Dex.SCRATCH, Dex.GUST}),
+		rolycoly = new Pokemon("Rolycoly", PkType.rock, 40, new Attack[] {Dex.TACKLE, Dex.ROCK_THROW}),
+		skarmory = new Pokemon("Skarmory", PkType.flying, 120, new Attack[] {Dex.SCRATCH, Dex.GUST, Dex.ROCK_THROW}),
 		missingno = new Pokemon("glitch", PkType.normal, 0);
 	
 	/**
