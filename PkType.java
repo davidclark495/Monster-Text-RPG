@@ -6,16 +6,20 @@ public class PkType {
 			normal = new PkType("NORMAL"), 
 			grass = new PkType("GRASS"), 
 			fire = new PkType("FIRE"), 
-			water = new PkType("WATER"); 
+			water = new PkType("WATER"),
+			electric = new PkType("ELECTRIC"); 
+	
 	static {
 			normal.setWeaknesses(null);
 			normal.setResistances(null);
 			grass.setWeaknesses(new PkType[] {PkType.fire});
-			grass.setResistances(new PkType[] {PkType.water});
+			grass.setResistances(new PkType[] {PkType.water, PkType.grass});
 			fire.setWeaknesses(new PkType[] {PkType.water});
-			fire.setResistances(new PkType[] {PkType.grass});
-			water.setWeaknesses(new PkType[] {PkType.grass});
-			water.setResistances(new PkType[] {PkType.fire});
+			fire.setResistances(new PkType[] {PkType.grass, PkType.fire});
+			water.setWeaknesses(new PkType[] {PkType.grass, PkType.electric});
+			water.setResistances(new PkType[] {PkType.fire, PkType.water});
+			electric.setWeaknesses(null);
+			electric.setResistances(new PkType[] {PkType.water});
 	}
 	
 	private String typeName;
@@ -39,6 +43,8 @@ public class PkType {
 	 * @return true if this type is weak to the attacking type
 	 */
 	public boolean isWeakTo(PkType atkType) {
+		if(this.weaknesses == null)
+			return false;
 		for(int i = 0; i < this.weaknesses.length; i++) {
 			if(weaknesses[i].equals(atkType)) {
 				return true;
@@ -54,6 +60,8 @@ public class PkType {
 	 * @return true if this type is resistant to the attacking type
 	 */
 	public boolean isResistantTo(PkType atkType) {
+		if(this.resistances == null)
+			return false;
 		for(int i = 0; i < this.resistances.length; i++) {
 			if(resistances[i].equals(atkType)) {
 				return true;
@@ -64,6 +72,7 @@ public class PkType {
 	
 	/**
 	 * If the types have the same name, then they are equal
+	 * @return 
 	 */
 	public boolean equals(PkType other) {
 		return this.typeName == other.typeName;

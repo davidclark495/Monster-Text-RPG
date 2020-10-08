@@ -9,8 +9,19 @@ v0.2.1 (committed)
 - MainGame now puts Battle in a loop
 - (I accidentally created a creepypasta. The eevee won't stay dead.)
 
-v0.2.2
+v0.2.2 (committed)
 - fixed the zombie-eevee glitch
 - (the player can still become a zombie; can send out a 0-hp pokemon)
-- fixed the player-zombie glitch
+	- fixed the player-zombie glitch
 - type matchups (weaknesses/resistances) now exist and affect combat
+
+v0.2.3
+- added a method in Dex for generating random encounters
+- MainGame will now randomize its wild pokemon
+- (problem: no concept of "blacking out", crashes if you enter a fight w/o a non-fainted pokemon)
+- minimal work on "location" functions
+- added electric type
+- gave Pokemon nicknames, supported in battles (caught pokemon can be given nicknames)
+
+- (it's been too long, I should clean this up, 10/7/20)
+- fleshing out the location features, Field and PokeCenter now have activities
