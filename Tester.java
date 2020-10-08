@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 import items.Bag;
 import items.Pokeball;
+import location.Field;
+import location.Location;
 import pokemon.Dex;
 import pokemon.PkType;
 import pokemon.Pokemon;
@@ -63,7 +65,6 @@ class Tester {
 		PkType fire = PkType.fire;
 		PkType water = PkType.water;
 		PkType normal = PkType.normal;
-		System.out.println(fire.isWeakTo(water));
 		assertTrue(fire.isWeakTo(water));
 		assertFalse(fire.isWeakTo(normal));
 	}
@@ -77,5 +78,51 @@ class Tester {
 		assertFalse(fire.isResistantTo(normal));
 	}
 
+	@Test
+	void dex_generateEncounter_success() {
+		Pokemon resultPoke;
+		Pokemon[] possiblePokes = {new Pokemon(Dex.missingno), new Pokemon(Dex.eevee), new Pokemon(Dex.whooper), new Pokemon(Dex.carnivine)};
+		double[] encounterRates = {0.1, 0.5, 0.3, 0.1};
+		
+		int[] counter = {0, 0, 0, 0};
+		
+		for(int i = 0; i < 100; i++) {
+			resultPoke = Dex.generateEncounter(possiblePokes, encounterRates);
+			//System.out.println(resultPoke);
+			if(resultPoke == null)
+				counter[0]++;
+			else if(resultPoke.sameSpecies(Dex.eevee))
+				counter[1]++;
+			else if(resultPoke.sameSpecies(Dex.whooper))
+				counter[2]++;
+			else if(resultPoke.sameSpecies(Dex.carnivine))
+				counter[3]++;
+		}
+		
+		System.out.println(""
+				+ "0: " + counter[0] +"\n"
+				+ "1: " + counter[1] +"\n"
+				+ "2: " + counter[2] +"\n"
+				+ "3: " + counter[3] +"\n");
+		System.out.println(""
+				+ "0: " + counter[0]/100.0 +"\n"
+				+ "1: " + counter[1]/100.0 +"\n"
+				+ "2: " + counter[2]/100.0 +"\n"
+				+ "3: " + counter[3]/100.0 +"\n");
+	}
+	
+	@Test
+	void location_printPathsAway() {
+		Field field = new Field();
+		
+		Location[] tempPathsAway = new Location[3];
+		tempPathsAway[0] = new Field();
+		tempPathsAway[1] = new Field();
+		tempPathsAway[2] = new Field();
+		field.setPathsAway(tempPathsAway);
+		
+		field.printPathsAway();
+	}
+	
 }
 

@@ -5,6 +5,7 @@ BattleGame
 	- inputs will still be recognized after the delay, can cause problems
 	- currently deactivated
 - requires pressing enter multiple times
+	- might be fixed already?
 
 
 
@@ -14,14 +15,11 @@ BattleGame
 misc features
 - Pokemon
 	- add exp., level
-	- add atk., def. (requires interaction w/ Attack.class)
-	- add type-relationships (requires interaction w/ Attack.class, PkType.enum)
+	- add atk., def. (requires interaction w/ Attack.class)s
 	- add PP for each move (requires interaction w/ Attack.class, BattleGame.class)
 - BattleGame
 	- change framework, allow Trainer vs Trainer battles
-	
-	
-
+	- change potions, report actual amount healed
 - Player class
 	- has Location reference	
 - Location class

@@ -27,6 +27,14 @@ public class StandardIO {
 			return -1;
 		}
 	}
+	public char promptChar() {
+		System.out.print("Your Input: ");
+		try {
+			return scanner.next().charAt(0);
+		}catch(Exception e) {
+			return 0;
+		}
+	}
 
 	// standard output //
 	public void printDivider() {

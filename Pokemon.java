@@ -2,7 +2,7 @@ package pokemon;
 
 public class Pokemon {
 	
-	private String name;
+	private String name, nickname;
 	private PkType type;
 	private int maxHp, hp;
 	private boolean isFainted;
@@ -20,6 +20,7 @@ public class Pokemon {
 	
 	public Pokemon(String nm, PkType type, int maxHp) {
 		this.name = nm;
+		this.nickname = nm;
 		this.type = type;
 		this.maxHp = this.hp = maxHp;
 		isFainted = false;
@@ -36,6 +37,19 @@ public class Pokemon {
 		this.movesTracker = new MovesTracker(poke.getMovesTracker());
 	}
 
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param other
+	 * @return true if both have the same name
+	 */
+	public boolean sameSpecies(Pokemon other) {
+		return name.equals(other.name);
+	}
 
 
 
@@ -52,7 +66,7 @@ public class Pokemon {
 		if( ! isFainted ) {
 
 			Attack move = movesTracker.getMove(index);
-			String message = "* " + name + " used " + move.getName() + " against " + other.getName() + ".";
+			String message = "* " + nickname + " used " + move.getName() + " against " + other.getNickname() + ".";
 			System.out.println(message);
 
 			other.getAttacked(move);
@@ -90,7 +104,7 @@ public class Pokemon {
 		
 		// respond to the final damage dealt
 		takeDamage(netDamage);
-		dmgSummary = "* " + name + " took " + netDamage + " damage.\n";
+		dmgSummary = "* " + nickname + " took " + netDamage + " damage.\n";
 		
 		// build a summary of what happened (dmg, typeMatchup)
 		finalSummary = dmgSummary + typeMatchupSummary;
@@ -109,7 +123,7 @@ public class Pokemon {
 	 */
 	public String toString() {
 		String message = "";
-		message += name + ": [" + type + "] " + hp + "/" + maxHp + " hp\n";
+		message += nickname + ": [" + type + "] " + hp + "/" + maxHp + " hp\n";
 		return message;
 	}
 
@@ -220,6 +234,14 @@ public class Pokemon {
 		return type;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 	/**
 	 * 
 	 * @return True if the pokemon is fainted/incapacitated

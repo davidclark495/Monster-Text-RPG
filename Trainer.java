@@ -15,37 +15,41 @@ import items.Bag;
  */
 public class Trainer {
 
-	private PokemonTracker team;
+	private PokemonTracker teamTracker;
 	private Bag bag;
 
 	public Trainer() {
-		team = new PokemonTracker();
+		teamTracker = new PokemonTracker();
 		bag = new Bag();
 	}
 
 	public Pokemon getPokemon(int index) {
-		return team.getPokemon(index);
+		return teamTracker.getPokemon(index);
 	}
 
 	public boolean addPokemon(Pokemon pokemon) {
 		pokemon.setNewTrainer(this);
-		return team.addPokemon(pokemon);
+		return teamTracker.addPokemon(pokemon);
 	}
 
 	public Bag getBag() {
 		return bag;
 	}
 
-	public String getAllPokemon() {
-		return team.getAllPokemonString();
+	public String getAllPokemonStr() {
+		return teamTracker.getAllPokemonString();
+	}
+	
+	public Pokemon[] getAllPokemon() {
+		return teamTracker.getAllPokemon();
 	}
 	
 	public int getNumPokemon() {
-		return team.getNumPokemon();
+		return teamTracker.getNumPokemon();
 	}
 
 	public boolean swapPokemonToFront(int newFrontIndex) {
-		return team.swapPokemonToFront(newFrontIndex);
+		return teamTracker.swapPokemonToFront(newFrontIndex);
 	}
 
 
@@ -72,6 +76,14 @@ public class Trainer {
 		 */
 		private Pokemon getPokemon(int index) {
 			return team[index];
+		}
+		
+		/**
+		 * 
+		 * @return the array of Pokemon, likely not full
+		 */
+		private Pokemon[] getAllPokemon() {
+			return team;
 		}
 
 		/**

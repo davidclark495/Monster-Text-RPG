@@ -91,7 +91,7 @@ public class PokeBattle {
 	 * Prints an intro message.
 	 */
 	private void runStart() {
-		System.out.println("A wild " + enemyPokemon.getName() + " jumped out of the tall grass!");
+		System.out.println("\nA wild " + enemyPokemon.getName() + " jumped out of the tall grass!");
 		io.printLineBreak();
 		io.delay();
 	}
@@ -104,7 +104,7 @@ public class PokeBattle {
 	private void runBattleMenu() {
 		// print battle info
 		io.printDivider();
-		String status = playerPokemon.getName() + ": " + playerPokemon.getHp() + " HP\n"
+		String status = playerPokemon.getNickname() + ": " + playerPokemon.getHp() + " HP\n"
 				+ enemyPokemon.getName() + ": " + enemyPokemon.getHp() + " HP\n";
 		System.out.println(status);
 
@@ -165,7 +165,7 @@ public class PokeBattle {
 			// handle bad inputs w/ loop
 			loopAgain = playerPokemon.getMove(choice) == null ? true : false;
 			if(loopAgain) {
-				System.out.println(playerPokemon.getName() + " didn't understand you. "
+				System.out.println(playerPokemon.getNickname() + " didn't understand you. "
 						+ "\nPlease choose a valid move.\n");
 			}
 		}while(loopAgain);
@@ -237,7 +237,7 @@ public class PokeBattle {
 		boolean loopAgain = false;
 		do {
 			// handle menu
-			System.out.println(playerTrainer.getAllPokemon());
+			System.out.println(playerTrainer.getAllPokemonStr());
 			io.printEscCharReminder();
 			choice = io.promptInt();
 			io.printLineBreak();
@@ -250,11 +250,11 @@ public class PokeBattle {
 			// catch bad inputs
 			if(playerTrainer.getPokemon(choice) == playerPokemon) {// bad input: can't send out pokemon who is already out
 				loopAgain = true;
-				System.out.println(playerPokemon.getName() + " is already on the field!\n");
+				System.out.println(playerPokemon.getNickname() + " is already on the field!\n");
 			}
 			else if(playerTrainer.getPokemon(choice).isFainted()) {// bad input: pokemon at index "choice" is fainted
 				loopAgain = true;
-				System.out.println(playerTrainer.getPokemon(choice).getName() + " is resting. Give them a moment.\n");
+				System.out.println(playerTrainer.getPokemon(choice).getNickname() + " is resting. Give them a moment.\n");
 			}
 			else if(playerTrainer.getPokemon(choice) == null) {// bad input: pokemon at index "choice" doesn't exist
 				loopAgain = true;
@@ -268,7 +268,7 @@ public class PokeBattle {
 		// make the swap
 		playerTrainer.swapPokemonToFront(choice);
 		playerPokemon = playerTrainer.getPokemon(0);
-		System.out.println("You sent out " + playerPokemon.getName() + ".\n");
+		System.out.println("You sent out " + playerPokemon.getNickname() + ".\n");
 		io.printDivider();
 	}
 
@@ -284,6 +284,7 @@ public class PokeBattle {
 			boolean catchSuccess = ball.catchAttemptPrint(playerTrainer, enemyPokemon);
 			if(catchSuccess) {
 				continueBattle = false;
+				renameCaughtPokemon(enemyPokemon);
 			}
 		}
 		else if(item instanceof Potion) {
@@ -294,7 +295,7 @@ public class PokeBattle {
 			do {
 				// handle menu
 				System.out.println("Which pokemon should be healed?\n");
-				System.out.println(playerTrainer.getAllPokemon());
+				System.out.println(playerTrainer.getAllPokemonStr());
 				io.printEscCharReminder();
 				choice = io.promptInt();
 				io.printLineBreak();
@@ -314,13 +315,43 @@ public class PokeBattle {
 			// heal the pokemon
 			Pokemon pokeChoice = playerTrainer.getPokemon(choice);
 			pot.healPokemon(pokeChoice);
-			System.out.println("You healed " + pokeChoice.getName() + " by " + pot.getHealAmt() + ".\n");
+			System.out.println("You healed " + pokeChoice.getNickname() + " by " + pot.getHealAmt() + ".\n");
 		}
 		else {
 			System.out.println("unrecognized item");
 		}
 	}
 
+	/**
+	 * helper method for useItem()
+	 */
+	private void renameCaughtPokemon(Pokemon caughtPoke) {
+		char choice;
+		boolean loopAgain = false;
+		do {
+			// prompt input
+			io.printDivider();
+			System.out.println("Give the caught pokemon a nickname? (y/n) \n");
+			choice = io.promptChar();
+			io.printLineBreak();
+
+			// handle each outcome
+			if( choice == 'y' ) {
+				System.out.println("Please type the new nickname for " + caughtPoke.getName() + ".\n");
+				String newNickname = io.promptInput();
+				caughtPoke.setNickname(newNickname);
+				System.out.println("\n" + caughtPoke.getName() + " was renamed to " + caughtPoke.getNickname() + "!\n");
+				io.printDivider();
+				loopAgain = false;
+			}else if( choice == 'n' ){
+				loopAgain = false;
+			}else {
+				loopAgain = true;
+				System.out.println("\"" + choice + "\" wasn't recognized. Please input \"y\" or \"n\".\n");
+			}
+		}while(loopAgain);
+	}
+	
 	/**
 	 * Helper for run().
 	 * Makes the opposing pokemon attack the player's pokemon.
@@ -340,13 +371,13 @@ public class PokeBattle {
 	private void runPlayerWinsEnding() {
 		// print message
 		io.printDivider();
-		String message = enemyPokemon.getName() + " fainted! " + playerPokemon.getName() + " won the battle!\n";
+		String message = enemyPokemon.getName() + " fainted! " + playerPokemon.getNickname() + " won the battle!\n";
 		System.out.println(message);
 	}
 
 	private void runPlayerLosesEnding() {
 		io.printDivider();
-		String message = playerPokemon.getName() + " fainted. " + playerPokemon.getName() + " lost the battle.\n";
+		String message = playerPokemon.getNickname() + " fainted. " + playerPokemon.getNickname() + " lost the battle.\n";
 		System.out.println(message);
 	}
 
