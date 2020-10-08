@@ -5,23 +5,20 @@ import java.util.Random;
 import io.StandardIO;
 import items.Pokeball;
 import items.Potion;
-import location.WorldMap;
+import location.Player;
 import pokemon.Attack;
 import pokemon.Dex;
 import pokemon.PkType;
-import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.Trainer;
 
 public class MainGame {
 
-	private WorldMap worldmap;
 	private Player player;
 	private Trainer playerTrainer;
 	private StandardIO io;
 
 	public MainGame() {
-		worldmap = new WorldMap();
 		setUpPlayer();
 		io = new StandardIO();
 	}
@@ -30,92 +27,77 @@ public class MainGame {
 	 * 
 	 */
 	public void run() {
-		gameLoopMenu();
+		walkInGrassLoop();
 	}
-
+	
 	/**
-	 * Helper for run().
-	 * Represents the Player's turn.
-	 * Prints the battles status, then asks the player to make a choice, then handles that choice.
+	 * NEEDS REVIEW
+	 * helper for run()
+	 * should prompt user w/ "Walk in the tall grass?"; 'yes' initiates battle, 'no' ends program
 	 */
-	private void gameLoopMenu() {
-		boolean runLoop = true;
+	private void walkInGrassLoop() {
+		// used to generate a random encounter
+		Pokemon[] possiblePokes = new Pokemon[]{
+				Dex.missingno, 
+				Dex.eevee, 
+				Dex.whooper, 
+				Dex.carnivine,
+				Dex.pikachu};
+		double[] encounterRates = new double[]{
+				0.10, 
+				0.30, 
+				0.30, 
+				0.15,
+				0.15};
+		
+		boolean runLoop;
+		runLoop = walkInGrassPrompt();
 		while(runLoop) {
-			// print options
-			String options = "What would you like to do?\n"
-					+ "1 - spend time in current location\n"
-					+ "2 - travel\n"
-					+ "3 - check status\n"
-					+ "4 - quit game\n";
-			System.out.println(options);
+			// generate a new wild pokemon
+			
+			Pokemon wildPoke = Dex.generateEncounter(possiblePokes, encounterRates);
+			if( wildPoke.sameSpecies(Dex.missingno) ) {
+				io.printLineBreak();
+				System.out.println("...nothing happened.\n");
+				runLoop = walkInGrassPrompt();
+				continue;
+			}
+			
+			// run the battle
+			PokeBattle battle = new PokeBattle(playerTrainer, wildPoke);
+			battle.run();
+			// repeat?
+			runLoop = walkInGrassPrompt();
+		}
+	}
+	
+	/**
+	 * Helper for walkInGrassLoop
+	 * Loops until the player chooses "No" (false) or "Yes" (true)
+	 */
+	private boolean walkInGrassPrompt() {
+		int choice;
+		while(true) {
 
-			// respond to user choice
-			int choice = io.promptInt();
-			io.printLineBreak();
-			io.printDivider();
-			switch(choice) {		
-			case 1:
-				// "current location activity" 
-				player.getLocation().runActivity();
-				break;
-			case 2:
-				// "travel"
-				player.getLocation().runTravelActivity();
-				break;
-			case 3:
-				// "status"
-				statusMenu();
-				break;
-			case 4:
-				// "quit"
-				runLoop = false;
-				break;
-			default:
-				System.out.println("Input not recognized. Please choose one of the given options.\n");
+			// handle menu
+			System.out.println("Walk in the tall grass?\n"
+					+ "0 - No\n"
+					+ "1 - Yes\n");
+			choice = io.promptInt();
+
+			// option 0: don't walk in grass
+			if( choice == 0 ){
+				return false;
+			}
+			// option 1: walk in grass 
+			else if(choice == 1) {
+				return true;
+			}
+			// bad input: allow loop to repeat
+			else {
+				io.printInputNotRecognized();
 			}
 			io.printDivider();
-		} 
-	}
-
-	/**
-	 * Helper for gameLoopMenu
-	 * displays player info, team info
-	 */
-	private void statusMenu() {
-		
-		
-		
-		
-		// print options
-		String options = "What would you like to see?\n"
-				+ "1 - current location\n"
-				+ "2 - bag info\n"
-				+ "3 - team info\n";
-		System.out.println(options);
-		io.printEscCharReminder();
-
-		// respond to user choice
-		int choice = io.promptInt();
-		io.printLineBreak();
-		io.printDivider();
-		switch(choice) {		
-		case 1:
-			// print player location
-			System.out.println( player.getLocation().toString() + "\n");
-			break;
-		case 2:
-			// print player bag info
-			System.out.println( player.getTrainer().getBag().getAllItemsSummary() );
-			break;
-		case 3:
-			// print player team info
-			System.out.println( player.getTrainer().getAllPokemonStr() );
-			break;
-		case -1:
-			// "escape character"
-			break;
-		default:
-			System.out.println("Input not recognized. Please choose one of the given options.\n");
 		}
 	}
 
@@ -123,12 +105,9 @@ public class MainGame {
 	 * run on startup, sets up the trainer
 	 */
 	private void setUpPlayer() {
-		// set up the player 
-		player = new Player();
-		player.setLocation(worldmap.getStart());
 		// set up the player's team
-		playerTrainer = player.getTrainer();
-		//playerTrainer.addPokemon(new Pokemon(Dex.charmander));
+		playerTrainer = new Trainer();
+		playerTrainer.addPokemon(new Pokemon(Dex.charmander));
 		playerTrainer.addPokemon(new Pokemon(Dex.whooper));
 
 		playerTrainer.getBag().addItem(Pokeball.POKEBALL, 99);

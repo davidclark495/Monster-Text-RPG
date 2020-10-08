@@ -49,6 +49,7 @@ public class PokeBattle {
 				break;
 			}
 		}
+		
 	}
 
 
@@ -58,12 +59,6 @@ public class PokeBattle {
 	 * Prints initial statistics, then runs a battle-menu loop, then ends the game.
 	 */
 	public void run() {
-		// if the player doesn't have a valid first pokemon, end battle
-		if(playerPokemon == null) {
-			System.out.println("You need a healthy Pokemon to do that.\n");
-			return;
-		}
-		
 		runStart();
 
 		// main game loop, continue until otherwise stated
@@ -78,8 +73,6 @@ public class PokeBattle {
 			if( playerPokemon.isFainted() ) {
 				continueBattle = false;
 				runPlayerLosesEnding();
-				if (!playerTrainer.canFight())
-					break;
 			}
 			else if( enemyPokemon.isFainted() ) {
 				continueBattle = false;
@@ -98,7 +91,7 @@ public class PokeBattle {
 	 * Prints an intro message.
 	 */
 	private void runStart() {
-		System.out.println("\nA wild " + enemyPokemon.getName() + " appeared!");
+		System.out.println("\nA wild " + enemyPokemon.getName() + " jumped out of the tall grass!");
 		io.printLineBreak();
 		io.delay();
 	}
@@ -382,16 +375,10 @@ public class PokeBattle {
 		System.out.println(message);
 	}
 
-	
 	private void runPlayerLosesEnding() {
 		io.printDivider();
 		String message = playerPokemon.getNickname() + " fainted. " + playerPokemon.getNickname() + " lost the battle.\n";
 		System.out.println(message);
-		io.printDivider();
-		if(! playerTrainer.canFight()) {
-			System.out.println("You blacked out.\n");
-			io.printDivider();
-		}		
 	}
 
 
