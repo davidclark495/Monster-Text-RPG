@@ -3,12 +3,11 @@ package location;
 import io.StandardIO;
 import game.PokeBattle;
 import pokemon.Dex;
+import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.Trainer;
 
 public class PokeCenter extends Location{
-	
-	private StandardIO io;
 
 	public PokeCenter() {
 		this("PokeCenter", null);
@@ -16,38 +15,23 @@ public class PokeCenter extends Location{
 	public PokeCenter(String nm) {
 		this(nm, null);
 	}
-	public PokeCenter(Trainer plyrTrnr) {
-		this("PokeCenter", plyrTrnr);
+	public PokeCenter(Player plyr) {
+		this("PokeCenter", plyr);
 	}
-	public PokeCenter(String nm, Trainer plyrTrnr) {
-		super(nm, plyrTrnr);
+	public PokeCenter(String nm, Player plyr) {
+		super(nm, plyr);
 		this.setDescription("A place to heal your pokemon.");
-		io = new StandardIO();
 	}
 
 	@Override
 	public void runActivity() {
-		healLoop();
-		
+		// prompts the user
+		boolean doHeal = healPrompt();
+		io.printLineBreak();
+		if(doHeal) 
+			healPokemon();
 	}
 
-	/**
-	 * helper for runActivity()
-	 * should prompt user; 'yes' heals the trainer's pokemon, 'no' returns 
-	 */
-	private void healLoop() {
-		
-		// prompts the user
-		boolean runLoop = healPrompt();
-		while(runLoop) {
-			
-			// heal the trainer's pokemon
-			healPokemon();
-			// repeat?
-			runLoop = healPrompt();
-		}
-	}
-	
 	/**
 	 * Helper for healLoop
 	 * Loops until the player chooses "No" (false) or "Yes" (true)
@@ -77,7 +61,7 @@ public class PokeCenter extends Location{
 			io.printDivider();
 		}
 	}
-	
+
 	/**
 	 * Helper for healLoop
 	 * Heal all pokemon of the known trainer
@@ -87,5 +71,6 @@ public class PokeCenter extends Location{
 			Pokemon temp = getTrainer().getPokemon(i);
 			temp.setHp(temp.getMaxHp());;
 		}
+		System.out.println("You have successfully healed your pokemon.\n");
 	}
 }
