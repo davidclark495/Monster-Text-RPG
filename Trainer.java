@@ -44,6 +44,18 @@ public class Trainer {
 		return teamTracker.getAllPokemon();
 	}
 	
+	/**
+	 * 
+	 * @return true if the trainer has non-fainted pokemon capable of fighting
+	 */
+	public boolean canFight() {
+		for(int i = 0; i < teamTracker.teamSize; i++) 
+			if(! teamTracker.getPokemon(i).isFainted())
+				return true;
+		
+		return false;
+	}
+	
 	public int getNumPokemon() {
 		return teamTracker.getNumPokemon();
 	}
