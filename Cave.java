@@ -17,7 +17,8 @@ public class Cave extends WildEncounterArea{
 	}
 	public Cave(String nm, Player plyr) {
 		super(nm, plyr);
-		this.setDescription("A dark place with wild pokemon.");
+		this.setMapDescription("A dark place with wild pokemon.");
+		this.setLocalDescription("Your footsteps echo through the space.");
 		this.setEncounterPrompt("Step into the dark?");
 		setFieldEncounters();
 	}

@@ -1,6 +1,7 @@
 package location;
 
 import game.PokeBattle;
+import io.StandardIO;
 import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
@@ -22,12 +23,14 @@ public class WildEncounterArea extends Location{
 	}
 	public WildEncounterArea(String nm, Player plyr) {
 		super(nm, plyr);
-		this.setDescription("A dangerous place with wild pokemon.");
+		this.setMapDescription("A dangerous place with wild pokemon.");
+		this.setLocalDescription("You feel slightly on guard.");
 		this.encounterPrompt = "Start encounter?";
 	}
 
 	@Override
 	public void runActivity() {
+		super.runActivity();
 		if(possiblePokes == null)
 			setPossibleEncounters(new Pokemon[]{Dex.missingno}, new double[]{1.00});
 		startEncounterLoop();
@@ -48,14 +51,15 @@ public class WildEncounterArea extends Location{
 
 
 		boolean runLoop = startEncounterPrompt();
-		io.printLineBreak();
+		StandardIO.printLineBreak();
 		while(runLoop) {
+			
+			
 			// generate a new wild pokemon
-
 			Pokemon wildPoke = Dex.generateEncounter(possiblePokes, encounterRates);
 			if( wildPoke.sameSpecies(Dex.missingno) ) {
-				io.printLineBreak();
-				System.out.println("...nothing happened.\n");
+				StandardIO.printLineBreak();
+				StandardIO.println("...nothing happened.\n");
 				runLoop = startEncounterPrompt();
 				continue;
 			}
@@ -65,7 +69,7 @@ public class WildEncounterArea extends Location{
 			battle.run();
 			// repeat?
 			runLoop = startEncounterPrompt();
-			io.printLineBreak();
+			StandardIO.printLineBreak();
 		}
 	}
 
@@ -78,10 +82,11 @@ public class WildEncounterArea extends Location{
 		while(true) {
 
 			// handle menu
-			System.out.println(encounterPrompt + "\n"
+			StandardIO.printDivider();
+			StandardIO.println(encounterPrompt + "\n"
 					+ "0 - No\n"
 					+ "1 - Yes\n");
-			choice = io.promptInt();
+			choice = StandardIO.promptInt();
 
 			// option 0: don't start encounter
 			if( choice == 0 ){
@@ -93,9 +98,9 @@ public class WildEncounterArea extends Location{
 			}
 			// bad input: allow loop to repeat
 			else {
-				io.printInputNotRecognized();
+				StandardIO.printLineBreak();
+				StandardIO.printInputNotRecognized();
 			}
-			io.printDivider();
 		}
 	}
 

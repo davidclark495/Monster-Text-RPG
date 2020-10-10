@@ -1,9 +1,5 @@
 package pokemon;
 
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
-
 import items.Bag;
 
 /**
@@ -87,6 +83,8 @@ public class Trainer {
 		 * @return the Pokemon at the specified index
 		 */
 		private Pokemon getPokemon(int index) {
+			if(index < 0 || index > team.length)
+				return null;
 			return team[index];
 		}
 		

@@ -81,7 +81,7 @@ class Tester {
 	@Test
 	void dex_generateEncounter_success() {
 		Pokemon resultPoke;
-		Pokemon[] possiblePokes = {new Pokemon(Dex.missingno), new Pokemon(Dex.eevee), new Pokemon(Dex.whooper), new Pokemon(Dex.carnivine)};
+		Pokemon[] possiblePokes = {new Pokemon(Dex.missingno), new Pokemon(Dex.eevee), new Pokemon(Dex.wooper), new Pokemon(Dex.carnivine)};
 		double[] encounterRates = {0.1, 0.5, 0.3, 0.1};
 		
 		int[] counter = {0, 0, 0, 0};
@@ -93,7 +93,7 @@ class Tester {
 				counter[0]++;
 			else if(resultPoke.sameSpecies(Dex.eevee))
 				counter[1]++;
-			else if(resultPoke.sameSpecies(Dex.whooper))
+			else if(resultPoke.sameSpecies(Dex.wooper))
 				counter[2]++;
 			else if(resultPoke.sameSpecies(Dex.carnivine))
 				counter[3]++;
@@ -119,7 +119,7 @@ class Tester {
 		tempPathsAway[0] = new Field();
 		tempPathsAway[1] = new Field();
 		tempPathsAway[2] = new Field();
-		field.setPathsAway(tempPathsAway);
+		//field.setPathsAway(tempPathsAway);
 		
 		field.printPathsAway();
 	}

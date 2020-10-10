@@ -1,11 +1,8 @@
 package location;
 
-import io.StandardIO;
-import game.PokeBattle;
 import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
-import pokemon.Trainer;
 
 public class Field extends WildEncounterArea{
 
@@ -20,7 +17,8 @@ public class Field extends WildEncounterArea{
 	}
 	public Field(String nm, Player plyr) {
 		super(nm, plyr);
-		this.setDescription("A place with tall grass and wild pokemon.");
+		this.setMapDescription("A place with tall grass and wild pokemon.");
+		this.setLocalDescription("There's a warm breeze.");
 		this.setEncounterPrompt("Walk in the tall grass?");
 		setFieldEncounters();
 	}
@@ -34,7 +32,7 @@ public class Field extends WildEncounterArea{
 		Pokemon[] possiblePokes = new Pokemon[]{
 				Dex.missingno, 
 				Dex.eevee, 
-				Dex.whooper, 
+				Dex.wooper, 
 				Dex.carnivine,
 				Dex.pikachu};
 		double[] encounterRates = new double[]{

@@ -9,29 +9,53 @@ import java.util.Random;
  *
  */
 public class Dex {
+	
+	public static Attack 
+		tackle = 	new Attack("Tackle", 	10, PkType.normal,	20),
+		scratch = 	new Attack("Scratch", 	10, PkType.normal,	20),
+		ember = 	new Attack("Ember", 	20, PkType.fire,	10),
+		bubble = 	new Attack("Bubble", 	15, PkType.water,	15),
+		vine_whip = new Attack("Vine Whip", 25, PkType.grass,	10),
+		spark = 	new Attack("Spark", 	15, PkType.electric,15),
+		gust = 		new Attack("Gust", 		20, PkType.flying,	10),
+		rock_throw = new Attack("Rock Throw", 25, PkType.rock,	10),
+		bug_bite = 	new Attack("Bug Bite",	15,	PkType.bug,		15),
+		fairy_wind = new Attack("Fairy Wind", 15, PkType.fairy, 15),
+		poison_sting = new Attack("Poison Sting", 5, PkType.poison, 25),
+		sludge = new Attack("Sludge",	25,	PkType.poison,	10);
 
-
-	public static final Attack BASIC_ATTACK = new Attack();
-	public static final Attack 
-		TACKLE = new Attack("Tackle", 10, PkType.normal),
-		SCRATCH = new Attack("Scratch", 10, PkType.normal),
-		EMBER = new Attack("Ember", 20, PkType.fire),
-		BUBBLE = new Attack("Bubble", 15, PkType.water),
-		VINE_WHIP = new Attack("Vine Whip", 25, PkType.grass),
-		SPARK = new Attack("Spark", 15, PkType.electric),
-		GUST = new Attack("Gust", 20, PkType.flying),
-		ROCK_THROW = new Attack("Rock Throw", 25, PkType.rock);
-
+	static {// add sounds to attacks here
+		String path = "sounds/attack_sounds/";
+		
+		tackle.setAudioPath(path + "whoosh.wav");
+		scratch.setAudioPath(path + "metal_slash.wav");
+		ember.setAudioPath(path + "weak_fire_sound.wav");
+		bubble.setAudioPath(path + "bubbles.wav");
+		vine_whip.setAudioPath(path + "whip_sound.wav");
+		spark.setAudioPath(path + "spark.wav");
+		gust.setAudioPath(path + "wind_woosh.wav");
+		rock_throw.setAudioPath(path + "rock_smash.wav");
+	}
+	
 	public static Pokemon 
-		eevee = new Pokemon("Eevee", PkType.normal, 60, new Attack[] {Dex.TACKLE}),
-		charmander = new Pokemon("Charmander", PkType.fire, 80, new Attack[]{Dex.SCRATCH, Dex.EMBER}),
-		whooper = new Pokemon("Whooper", PkType.water, 50, new Attack[] {Dex.TACKLE, Dex.BUBBLE}),
-		carnivine = new Pokemon("Carnivine", PkType.grass, 90, new Attack[] {Dex.SCRATCH, Dex.VINE_WHIP}),
-		pikachu = new Pokemon("Pikachu", PkType.electric, 80, new Attack[] {Dex.TACKLE, Dex.SPARK}),
-		swoobat = new Pokemon("Swoobat", PkType.flying, 50, new Attack[] {Dex.SCRATCH, Dex.GUST}),
-		rolycoly = new Pokemon("Rolycoly", PkType.rock, 40, new Attack[] {Dex.TACKLE, Dex.ROCK_THROW}),
-		skarmory = new Pokemon("Skarmory", PkType.flying, 120, new Attack[] {Dex.SCRATCH, Dex.GUST, Dex.ROCK_THROW}),
-		missingno = new Pokemon("glitch", PkType.normal, 0);
+		eevee = new Pokemon("Eevee", 			PkType.normal, 	60, 	new Attack[] {Dex.tackle}),
+		charmander = new Pokemon("Charmander", 	PkType.fire, 	80, 	new Attack[] {Dex.scratch, Dex.ember}),
+		wooper = new Pokemon("Wooper", 			PkType.water, 	50, 	new Attack[] {Dex.tackle, Dex.bubble}),
+		carnivine = new Pokemon("Carnivine", 	PkType.grass, 	90, 	new Attack[] {Dex.scratch, Dex.vine_whip}),
+		pikachu = new Pokemon("Pikachu", 		PkType.electric,80, 	new Attack[] {Dex.tackle, Dex.spark}),
+		swoobat = new Pokemon("Swoobat", 		PkType.flying, 	50, 	new Attack[] {Dex.scratch, Dex.gust}),
+		rolycoly = new Pokemon("Rolycoly", 		PkType.rock, 	40, 	new Attack[] {Dex.tackle, Dex.rock_throw}),
+		skarmory = new Pokemon("Skarmory",		PkType.flying, 	120, 	new Attack[] {Dex.scratch, Dex.gust, Dex.rock_throw}),
+		combee = new Pokemon("Combee",			PkType.bug,		50,		new Attack[] {Dex.bug_bite, Dex.gust}),
+		cutiefly = new Pokemon("Cutiefly",		PkType.bug,		30,		new Attack[] {Dex.bug_bite, Dex.fairy_wind}),
+		swirlix = new Pokemon("Swirlix",		PkType.fairy,	60,		new Attack[] {Dex.fairy_wind, Dex.tackle}),
+		grimer = new Pokemon("Grimer",			PkType.poison,	80,		new Attack[] {Dex.poison_sting, Dex.sludge}),	
+		missingno = new Pokemon("glitch", 		PkType.normal, 	0);
+	
+	static {// level up pokemon here, might not be useful
+		//charmander.setLevel(10);
+	}
+	
 	
 	/**
 	 * Generates a random encounter from an array of pokemon (w/ an correlated array of encounter rates)

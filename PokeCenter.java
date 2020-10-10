@@ -1,11 +1,8 @@
 package location;
 
 import io.StandardIO;
-import game.PokeBattle;
-import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
-import pokemon.Trainer;
 
 public class PokeCenter extends Location{
 
@@ -20,14 +17,16 @@ public class PokeCenter extends Location{
 	}
 	public PokeCenter(String nm, Player plyr) {
 		super(nm, plyr);
-		this.setDescription("A place to heal your pokemon.");
+		this.setMapDescription("A place to heal your pokemon.");
+		this.setLocalDescription("The quiet ambiance is reassuring.");
 	}
 
 	@Override
 	public void runActivity() {
+		super.runActivity();
 		// prompts the user
 		boolean doHeal = healPrompt();
-		io.printLineBreak();
+		StandardIO.printLineBreak();
 		if(doHeal) 
 			healPokemon();
 	}
@@ -44,7 +43,7 @@ public class PokeCenter extends Location{
 			System.out.println("Heal your pokemon?\n"
 					+ "0 - No\n"
 					+ "1 - Yes\n");
-			choice = io.promptInt();
+			choice = StandardIO.promptInt();
 
 			// option 0: don't heal
 			if( choice == 0 ){
@@ -56,9 +55,9 @@ public class PokeCenter extends Location{
 			}
 			// bad input: allow loop to repeat
 			else {
-				io.printInputNotRecognized();
+				StandardIO.printInputNotRecognized();
 			}
-			io.printDivider();
+			StandardIO.printDivider();
 		}
 	}
 
@@ -70,6 +69,7 @@ public class PokeCenter extends Location{
 		for(int i = 0; i < getTrainer().getNumPokemon(); i++) {
 			Pokemon temp = getTrainer().getPokemon(i);
 			temp.setHp(temp.getMaxHp());;
+			temp.restoreAllPP();
 		}
 		System.out.println("You have successfully healed your pokemon.\n");
 	}

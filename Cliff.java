@@ -16,7 +16,8 @@ public class Cliff extends WildEncounterArea {
 	}
 	public Cliff(String nm, Player plyr) {
 		super(nm, plyr);
-		this.setDescription("A dangerous precipice. Home to a special pokemon.");
+		this.setMapDescription("A dangerous precipice. Home to a special pokemon.");
+		this.setLocalDescription("There's a nest full of eggs by the edge.");
 		this.setEncounterPrompt("Approach the edge?");
 		setFieldEncounters();
 	}

@@ -25,3 +25,71 @@ v0.2.3
 
 - (it's been too long, I should clean this up, 10/7/20)
 - fleshing out the location features, Field and PokeCenter now have activities
+
+v0.3.0
+- game now has different locations for different activities
+- problem: some input menus (e.g. keep playing?) enter infinite loops when given bad inputs
+- problem: misc. io problems, mostly to-do with where dividers get printed
+- fixed the blackout situation, kinda (you can't enter grass, but it won't take you to the pokemon center)
+- made a wildEncounterArea class that serves as a generic encounter area
+- made a Cave class, new encounter types, added as connection to start
+- new types (flying, rock); new pokemon (swoobat, rolycoly); new moves (GUST, ROCKBLAST)
+- made a Cliff encounterArea, place to fight the powerful Skarmory (currently just a flying type)
+- made a menu that controls game activities {activity, travel, status, quit}
+
+v0.4.0
+- added an exp/level system, updates at end of battles, each level increases MaxHP stat
+- implemented PP system, depletes / restores as expected
+- pokemon can now be set to spawn at certain levels
+- attacks can now be associated w/ specific audio clips
+- added a text scroll feature, all print-lines go through StandardIO.println()
+- fixed weird divider placement
+- fixed poor handling of unexpected characters
+- added an options menu, can adjust crawl speed
+- added a local description, printed when doing runActivity()
+- more sounds
+- audio class can now be toggled to not play, change in options menu
+- added atk, def stats (integrated w/ dmg processing, level-ups, pokebattle results)
+
+
+needed features
+- overall progress / arc
+	- intro
+	- Plasma HQ, final challenge
+	- ending
+	- add a gating mechanic to places
+	+ legendary pokemon, optional bonus encounter (skarmory?)
+- fleshed-out fighting mechanic
+	- add stats: atk, def
+	- add new moves for certain level-ups
+	- evolutions ? 
+	+ add stats: lvl, exp, hp
+	+ add PP values on moves
+- diverse locations & pokemon
+	- add multiple fields/battlegrounds
+	- add ambient descriptions
+	- a well-made map
+	+ different encounters in each area
+	+ more types ? (rock, flying)
+- fix bugs
+	- random placement of dividers
+- ui/ux
+	+ implement a menu, choose {travel, activity, status, quit}
+	+ implement audio, sound-effects
+	
+	
+- misc
+	- pokemon menu with switch, heal, summary (Overworld)
+	- run away on faint
+	- view summary on pokemon switch (Battle)
+	- rescale health/damage numbers
+	- name rater (Cheat code in pkmn center)
+	- add stab (1.5x?)
+	- damage rolls and crits
+	- exp share (all pokemon involved in fight)
+	- REPLACE ALL ZERO MENUS (i hate it)
+	- Dual type system
+	- Box with release, switch, summary
+	- Saving
+	- Shop, money
+	

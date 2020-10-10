@@ -9,10 +9,11 @@ import pokemon.Trainer;
 public abstract class Location {
 
 	private ArrayList<Location> pathsAway;
-	private String name, description;
+	private ArrayList<Location> lockedPathsAway;
+	private String name, mapDescription, localDescription;
+	//private int runActivityIterations; FEATURE - used to lock paths until a certain threshold is met, used for various encounters in same place
 	private Player player;
 	private Trainer playerTrainer;
-	protected StandardIO io;
 
 	public Location() {
 		this(null, null);
@@ -25,8 +26,11 @@ public abstract class Location {
 		player = plyr;
 		if(player != null)
 			playerTrainer = plyr.getTrainer();
-		pathsAway = new ArrayList<Location>();
-		io = new StandardIO();
+		pathsAway = new ArrayList<>();
+		lockedPathsAway = new ArrayList<>();
+		mapDescription = "";
+		localDescription = "";
+		//runActivityIterations = 0;
 	}
 
 
@@ -34,14 +38,25 @@ public abstract class Location {
 	/**
 	 * 
 	 */
-	public abstract void runActivity();
-
+	public void runActivity() {
+		printLocalDescription();
+		//runActivityIterations++;
+	}
+	
+	/**
+	 * 
+	 */
+	public void printLocalDescription() {
+		StandardIO.printDivider();
+		StandardIO.println(localDescription);
+		StandardIO.printLineBreak();
+	}
+	
 	/**
 	 * 
 	 */
 	public void runTravelActivity() {
 		// move the trainer to a new area
-		io.printDivider();
 		travel();
 	}
 
@@ -55,10 +70,10 @@ public abstract class Location {
 		while(true) {
 
 			// handle menu
-			System.out.println("Travel to a new area?\n"
+			StandardIO.println("Travel to a new area?\n"
 					+ "0 - No\n"
 					+ "1 - Yes\n");
-			choice = io.promptInt();
+			choice = StandardIO.promptInt();
 
 			// option 0: don't travel
 			if( choice == 0 ){
@@ -70,9 +85,8 @@ public abstract class Location {
 			}
 			// bad input: allow loop to repeat
 			else {
-				io.printInputNotRecognized();
+				StandardIO.printInputNotRecognized();
 			}
-			io.printDivider();
 		}
 	}
 
@@ -84,20 +98,33 @@ public abstract class Location {
 		boolean loopAgain = false;
 		do {
 			// handle menu
-			System.out.println("Current Location: " + name);
+			StandardIO.printDivider();
+			StandardIO.println("Current Location: " + name);
 			printPathsAway();
-			io.printEscCharReminder();
-			choice = io.promptInt();
-			io.printLineBreak();
+			StandardIO.printEscCharReminder();
+			choice = StandardIO.promptInt();
+			StandardIO.printLineBreak();
 
 			// handle escape request
 			if( choice == -1 ){
 				return;
 			}
+			
+			// handle good/bad inputs
+			if( choice >= 0  && choice < pathsAway.size()) {// catch good inputs
+				loopAgain = false;				
+			}else if(choice >= pathsAway.size() && choice < pathsAway.size() + lockedPathsAway.size()){// attempt to access locked paths
+				loopAgain = true;
+				StandardIO.println("That path is currently inaccessible.\n");
+			}else {// catch bad inputs
+				loopAgain = true;
+				StandardIO.printInputNotRecognized();
+			}
 		} while (loopAgain);
 
 		player.setLocation(getPathAway(choice));
-		System.out.println("You travelled to '" + getPathAway(choice).getName() + "'.\n");
+		StandardIO.printDivider();
+		StandardIO.println("You travelled to '" + getPathAway(choice).getName() + "'.\n");
 
 	}
 
@@ -112,16 +139,22 @@ public abstract class Location {
 	 * @return the name and description
 	 */
 	public String toString() {
-		String message = this.name + ":\n\t" + description;
+		String message = this.name + ":\n\t" + mapDescription;
 		return message;
 	}
 
 	public void printPathsAway() {
 		String printMess = "Nearby Locations:\n\n";
-		for(int i = 0; i < pathsAway.size(); i++) {
+		int i;
+		for(i = 0; i < pathsAway.size(); i++) {
 			printMess += i + " - " +  pathsAway.get(i).toString() + "\n";
 		}
-		System.out.println(printMess);
+		int pathNumber = i;
+		for(i = 0; i < lockedPathsAway.size(); i++) {
+			printMess += pathNumber++ + " - " + "[LOCKED]" + "\n";
+		}
+		
+		StandardIO.println(printMess);
 	}
 
 	public boolean equals(Location other) {
@@ -136,11 +169,11 @@ public abstract class Location {
 		this.name = nm;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getMapDescription() {
+		return mapDescription;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setMapDescription(String description) {
+		this.mapDescription = description;
 	}
 
 	public ArrayList<Location> getPathsAway() {
@@ -161,8 +194,28 @@ public abstract class Location {
 		this.pathsAway.add(loc);
 		loc.addPathAway(this);
 	}
+	/**
+	 * Sets a path going to (and a path coming from) the provided location.
+	 * The location that calls this method will have a locked path, and the location in the parameter 
+	 * will have an unlocked path.
+	 * 
+	 * @param loc
+	 */
+	public void addMutualPathSingleLock(Location loc) {
+		this.lockedPathsAway.add(loc);
+		loc.addPathAway(this);
+	}
 	public void setPathsAway(ArrayList<Location> newPathsAway) {
 		this.pathsAway = newPathsAway;
+	}
+	/**
+	 * Moves a path (i.e. a location) from the lockedPathsAway list to the pathsAway list.
+	 * The index is the value printed 
+	 * 
+	 * @param index
+	 */
+	public void unlockPath(int index) {
+		
 	}
 
 
@@ -175,6 +228,12 @@ public abstract class Location {
 	public void setPlayer(Player player) {
 		this.player = player;
 		this.playerTrainer = player.getTrainer();
+	}
+	public String getLocalDescription() {
+		return localDescription;
+	}
+	public void setLocalDescription(String localDescription) {
+		this.localDescription = localDescription;
 	}
 
 

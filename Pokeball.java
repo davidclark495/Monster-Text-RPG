@@ -2,11 +2,12 @@ package items;
 
 import java.util.Random;
 
+import io.StandardIO;
 import pokemon.Pokemon;
 import pokemon.Trainer;
 
 public class Pokeball extends Item{
-
+	
 	public static final Pokeball 
 	POKEBALL = new Pokeball("Pokeball", 1),
 	GREATBALL = new Pokeball("Greatball", 1.5),
@@ -56,7 +57,7 @@ public class Pokeball extends Item{
 	 * @return whether the catch succeeded (the pokemon was caught) or failed
 	 */
 	public boolean catchAttemptPrint(Trainer thrower, Pokemon poke) {
-		System.out.println("You threw the pokeball.\n");
+		StandardIO.println("You threw the pokeball.\n");
 
 		Random generator = new Random();
 		double successThreshold = 0.5 + 0.5*(poke.getHp())/poke.getMaxHp() ;// math, can be tweaked
@@ -64,25 +65,25 @@ public class Pokeball extends Item{
 
 		// pokemon belongs to another trainer, cannot be caught
 		if(poke.getTrainer() != null) {
-			System.out.println("Wait! That " + poke.getName() + " belongs to someone else!\n");
+			StandardIO.println("Wait! That " + poke.getName() + " belongs to someone else!\n");
 			return false;
 		}
 		
 		// capture fails
 		if( (successThreshold > value) ) {
-			System.out.println("Oh no! The wild " + poke.getName() + " broke free!\n");
+			StandardIO.println("Oh no! The wild " + poke.getName() + " broke free!\n");
 			return false;
 		}
 		
 		// trainer has no space on team
 		if(! (thrower.addPokemon(poke)) ) {
-			System.out.println("...you don't have any space on your team."
+			StandardIO.println("...you don't have any space on your team."
 					+ "\nThe wild pokemon was released.\n");
 			return false;
 		}
 
 		// success!
-		System.out.println(poke.getName() + " was caught!\n");
+		StandardIO.println(poke.getName() + " was caught!\n");
 		poke.setNewTrainer(thrower);
 		return true;
 	}

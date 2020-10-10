@@ -4,61 +4,111 @@ import java.util.Scanner;
 
 public class StandardIO {
 
-	private Scanner scanner;
+	private static Scanner scanner = new Scanner(System.in);
+	private static int textCrawlSpeed = 5;
 
-	public StandardIO() {
-		scanner = new Scanner(System.in);
-	}
-
+	
+	
+	
 	// get input //
- 	public String promptInput() {
-		System.out.print("Your Input: ");
+ 	public static String promptInput() {
+		print("Your Input: ");
 		try{
 			return scanner.next();
 		}catch(Exception e) {
 			return "";
 		}
 	}
-	public int promptInt() {
-		System.out.print("Your Input: ");
+	public static int promptInt() {
+		print("Your Input: ");
 		try {
-			return scanner.nextInt();
+			return Integer.parseInt(scanner.next());
 		}catch(Exception e) {
-			return -1;
+			return -2;
 		}
 	}
-	public char promptChar() {
-		System.out.print("Your Input: ");
+	public static int getInt() {
+		try {
+			return Integer.parseInt(scanner.next());
+		}catch(Exception e) {
+			return -2;
+		}
+	}
+	public static char promptChar() {
+		print("Your Input: ");
 		try {
 			return scanner.next().charAt(0);
 		}catch(Exception e) {
 			return 0;
 		}
 	}
+	
+	
+	
 
 	// standard output //
-	public void printDivider() {
-		System.out.println("--------------------\n");
+	public static void println(String message) {
+		//prints w/ a text crawl
+		for(String line : message.split("\n", -1)){
+			for(String character : line.split("")) {
+				System.out.print(character);
+				delay(textCrawlSpeed);
+			}
+			System.out.println();
+		}
 	}
-	public void printLineBreak() {
-		System.out.println();
+	public static void print(String message) {
+		System.out.print(message);
 	}
-	public void delay() {	
-		//System.out.println("Press [enter] to continue.");
+	public static void printDivider() {
+		println("--------------------\n");
+	}
+	public static void printLineBreak() {
+		println("");
+	}
+	public static void delay() {	
+		//println("Press [enter] to continue.");
 		//Scanner reader = new Scanner(System.in);
 		//reader.nextLine();
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void printInputNotRecognized() {
-		System.out.println("Input not recognized.\n");
+	public static void delay(int time) {	
+		try {
+			Thread.sleep(time);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
-	public void printEscCharReminder() {
-		System.out.println("(Press -1 to go back.)\n");
+	public static void printInputNotRecognized() {
+		println("Input not recognized.\n");
+	}
+	public static void printEscCharReminder() {
+		println("(Press -1 to go back.)\n");
 	}
 
+	
+	
+	
+	
+	// getters & setters
+	public static int getCrawlSpeed() {
+		return textCrawlSpeed;
+	}
+	/**
+	 * sets the new crawl speed
+	 * new value must not be negative, must be under a certain threshold
+	 * 
+	 * @param crawlSpeedMillis
+	 */
+	public static void setCrawlSpeed(int crawlSpeedMillis) {
+		if(crawlSpeedMillis >= 0 && crawlSpeedMillis <= 50) {
+			textCrawlSpeed = crawlSpeedMillis;			
+		}
+	}
+	
 }
