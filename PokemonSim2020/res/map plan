@@ -1,0 +1,20 @@
+graph WorldMap {
+  "Field A" -- "Field B";
+  "Field B" -- "Poke Center";
+  "Field B" -- "Nearby Cave";
+  "Field B" -- "Hive Zone";
+  "Field B" -- "Field C";
+  "Nearby Cave" -- "High Cliff";
+  "Field C" -- "River Crossing";
+  "River Crossing" -- "River's Edge";
+  "River Crossing" -- "Imposing Gateway";
+  "River's Edge" -- "River Bottom"; 
+  "River's Edge" -- "Crossing's Shadow";
+  "Imposing Gateway" -- "Rocket HQ Entrance";
+  "Rocket HQ Entrance" -- "Rocket HQ";
+  "Rocket HQ" -- "Dark Tunnel";
+  "Rocket HQ" -- "Vault Door";
+  "Dark Tunnel" -- "Underground Lake";
+  "Vault Door" -- "Central Vault";
+  "Central Vault" -- "?";
+}
