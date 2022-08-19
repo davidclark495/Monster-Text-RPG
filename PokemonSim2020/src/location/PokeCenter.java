@@ -225,8 +225,9 @@ public class PokeCenter extends Location{
 			Pokemon temp = getTrainer().getPokemon(i);
 			temp.setHp(temp.getMaxHp());;
 			temp.restoreAllPP();
+			
 			StandardIO.print(".");
-			StandardIO.delay( StandardIO.getCrawlDelay() * 200 );
+			StandardIO.delayModerate();
 			//SoundPlayer.playSound("sounds/game_sounds/toggle.wav");
 		}
 		StandardIO.printLineBreak();

@@ -70,7 +70,7 @@ public class PokeBattle {
 			// print menus, communicates with player
 			runBattleMenu(); if(!continueBattle) break;// if player flees, exit the loop
 			runEnemyTurn();
-			StandardIO.delay();
+			StandardIO.delayModerate();
 
 			// check for end of battle
 			if( playerPokemon.isFainted() ) {
@@ -112,7 +112,7 @@ public class PokeBattle {
 	private void runStart() {
 		StandardIO.println("\nA wild " + enemyPokemon.getName() + " appeared!");
 		StandardIO.printLineBreak();
-		StandardIO.delay();
+		StandardIO.delayModerate();
 	}
 
 	/**
@@ -203,7 +203,8 @@ public class PokeBattle {
 		}while(loopAgain);
 
 		// execute the attack
-		playerPokemon.attack(enemyPokemon, choice);		
+		String atkSummary = playerPokemon.attack(enemyPokemon, choice);	
+		StandardIO.println(atkSummary);
 	}
 
 	/**
@@ -396,7 +397,8 @@ public class PokeBattle {
 	private void runEnemyTurn() {
 		Random rng = new Random();
 		int enemyAttackChoice = rng.nextInt(enemyPokemon.getNumMoves());
-		enemyPokemon.attack(playerPokemon, enemyAttackChoice);
+		String atkSummary = enemyPokemon.attack(playerPokemon, enemyAttackChoice);
+		StandardIO.println(atkSummary);
 	}
 
 	/**

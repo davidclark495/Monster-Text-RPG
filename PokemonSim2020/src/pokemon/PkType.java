@@ -52,6 +52,24 @@ public class PkType {
 	}
 
 	/**
+	 * Returns true if the Pokemon is weak to the attacking type
+	 * 
+	 * @param atkType 
+	 * @return true if the Pokemon is weak to the attacking type
+	 */
+	public static boolean pokeIsWeakTo(Pokemon defender, PkType atkType) {
+		PkType type = defender.getType();
+		if(type.weaknesses == null)
+			return false;
+		for(int i = 0; i < type.weaknesses.length; i++) {
+			if(type.weaknesses[i].equals(atkType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Returns true if the attacking type exists in this type's weaknesses
 	 * 
 	 * @param atkType 
@@ -62,6 +80,24 @@ public class PkType {
 			return false;
 		for(int i = 0; i < this.weaknesses.length; i++) {
 			if(weaknesses[i].equals(atkType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if the Pokemon resists the attacking type
+	 * 
+	 * @param atkType 
+	 * @return true if the Pokemon resists the attacking type
+	 */
+	public static boolean pokeIsResistantTo(Pokemon defender, PkType atkType) {
+		PkType type = defender.getType();
+		if(type.resistances == null)
+			return false;
+		for(int i = 0; i < type.resistances.length; i++) {
+			if(type.resistances[i].equals(atkType)) {
 				return true;
 			}
 		}

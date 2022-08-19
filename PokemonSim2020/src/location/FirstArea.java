@@ -42,19 +42,19 @@ public class FirstArea extends StoryArea{
 		// set up
 		Pokemon starterPoke = chooseStarterRandom();
 		int initialIODelay = StandardIO.getCrawlDelay();
-		StandardIO.setCrawlDelay(initialIODelay * 10);
+//		StandardIO.setCrawlDelay(initialIODelay * 10);
 
 		// print things, like a cutscene
 		StandardIO.println("...you hear a Pokemon cry out in the distance.\n");
 		StandardIO.println("You follow the sound.\n");
 		StandardIO.printDivider();
-		StandardIO.delay(500);
+		StandardIO.delayModerate();
 
 		StandardIO.setCrawlDelayPermissive(StandardIO.getCrawlDelay() * 2);
 		StandardIO.println(starterPoke.getCry() + "\n");
 		StandardIO.setCrawlDelayPermissive(StandardIO.getCrawlDelay() / 2);
 		StandardIO.printDivider(); 
-		StandardIO.delay(500);
+		StandardIO.delayLong();
 
 		StandardIO.println("The Pokemon is frantically searching for... something.\n");
 
@@ -81,15 +81,16 @@ public class FirstArea extends StoryArea{
 			StandardIO.println("The Pokemon gives you a quick sniff, then resumes its search.\n");
 			StandardIO.println("They've found a trail.\n");
 			StandardIO.println("...\n");
+			StandardIO.delayModerate();
 			StandardIO.println("It looks like they want you to follow.\n");
 		}
 
 		StandardIO.printDivider();
-		StandardIO.delay(500);
+		StandardIO.delayModerate();
 		StandardIO.println(starterPoke.getName() + " joined your team.\n");
 
 		this.getPlayer().getTrainer().addPokemon(starterPoke);
-		StandardIO.delay(1000);
+		StandardIO.delayLong();
 
 		// restore needed settings
 		this.setLocalDescription("Nothing else to see.");

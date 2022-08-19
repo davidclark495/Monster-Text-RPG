@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class StandardIO {
 
 	private static Scanner scanner = new Scanner(System.in);
-	private static int textCrawlDelay = 5;
+	private static int textCrawlDelay = 10;
+	private static final int MIN_CRAWL_DELAY = 0, MAX_CRAWL_DELAY = 50;
 
 
 	// get input //
@@ -51,10 +52,10 @@ public class StandardIO {
 		//prints w/ a text crawl
 		for(String line : message.split("\n", -1)){
 			for(String character : line.split("")) {
-				System.out.print(character);
+				print(character);
 				delay(textCrawlDelay);
 			}
-			System.out.println();
+			print("\n");
 		}
 	}
 	public static void print(String message) {
@@ -62,19 +63,40 @@ public class StandardIO {
 	}
 	public static void printDivider() {
 		println("--------------------\n");
-		//delay(textCrawlDelay * 200); // might be good for a final version, impedes testing
+//		delayShort(); // might be good for a final version, impedes testing
 	}
 	public static void printLineBreak() {
 		println("");
 	}
-	public static void delay() {	
+	public static void delayShort() {	
 		try {
-			Thread.sleep(100);
+			Thread.sleep(textCrawlDelay * 50);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public static void delay(int time) {	
+	public static void delayModerate() {	
+		try {
+			Thread.sleep(textCrawlDelay * 100);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public static void delayLong() {	
+		try {
+			Thread.sleep(textCrawlDelay * 200);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public static void delayVeryLong() {	
+		try {
+			Thread.sleep(textCrawlDelay * 400);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	private static void delay(int time) {	
 		try {
 			Thread.sleep(time);
 		}catch(Exception e) {
@@ -113,7 +135,7 @@ public class StandardIO {
 	 * @param crawlSpeedMillis
 	 */
 	public static void setCrawlDelay(int crawlSpeedMillis) {
-		if(crawlSpeedMillis >= 0 && crawlSpeedMillis <= 50) {
+		if(crawlSpeedMillis >= MIN_CRAWL_DELAY && crawlSpeedMillis <= MAX_CRAWL_DELAY) {
 			textCrawlDelay = crawlSpeedMillis;			
 		}
 	}

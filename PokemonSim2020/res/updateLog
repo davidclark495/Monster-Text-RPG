@@ -132,8 +132,13 @@ needed features
 	
 	
 *****************************
-2022/07/14
+
+v0.4.6.1												2022/07/14
 - trying to clean up code
+- moving IO, print lines out of model classes (i.e. Pokemon.java)
+	- instead, methods that "print" will instead return a string
+- standardizing "delay" calls from outside of StandardIO
+	- can't specify a time, instead specify "short," "moderate," "long," etc.
 	
 
 	

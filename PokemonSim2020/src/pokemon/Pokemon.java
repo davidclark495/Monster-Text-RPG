@@ -86,39 +86,16 @@ public class Pokemon {
 
 	// battle methods //
 	/**
+	 * Uses the specified attack on the other pokemon. The other pokemon is
+	 * updated accordingly.
+	 * 
+	 * Attacker:
 	 * Uses the attack at moves[index] on the other pokemon. Calls the other pokemon's getAttacked() method.
 	 * This pokemon cannot attack if fainted.
 	 * "index" must be between 0 and 3 (inclusive).
 	 * If no move exists at moves[index], an exception will be thrown.
 	 * 
-	 * @param other The pokemon that this is attacking
-	 */
-	public void attack(Pokemon other, int index) {
-		if( isFainted() ) {// can't attack if fainted
-			StandardIO.println("* " + nickname + " is fainted. " + nickname + " couldn't attack.\n");
-			return;
-		}
-		if(movesTracker.getMove(index).getCurrentPP() <= 0) {// can't attack if out of PP
-			StandardIO.println("* " + nickname + " is out of PP for that move. They couldn't attack.\n");
-			return;
-		}
-		
-		// prints that the pokemon is attacking
-		Attack move = movesTracker.getMove(index);
-		String message = "* " + nickname + " used " + move.getName() + " against " + other.getNickname() + ".";
-		StandardIO.println(message);
-
-		// handle effects of using the move
-		if(move.getAudioPath() != null) 
-			SoundPlayer.playSound(move.getAudioPath());
-		move.decrementPP();
-		other.getAttacked(move, this);
-
-
-
-	}
-
-	/**
+	 * Defender:
 	 * Makes this pokemon respond to being hit. Updates hp based on the base damage of the attack.
 	 * baseDamage is the damage defined by the attack
 	 * netDamage is the damage multiplied by modifiers (i.e. type-relationships)
@@ -130,13 +107,33 @@ public class Pokemon {
 	 * 		defender's def stat
 	 * 		random variance
 	 * 
-	 * @param move The attack that this pokemon is being hit with
-	 * @param other The attacking pokemon
+	 * @param defender The pokemon that this is attacking
 	 */
-	public void getAttacked(Attack move, Pokemon other) {
+	public String attack(Pokemon defender, int index) {
+		
+		// ATTACKER //
+		if( isFainted() ) {// can't attack if fainted
+			return String.format("* %s is fainted. %s couldn't attack.\n", this.nickname, this.nickname);
+		}
+		if(movesTracker.getMove(index).getCurrentPP() <= 0) {// can't attack if out of PP
+			return String.format("* %s is out of PP for that move. They couldn't attack.\n", this.nickname);
+		}
+		
+		Attack move = movesTracker.getMove(index);
+		
+		// gets a string summarizing the action
+		String atkSummary = String.format("* %s used %s against %s.\n", this.nickname, move.getName(), defender.getNickname());
+
+		// handle effects of using the move
+//		if(move.getAudioPath() != null) 
+//			SoundPlayer.playSound(move.getAudioPath());
+		move.decrementPP();
+
+		
+		// DEFENDER //
 		double typeAdvantageConst = 1.5;
 		
-		String typeMatchupSummary = "", dmgSummary = "", finalSummary = "";
+		String typeMatchupSummary = "", dmgSummary = "", finalDefSummary = "";
 		int netDamage;
 
 		// set the base damage of the attack, apply constants
@@ -144,44 +141,48 @@ public class Pokemon {
 		netDamage = (int)Math.ceil(netDamage*0.15);
 
 		// calculate type-relation modifiers on the net damage 
-		if( type.isWeakTo(move.getType()) ) {
+		if( PkType.pokeIsWeakTo(defender, move.getType()) ) {
 			netDamage *= typeAdvantageConst;
 			typeMatchupSummary = "* It was super effective!\n";
 		}
-		else if( type.isResistantTo(move.getType()) ) {
+		else if( PkType.pokeIsResistantTo(defender, move.getType()) ) {
 			netDamage /= typeAdvantageConst;
 			typeMatchupSummary = "* It wasn't very effective...\n";
 		}
 		
-		// calculate stab
-		if( move.getType().equals(other.getType()))
+		// calculate STAB
+		if( move.getType().equals(this.getType()) )
 			netDamage *= 1.5;
 		
 		// calculate atk/def modifiers on net damage
-		netDamage *= (other.atk + 20);
-		netDamage /= (this.def + 20);
+		netDamage *= (this.atk + 20);
+		netDamage /= (defender.def + 20);
 		
 		// calculate random variance
 		Random rng = new Random();
-		double randomProportion = (rng.nextInt(10) + 95)  / (double)100;// value btwn .95 and 1.05
-		netDamage = (int)Math.ceil( netDamage *  randomProportion);
+		double randomProportion = (rng.nextInt(10) + 95) / (double)100;// value btwn .95 and 1.05
+		netDamage = (int)Math.ceil( netDamage * randomProportion);
 		
 		// respond to the final damage dealt
-		takeDamage(netDamage);
-		dmgSummary = "* " + nickname + " took " + netDamage + " damage.\n";
+		defender.takeDamage(netDamage);
+		dmgSummary = String.format("* %s took %d damage.\n", defender.nickname, netDamage);
 
 		// build a summary of what happened (dmg, typeMatchup)
-		finalSummary = dmgSummary + typeMatchupSummary;
-		StandardIO.println(finalSummary);
+		finalDefSummary = dmgSummary + typeMatchupSummary;
+
+		
+		// RETURN a text summary
+		return atkSummary + finalDefSummary;
 	}
 
+	
 
 
 
 
 
 
-	// print methods //
+	// string methods //
 	/**
 	 * @return a summary of this Pokemon
 	 */
@@ -192,13 +193,6 @@ public class Pokemon {
 		message += hp + "/" + maxHp + " hp | ";
 		message += "[" + type + "]\n";
 		return message;
-	}
-
-	/**
-	 * Prints the (relatively) permanent values of this pokemon
-	 */
-	public void printStatistics() {
-		StandardIO.println(getStatisticsStr());
 	}
 	
 	public String getStatisticsStr() {
@@ -213,14 +207,14 @@ public class Pokemon {
 	}
 
 	/**
-	 * Prints the values that are likely to change over the course of a battle.
+	 * Gets the values that are likely to change over the course of a battle.
 	 */
-	public void printStatus() {
+	public String getStatus() {
 		String message = "Current Status:"
 				+ "\nName: " + name
 				+ "\nCurrent HP: " + hp
 				+ "\n";
-		StandardIO.println(message);
+		return message;
 	}
 
 	
@@ -489,10 +483,7 @@ public class Pokemon {
 	public boolean teachAllMoves(Attack[] moves) {
 		return movesTracker.addAllMoves(moves);
 	}
-
-	public void printAllMoves() {
-		StandardIO.println( movesTracker.toString() );
-	}
+	
 	public String getAllMovesString() {
 		return movesTracker.toString();
 	}

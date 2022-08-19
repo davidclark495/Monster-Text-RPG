@@ -45,7 +45,7 @@ public class Dex {
 		allMoves.add(ember);
 		allMoves.add(bubble);
 		allMoves.add(vine_whip);
-		allMoves.add(thunder_shock);
+		allMoves.add(spark);
 		allMoves.add(gust);
 		allMoves.add(rock_throw);
 		allMoves.add(bug_bite);
@@ -78,7 +78,7 @@ public class Dex {
 		ember = 		new Attack("Ember", 	40, PkType.fire,	10),
 		bubble = 		new Attack("Bubble", 	40, PkType.water,	15),
 		vine_whip = 	new Attack("Vine Whip", 50, PkType.grass,	10),
-		thunder_shock = new Attack("Spark", 	40, PkType.electric,15),
+		spark = 		new Attack("Spark", 	40, PkType.electric,15),
 		gust = 			new Attack("Gust", 		40, PkType.flying,	10),
 		rock_throw =	new Attack("Rock Throw",50, PkType.rock,	10),
 		bug_bite = 		new Attack("Bug Bite",	60,	PkType.bug,		15),
@@ -94,7 +94,7 @@ public class Dex {
 		ember.setAudioPath(path + "weak_fire_sound.wav");
 		bubble.setAudioPath(path + "bubbles.wav");
 		vine_whip.setAudioPath(path + "whip_sound.wav");
-		thunder_shock.setAudioPath(path + "spark.wav");
+		spark.setAudioPath(path + "spark.wav");
 		gust.setAudioPath(path + "wind_woosh.wav");
 		rock_throw.setAudioPath(path + "rock_smash.wav");
 		//
@@ -111,7 +111,7 @@ public class Dex {
 		wooper = new Pokemon("Wooper", 			PkType.water, 	20, 	new Attack[] {Dex.tackle, Dex.bubble}),
 		sunkern = new Pokemon("Sunkern", 		PkType.grass,	20,		new Attack[] {Dex.tackle, Dex.vine_whip}),
 		carnivine = new Pokemon("Carnivine", 	PkType.grass, 	20, 	new Attack[] {Dex.scratch, Dex.vine_whip}),
-		pikachu = new Pokemon("Pikachu", 		PkType.electric,20, 	new Attack[] {Dex.tackle, Dex.thunder_shock}),
+		pikachu = new Pokemon("Pikachu", 		PkType.electric,20, 	new Attack[] {Dex.tackle, Dex.spark}),
 		woobat = new Pokemon("Woobat", 			PkType.flying, 	20, 	new Attack[] {Dex.scratch, Dex.gust}),
 		rolycoly = new Pokemon("Rolycoly", 		PkType.rock, 	20, 	new Attack[] {Dex.tackle, Dex.rock_throw}),
 		skarmory = new Pokemon("Skarmory",		PkType.flying, 	20, 	new Attack[] {Dex.scratch, Dex.gust, Dex.rock_throw}),

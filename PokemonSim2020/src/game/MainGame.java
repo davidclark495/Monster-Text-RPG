@@ -103,13 +103,13 @@ public class MainGame {
 			// print player location
 			StandardIO.printDivider();
 			StandardIO.println( player.getLocation().toString() + "\n");
-			StandardIO.delay(1000);
+			StandardIO.delayModerate();
 			break;
 		case 2:
 			// print player bag info
 			StandardIO.printDivider();
 			StandardIO.println( player.getTrainer().getBag().getAllItemsSummary() );
-			StandardIO.delay(1000);
+			StandardIO.delayVeryLong();
 			break;
 		case 3:
 			// print player team info
@@ -152,7 +152,7 @@ public class MainGame {
 			// view stats
 			StandardIO.printDivider();
 			StandardIO.println( selectedPokemon.getStatisticsStr() + selectedPokemon.getAllMovesString());
-			StandardIO.delay(1000);
+			StandardIO.delayVeryLong();
 			break;
 		case 2:
 			// swap
@@ -168,7 +168,7 @@ public class MainGame {
 			// heal(selectedPokemon);
 			StandardIO.printDivider();
 			StandardIO.println( "Not yet implemented.\n" );
-			StandardIO.delay(1000);
+			StandardIO.delayLong();
 			break;
 		case -1:
 			// "escape character"
@@ -258,10 +258,10 @@ public class MainGame {
 		// respond to user choice
 		int choice = StandardIO.promptInt();
 		StandardIO.printLineBreak();
-		StandardIO.printDivider();
 		switch(choice) {		
 		case 1:
 			// print current crawl speed
+			StandardIO.printDivider();
 			StandardIO.println("Current crawl delay: " + StandardIO.getCrawlDelay());
 			StandardIO.print("New crawl delay: ");
 			StandardIO.setCrawlDelay( StandardIO.getInt() );
@@ -269,6 +269,7 @@ public class MainGame {
 			break;
 		case 2:
 			// print current crawl speed
+			StandardIO.printDivider();
 			StandardIO.println("Audio is currently" + (!SoundPlayer.isAllowedSound() ? " not" : "") + " allowed.");
 			StandardIO.println("Allow audio? (y/n)\n");
 			char response = StandardIO.promptChar();
