@@ -50,6 +50,10 @@ public class Species{
 		}
 	}
 	
+	public List<Move> getMovesLearnedAtLevel(int level){
+		return learnset.get(level);
+	}
+	
 	// ACCESSORS
 	@Override
 	public boolean equals(Object other) {

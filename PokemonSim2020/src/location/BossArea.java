@@ -1,9 +1,9 @@
 package location;
 
-public class StoryArea extends Location {
+public class BossArea extends Location {
 
 	// base constructor
-	public StoryArea(String nm, String mapDesc, String localDesc) {
+	public BossArea(String nm, String mapDesc, String localDesc) {
 		super(nm, mapDesc, localDesc);
 	}
 

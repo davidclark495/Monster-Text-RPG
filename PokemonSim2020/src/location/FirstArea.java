@@ -6,14 +6,9 @@ import pokemon.Pokemon;
 
 public class FirstArea extends StoryArea{
 
-	public FirstArea() {
-		this("First Area");
-	}
 	// base constructor
-	public FirstArea(String nm) {
-		super(nm);
-		this.setMapDescription("The start of a journey.");
-		this.setLocalDescription("...a strange sound.");
+	public FirstArea(String nm, String mapDesc, String localDesc) {
+		super(nm, mapDesc, localDesc);
 		this.defineActivity();
 	}
 
@@ -21,7 +16,7 @@ public class FirstArea extends StoryArea{
 	protected void defineActivity() {
 		this.setActivity( () -> {
 			// do different activities at different iteration times
-			if(this.getRunActivityIterations() == 0) {
+			if(this.runActivityIterations == 0) {
 				return firstActivity();				
 			}
 			else {

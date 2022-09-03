@@ -19,7 +19,7 @@ public class Pokemon {
 		MaxHP, ATK, DEF, SpATK, SpDEF, SPD;
 	}
 
-	private static final double expNextScaleFactor = 1.25;
+	private static final double EXPNEXT_SCALEFACTOR = 1.25;
 
 	// presentation
 	private String nickname;
@@ -36,9 +36,14 @@ public class Pokemon {
 
 
 
-	//base constructor, called by all others (excludes clone-type constructors)
-	private Pokemon(String species, int level) {
+	public Pokemon(String species, int level) {
 		this.species = SpeciesList.getSpeciesList().getSpecies(species);
+		setLevel(level);
+		recalculateStats();
+	}
+	
+	public Pokemon(Species species, int level) {
+		this.species = species;
 		setLevel(level);
 		recalculateStats();
 	}
@@ -138,6 +143,9 @@ public class Pokemon {
 		// update level, increase totalExp until next level, do not modify current totalExp
 		level++;
 		totalExpNextLvl = (int)(Math.pow(level, 3));
+		// learn moves, if applicable
+		// TODO: get user input on which moves should be forgotten
+		this.teachAllMoves(species.getMovesLearnedAtLevel(level).toArray(new Move[0]));
 		// recalculate stats w/ the higher level
 		recalculateStats();
 	}
@@ -156,7 +164,7 @@ public class Pokemon {
 	 * @return the min. amount of total exp the pokemon must have to reach the given level
 	 */
 	private int getExpHeldAtLevel(int level) {
-		return (int) Math.pow(expNextScaleFactor, level);
+		return (int) Math.pow(EXPNEXT_SCALEFACTOR, level);
 	}
 	
 	private void setLevel(int level) {

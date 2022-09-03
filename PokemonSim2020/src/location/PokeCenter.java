@@ -10,14 +10,9 @@ import pokemon.Trainer;
 
 public class PokeCenter extends Location{
 
-	public PokeCenter() {
-		this("PokeCenter");
-	}
 	// base constructor
-	public PokeCenter(String nm) {
-		super(nm);
-		this.setMapDescription("A place to heal your pokemon.");
-		this.setLocalDescription("The quiet ambiance is reassuring.");
+	public PokeCenter(String nm, String mapDesc, String localDesc) {
+		super(nm, mapDesc, localDesc);
 		defineActivity();
 	}
 
@@ -221,9 +216,9 @@ public class PokeCenter extends Location{
 	 * Heal all pokemon of the known trainer
 	 */
 	private void healPokemon() {
-		for(int i = 0; i < getTrainer().getNumPokemon(); i++) {
-			Pokemon temp = getTrainer().getPokemon(i);
-			temp.setHp(temp.getMaxHp());;
+		for(int i = 0; i < getPlayer().getTrainer().getNumPokemon(); i++) {
+			Pokemon temp = getPlayer().getTrainer().getPokemon(i);
+			temp.setHp(temp.getMaxHP());;
 			temp.restoreAllPP();
 			
 			StandardIO.print(".");
