@@ -431,7 +431,7 @@ public class PokeBattle {
 		String atkMessage = "ATK:\t" + playerPokemon.getATK();
 		String defMessage = "DEF:\t" + playerPokemon.getDEF();
 		
-		playerPokemon.addExp(enemyPokemon.getExpDropped());
+		playerPokemon.gainExp(enemyPokemon.getExpDropped());
 
 		int newLevel = playerPokemon.getLevel();
 		int newExp = playerPokemon.getCurrentExp();

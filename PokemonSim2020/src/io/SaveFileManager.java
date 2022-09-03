@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import items.Bag;
-import pokemon.Attack;
+import pokemon.Move;
 import pokemon.PkType;
 import pokemon.Player;
 import pokemon.Pokemon;
@@ -38,15 +38,15 @@ public class SaveFileManager {
 						//						+ poke.getDefMod() + "\n"
 						);
 				// write a summary of each move
-				for(Attack move : poke.getAllMoves()) {
+				for(Move move : poke.getAllMoves()) {
 					if(move == null) {
 						writer.print("Null\n");
 						continue;
 					}
-					writer.print("Attack: \n");
+					writer.print("Move: \n");
 					writer.print(""
 							+ move.getName() + "\n"
-							+ move.getDamage() + "\n"
+							+ move.getPower() + "\n"
 							+ move.getType() + "\n"
 							+ move.getMaxPP() + "\n"
 							+ move.getAudioPath() + "\n");
@@ -82,7 +82,7 @@ public class SaveFileManager {
 				
 				
 				for(int j = 0; j < 4; j++) {
-					Attack tempMove;
+					Move tempMove;
 					if(reader.nextLine().equals("Null"))
 						continue;
 					
@@ -91,7 +91,7 @@ public class SaveFileManager {
 					PkType tempType = PkType.getTypeFromString(reader.nextLine());
 					int tempPP = reader.nextInt(); reader.nextLine();
 					
-					tempMove = new Attack(tempName, tempDmg, tempType, tempPP);
+					tempMove = new Move(tempName, tempDmg, tempType, tempPP);
 					tempMove.setAudioPath(reader.nextLine());
 					
 					tempPoke.teachMove(tempMove);

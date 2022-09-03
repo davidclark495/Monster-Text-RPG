@@ -151,7 +151,7 @@ public class MainGame {
 		case 1:
 			// view stats
 			StandardIO.printDivider();
-			StandardIO.println( selectedPokemon.getStatisticsStr() + selectedPokemon.getAllMovesString());
+			StandardIO.println( selectedPokemon.getStatistics() + selectedPokemon.getAllMovesString());
 			StandardIO.delayVeryLong();
 			break;
 		case 2:

@@ -140,5 +140,8 @@ v0.4.6.1												2022/07/14
 - standardizing "delay" calls from outside of StandardIO
 	- can't specify a time, instead specify "short," "moderate," "long," etc.
 	
+v0.5
+- significant changes to data encoding: now using .csv's
+	- Pokemon, Evolutions, Moves, Learnsets, Places etc. are pulled from .csv's
 
 	

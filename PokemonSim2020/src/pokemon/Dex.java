@@ -12,7 +12,7 @@ import java.util.Random;
 public class Dex {
 	
 	private ArrayList<Pokemon> allPokemon;
-	private ArrayList<Attack> allMoves;
+	private ArrayList<Move> allMoves;
 	
 	public Dex() {
 		populateAllPokemon();
@@ -21,37 +21,37 @@ public class Dex {
 	
 	// main system for accessing pokemon and moves
 	private void populateAllPokemon() {
-		allPokemon = new ArrayList<>();
-		allPokemon.add(eevee);
-		allPokemon.add(vulpix);
-		allPokemon.add(wooper);
-		allPokemon.add(sunkern);
-		allPokemon.add(carnivine);
-		allPokemon.add(pikachu);
-		allPokemon.add(woobat);
-		allPokemon.add(rolycoly);
-		allPokemon.add(skarmory);
-		allPokemon.add(combee);
-		allPokemon.add(cutiefly);
-		allPokemon.add(milcery);
-		allPokemon.add(grimer);
-		allPokemon.add(tentacool);	
+//		allPokemon = new ArrayList<>();
+//		allPokemon.add(eevee);
+//		allPokemon.add(vulpix);
+//		allPokemon.add(wooper);
+//		allPokemon.add(sunkern);
+//		allPokemon.add(carnivine);
+//		allPokemon.add(pikachu);
+//		allPokemon.add(woobat);
+//		allPokemon.add(rolycoly);
+//		allPokemon.add(skarmory);
+//		allPokemon.add(combee);
+//		allPokemon.add(cutiefly);
+//		allPokemon.add(milcery);
+//		allPokemon.add(grimer);
+//		allPokemon.add(tentacool);	
 	}
 	
 	private void populateAllMoves() {
-		allMoves = new ArrayList<>();
-		allMoves.add(tackle);
-		allMoves.add(scratch);
-		allMoves.add(ember);
-		allMoves.add(bubble);
-		allMoves.add(vine_whip);
-		allMoves.add(spark);
-		allMoves.add(gust);
-		allMoves.add(rock_throw);
-		allMoves.add(bug_bite);
-		allMoves.add(fairy_wind);
-		allMoves.add(poison_sting);
-		allMoves.add(sludge);
+//		allMoves = new ArrayList<>();
+//		allMoves.add(tackle);
+//		allMoves.add(scratch);
+//		allMoves.add(ember);
+//		allMoves.add(bubble);
+//		allMoves.add(vine_whip);
+//		allMoves.add(spark);
+//		allMoves.add(gust);
+//		allMoves.add(rock_throw);
+//		allMoves.add(bug_bite);
+//		allMoves.add(fairy_wind);
+//		allMoves.add(poison_sting);
+//		allMoves.add(sludge);
 	}
 	
 	public Pokemon getPokemonFromString(String pokeName) {
@@ -62,9 +62,9 @@ public class Dex {
 		return foundPoke;
 	}
 	
-	public Attack getAttackFromString(String atckName) {
-		Attack foundMove = null;
-		for(Attack move : allMoves)
+	public Move getAttackFromString(String atckName) {
+		Move foundMove = null;
+		for(Move move : allMoves)
 			if(atckName.equals(move.getName()))
 				foundMove = move;
 		return foundMove;
@@ -72,31 +72,31 @@ public class Dex {
 	
 	// static blocks
 	// attack info
-	public static Attack 
-		tackle = 		new Attack("Tackle", 	35, PkType.normal,	20),
-		scratch = 		new Attack("Scratch", 	35, PkType.normal,	20),
-		ember = 		new Attack("Ember", 	40, PkType.fire,	10),
-		bubble = 		new Attack("Bubble", 	40, PkType.water,	15),
-		vine_whip = 	new Attack("Vine Whip", 50, PkType.grass,	10),
-		spark = 		new Attack("Spark", 	40, PkType.electric,15),
-		gust = 			new Attack("Gust", 		40, PkType.flying,	10),
-		rock_throw =	new Attack("Rock Throw",50, PkType.rock,	10),
-		bug_bite = 		new Attack("Bug Bite",	60,	PkType.bug,		15),
-		fairy_wind = 	new Attack("Fairy Wind",40, PkType.fairy, 	15),
-		poison_sting = 	new Attack("Poison Sting", 20, PkType.poison,25),
-		sludge = 		new Attack("Sludge",	65,	PkType.poison,	10);
+	public static Move 
+//		tackle = 		new Move("Tackle", 	35, PkType.NORMAL,	20),
+//		scratch = 		new Move("Scratch", 	35, PkType.NORMAL,	20),
+//		ember = 		new Move("Ember", 	40, PkType.FIRE,	10),
+//		bubble = 		new Move("Bubble", 	40, PkType.WATER,	15),
+//		vine_whip = 	new Move("Vine Whip", 50, PkType.GRASS,	10),
+//		spark = 		new Move("Spark", 	40, PkType.ELECTRIC,15),
+//		gust = 			new Move("Gust", 		40, PkType.FLYING,	10),
+//		rock_throw =	new Move("Rock Throw",50, PkType.ROCK,	10),
+//		bug_bite = 		new Move("Bug Bite",	60,	PkType.BUG,		15),
+//		fairy_wind = 	new Move("Fairy Wind",40, PkType.FAIRY, 	15),
+//		poison_sting = 	new Move("Poison Sting", 20, PkType.POISON,25),
+//		sludge = 		new Move("Sludge",	65,	PkType.POISON,	10);
 
 	static {// add sounds to attacks here
 		String path = "sounds/attack_sounds/";
 		
-		tackle.setAudioPath(path + "whoosh.wav");
-		scratch.setAudioPath(path + "metal_slash.wav");
-		ember.setAudioPath(path + "weak_fire_sound.wav");
-		bubble.setAudioPath(path + "bubbles.wav");
-		vine_whip.setAudioPath(path + "whip_sound.wav");
-		spark.setAudioPath(path + "spark.wav");
-		gust.setAudioPath(path + "wind_woosh.wav");
-		rock_throw.setAudioPath(path + "rock_smash.wav");
+//		tackle.setAudioPath(path + "whoosh.wav");
+//		scratch.setAudioPath(path + "metal_slash.wav");
+//		ember.setAudioPath(path + "weak_fire_sound.wav");
+//		bubble.setAudioPath(path + "bubbles.wav");
+//		vine_whip.setAudioPath(path + "whip_sound.wav");
+//		spark.setAudioPath(path + "spark.wav");
+//		gust.setAudioPath(path + "wind_woosh.wav");
+//		rock_throw.setAudioPath(path + "rock_smash.wav");
 		//
 		//
 		//
@@ -105,48 +105,48 @@ public class Dex {
 	
 	// pokemon info
 	public static Pokemon 
-		eevee = new Pokemon("Eevee", 			PkType.normal, 	20, 	new Attack[] {Dex.tackle}),
-		vulpix = new Pokemon("Vulpix",			PkType.fire,	20,		new Attack[] {Dex.tackle, Dex.ember}),
-//		charmander = new Pokemon("Charmander", 	PkType.fire, 	20, 	new Attack[] {Dex.scratch, Dex.ember}),
-		wooper = new Pokemon("Wooper", 			PkType.water, 	20, 	new Attack[] {Dex.tackle, Dex.bubble}),
-		sunkern = new Pokemon("Sunkern", 		PkType.grass,	20,		new Attack[] {Dex.tackle, Dex.vine_whip}),
-		carnivine = new Pokemon("Carnivine", 	PkType.grass, 	20, 	new Attack[] {Dex.scratch, Dex.vine_whip}),
-		pikachu = new Pokemon("Pikachu", 		PkType.electric,20, 	new Attack[] {Dex.tackle, Dex.spark}),
-		woobat = new Pokemon("Woobat", 			PkType.flying, 	20, 	new Attack[] {Dex.scratch, Dex.gust}),
-		rolycoly = new Pokemon("Rolycoly", 		PkType.rock, 	20, 	new Attack[] {Dex.tackle, Dex.rock_throw}),
-		skarmory = new Pokemon("Skarmory",		PkType.flying, 	20, 	new Attack[] {Dex.scratch, Dex.gust, Dex.rock_throw}),
-		combee = new Pokemon("Combee",			PkType.bug,		20,		new Attack[] {Dex.bug_bite, Dex.gust}),
-		cutiefly = new Pokemon("Cutiefly",		PkType.bug,		20,		new Attack[] {Dex.bug_bite, Dex.fairy_wind}),
-		milcery = new Pokemon("Milcery",		PkType.fairy,	20,		new Attack[] {Dex.fairy_wind, Dex.tackle}),
-		grimer = new Pokemon("Grimer",			PkType.poison,	20,		new Attack[] {Dex.poison_sting, Dex.sludge}),	
-		tentacool = new Pokemon("Tentacool",	PkType.water,	20,		new Attack[] {Dex.bubble, Dex.poison_sting}),
-		missingno = new Pokemon("glitch", 		PkType.normal, 	20);
+//		eevee = new Pokemon("Eevee", 			PkType.NORMAL, 	20, 	new Move[] {Dex.tackle}),
+//		vulpix = new Pokemon("Vulpix",			PkType.FIRE,	20,		new Move[] {Dex.tackle, Dex.ember}),
+////		charmander = new Pokemon("Charmander", 	PkType.fire, 	20, 	new Move[] {Dex.scratch, Dex.ember}),
+//		wooper = new Pokemon("Wooper", 			PkType.WATER, 	20, 	new Move[] {Dex.tackle, Dex.bubble}),
+//		sunkern = new Pokemon("Sunkern", 		PkType.GRASS,	20,		new Move[] {Dex.tackle, Dex.vine_whip}),
+//		carnivine = new Pokemon("Carnivine", 	PkType.GRASS, 	20, 	new Move[] {Dex.scratch, Dex.vine_whip}),
+//		pikachu = new Pokemon("Pikachu", 		PkType.ELECTRIC,20, 	new Move[] {Dex.tackle, Dex.spark}),
+//		woobat = new Pokemon("Woobat", 			PkType.FLYING, 	20, 	new Move[] {Dex.scratch, Dex.gust}),
+//		rolycoly = new Pokemon("Rolycoly", 		PkType.ROCK, 	20, 	new Move[] {Dex.tackle, Dex.rock_throw}),
+//		skarmory = new Pokemon("Skarmory",		PkType.FLYING, 	20, 	new Move[] {Dex.scratch, Dex.gust, Dex.rock_throw}),
+//		combee = new Pokemon("Combee",			PkType.BUG,		20,		new Move[] {Dex.bug_bite, Dex.gust}),
+//		cutiefly = new Pokemon("Cutiefly",		PkType.BUG,		20,		new Move[] {Dex.bug_bite, Dex.fairy_wind}),
+//		milcery = new Pokemon("Milcery",		PkType.FAIRY,	20,		new Move[] {Dex.fairy_wind, Dex.tackle}),
+//		grimer = new Pokemon("Grimer",			PkType.POISON,	20,		new Move[] {Dex.poison_sting, Dex.sludge}),	
+//		tentacool = new Pokemon("Tentacool",	PkType.WATER,	20,		new Move[] {Dex.bubble, Dex.poison_sting}),
+//		missingno = new Pokemon("glitch", 		PkType.NORMAL, 	20);
 	
 	static {// set stat blocks here
 //		pokemon.setStatBlock(		hp, atk, def, hpMod, atkMod, defMod, level);
-		int a = 0;//baseline for atk
-		int d = 0;//baseline for def
-		eevee.setStatBlock(			20, a+10, d+10, 2, 1, 1,  4);
-		vulpix.setStatBlock(		21, a+12, d+ 9, 2, 2, 1,  4);
+//		int a = 0;//baseline for atk
+//		int d = 0;//baseline for def
+//		eevee.setStatBlock(			20, a+10, d+10, 2, 1, 1,  4);
+//		vulpix.setStatBlock(		21, a+12, d+ 9, 2, 2, 1,  4);
 //		charmander.setStatBlock(	21, a+12, d+ 9, 2, 2, 1,  5);
-		wooper.setStatBlock(		18, a+10, d+12, 2, 1, 2,  4);
-		sunkern.setStatBlock(		24, a+ 8, d+13, 2, 1, 2,  4);
-		carnivine.setStatBlock(		23, a+13, d+ 7, 3, 2, 1,  9);
-		pikachu.setStatBlock(		22, a+11, d+ 9, 2, 1, 1,  5);
-		woobat.setStatBlock(		20, a+10, d+10, 2, 1, 1,  6);
-		rolycoly.setStatBlock(		15, a+12, d+13, 1, 2, 2,  8);
-		skarmory.setStatBlock(		24, a+10, d+15, 2, 1, 3, 11);
-		combee.setStatBlock(		18, a+ 9, d+13, 2, 1, 2,  6);
-		cutiefly.setStatBlock(		17, a+13, d+ 9, 2, 2, 1,  6);
-		milcery.setStatBlock(		22, a+ 9, d+12, 3, 1, 2,  8);
-		grimer.setStatBlock(		21, a+13, d+13, 1, 2, 2,  8);
-		tentacool.setStatBlock(		18, a+13, d+ 9, 2, 1, 1,  6);
+//		wooper.setStatBlock(		18, a+10, d+12, 2, 1, 2,  4);
+//		sunkern.setStatBlock(		24, a+ 8, d+13, 2, 1, 2,  4);
+//		carnivine.setStatBlock(		23, a+13, d+ 7, 3, 2, 1,  9);
+//		pikachu.setStatBlock(		22, a+11, d+ 9, 2, 1, 1,  5);
+//		woobat.setStatBlock(		20, a+10, d+10, 2, 1, 1,  6);
+//		rolycoly.setStatBlock(		15, a+12, d+13, 1, 2, 2,  8);
+//		skarmory.setStatBlock(		24, a+10, d+15, 2, 1, 3, 11);
+//		combee.setStatBlock(		18, a+ 9, d+13, 2, 1, 2,  6);
+//		cutiefly.setStatBlock(		17, a+13, d+ 9, 2, 2, 1,  6);
+//		milcery.setStatBlock(		22, a+ 9, d+12, 3, 1, 2,  8);
+//		grimer.setStatBlock(		21, a+13, d+13, 1, 2, 2,  8);
+//		tentacool.setStatBlock(		18, a+13, d+ 9, 2, 1, 1,  6);
 	}
 	
 	static {// set cries here
-		vulpix.setCry("vuuulpix");
-		wooper.setCry("woooop");
-		pikachu.setCry("piikaaa");
+//		vulpix.setCry("vuuulpix");
+//		wooper.setCry("woooop");
+//		pikachu.setCry("piikaaa");
 	}
 	
 	
