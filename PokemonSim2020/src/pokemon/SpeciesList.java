@@ -62,12 +62,13 @@ public class SpeciesList {
         	} else {
         		t2 = PkType.valueOf(t2Text);        		
         	}
-        	int baseHP = Integer.parseInt(list.get(5));
-        	int baseATK = Integer.parseInt(list.get(6));
-        	int baseDEF = Integer.parseInt(list.get(7));
-        	int baseSpATK = Integer.parseInt(list.get(8));
-        	int baseSpDEF = Integer.parseInt(list.get(9));
-        	int baseSPD = Integer.parseInt(list.get(10));
+//        	int baseTot = Integer.parseInt(list.get(5));
+        	int baseHP = Integer.parseInt(list.get(6));
+        	int baseATK = Integer.parseInt(list.get(7));
+        	int baseDEF = Integer.parseInt(list.get(8));
+        	int baseSpATK = Integer.parseInt(list.get(9));
+        	int baseSpDEF = Integer.parseInt(list.get(10));
+        	int baseSPD = Integer.parseInt(list.get(11));
 
         	speciesList.add(new Species(species, t1, t2, baseHP, 
         			baseATK, baseDEF, baseSpATK, baseSpDEF, baseSPD));
