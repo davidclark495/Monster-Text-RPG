@@ -1,0 +1,49 @@
+Place,Probability (fract.),Probability (dec.),Pokemon,Level Lower Bound,Level Upper Bound
+Field B, 2/7 , .29,Helioptile,4,7
+Field B, 1/7 , .14,Nincada,3,5
+Field B, 2/7 , .29,Wooper,3,6
+Field B, 2/7 , .29,Fletchling,4,9
+Nearby Cave, 1/4 , .25,Drilbur,8,11
+Nearby Cave, 3/8 , .38,Rolycoly,7,12
+Nearby Cave, 1/4 , .25,Woobat,7,10
+Nearby Cave, 1/8 , .13,Larvitar,12,13
+Sticky Hive, 2/9 , .22,Milcery,8,10
+Sticky Hive, 1/3 , .33,Combee,7,10
+Sticky Hive, 2/9 , .22,Cutiefly,7,9
+Sticky Hive, 1/9 , .11,Grimer,10,13
+Sticky Hive, 1/9 , .11,Carnivine,12,13
+Field C, 1/4 , .25,Mankey,14,19
+Field C, 1/8 , .13,Jangmo-o,16,20
+Field C, 1/4 , .25,Shroomish,16,18
+Field C, 1/8 , .13,Pikachu,16,18
+Field C, 1/4 , .25,Patrat,14,18
+River Crossing, 2/7 , .29,Ninjask,20,22
+River Crossing, 3/7 , .43,Ducklett,18,20
+River Crossing, 2/7 , .29,Emolga,18,21
+River Bank, 1/3 , .33,Slowpoke,23,25
+River Bank, 1/3 , .33,Shellder,23,24
+River Bank, 1/6 , .17,Carvanha,23,26
+River Bank, 1/6 , .17,Ducklett,23,24
+Under the Crossing, 1/4 , .25,Shuppet,26,27
+Under the Crossing, 1/4 , .25,Impidimp,26,28
+Under the Crossing, 1/8 , .13,Misdreavus,26,28
+Under the Crossing, 1/4 , .25,Carvanha,26,28
+Under the Crossing, 1/8 , .13,Lileep,26,28
+Rocket HQ Entrance, 2/9 , .22,Stunky,31,36
+Rocket HQ Entrance, 1/3 , .33,Impidimp,28,35
+Rocket HQ Entrance, 2/9 , .22,Meowth,28,35
+Rocket HQ Entrance, 2/9 , .22,Mankey,28,33
+Rocket HQ, 1/4 , .25,Stunky,35,36
+Rocket HQ, 3/8 , .38,Morgrem,35,39
+Rocket HQ, 1/8 , .13,Persian,35,38
+Rocket HQ, 1/4 , .25,Meowth,35,36
+Dark Tunnel, 2/9 , .22,Swoobat,38,40
+Dark Tunnel, 1/3 , .33,Sneasel,36,39
+Dark Tunnel, 1/3 , .33,Carkol,38,40
+Dark Tunnel, 1/9 , .11,Bagon,37,39
+Underground Lake, 1/10, .1 ,Tentacool,39,40
+Underground Lake, 3/10, .3 ,Tentacruel,40,44
+Underground Lake, 1/5 , .2 ,Cradily,40,44
+Underground Lake, 1/10, .1 ,Quagsire,40,43
+Underground Lake, 1/10, .1 ,Chinchou,39,40
+Underground Lake, 1/5 , .2 ,Lanturn,40,44

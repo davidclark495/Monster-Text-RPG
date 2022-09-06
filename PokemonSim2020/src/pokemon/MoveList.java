@@ -4,29 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MoveList {
 	
-	public static MoveList getMoveList() {
-		return moveList;
-	}
+	private static Map<String, Move> allMoves = new HashMap<>();
 	
-	public Move getMove(String name) {
+	static {
+		readMovesData();
+	}
+
+	public static Move getMove(String name) {
 		return allMoves.get(name);
 	}
 	
-	
-	private static MoveList moveList = new MoveList();
-	
-	private Map<String, Move> allMoves;
-	
-	private MoveList() {
-		readMovesData();
-	}
-	
-	private void readMovesData() {
+	private static void readMovesData() {
 		final String COMMA_DELIMITER = ",";
 		
 		// Read CSV into an ArrayList

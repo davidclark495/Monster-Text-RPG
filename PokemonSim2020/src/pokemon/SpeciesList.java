@@ -4,35 +4,34 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SpeciesList {
 
-	public static SpeciesList getSpeciesList() {
-		return speciesList;
+	private static Map<String, Species> allSpecies = new HashMap<>();
+		
+	static {
+		readSpeciesData();
+		readLearnsetData();
 	}
 	
-	public Species getSpecies(String name) {
+	public static Species getSpecies(String name) {		
 		return allSpecies.get(name);
 	}
 		
 	
 
-	private static SpeciesList speciesList = new SpeciesList();
 	
-	private Map<String, Species> allSpecies;
 	
-	private SpeciesList() {
-		readSpeciesData();
-		readLearnsetData();
-	}
 	
-
+	
+	
 	/*
 	 * Gathers data about all available pokemon Species from a CSV. 
 	 */
-	private void readSpeciesData() {
+	private static void readSpeciesData() {
 		final String COMMA_DELIMITER = ",";
 		
 		// Read CSV into an ArrayList
@@ -48,7 +47,7 @@ public class SpeciesList {
         }
         
         // Move data from ArrayList to purpose-built code
-        List<Species> allSpecies = new ArrayList<>();
+        List<Species> speciesList = new ArrayList<>();
         for(int i = 1; i < records.size(); i++) {
         	List<String> list = records.get(i);
         	
@@ -70,20 +69,24 @@ public class SpeciesList {
         	int baseSpDEF = Integer.parseInt(list.get(9));
         	int baseSPD = Integer.parseInt(list.get(10));
 
-        	allSpecies.add(new Species(species, t1, t2, baseHP, 
+        	speciesList.add(new Species(species, t1, t2, baseHP, 
         			baseATK, baseDEF, baseSpATK, baseSpDEF, baseSPD));
+        }
+        
+        for(Species spec : speciesList) {
+        	allSpecies.put(spec.getName(), spec);
         }
 	}
 	
 	/*
 	 * Gathers data about all species' learnsets from a CSV.
 	 */
-	private void readLearnsetData() {
+	private static void readLearnsetData() {
 		final String COMMA_DELIMITER = ",";
 		
 		// Read CSV into an ArrayList
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("csv/pokemon.csv"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("csv/pokemon_learnsets.csv"))){
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_DELIMITER);
@@ -99,8 +102,8 @@ public class SpeciesList {
         	int level = Integer.parseInt(list.get(2));
         	String moveStr = list.get(3);
         	
-        	Species species = getSpeciesList().getSpecies(speciesStr);
-        	Move move = MoveList.getMoveList().getMove(moveStr);
+        	Species species = getSpecies(speciesStr);
+        	Move move = MoveList.getMove(moveStr);
         	species.addMoveToLearnset(level, move);
         }
 	}

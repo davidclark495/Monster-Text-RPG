@@ -24,56 +24,59 @@ public class LocationUtil {
 	/**
 	 * 
 	 */
-	public void travel(Player player, Location currLoc) {
-		int choice;
-		boolean loopAgain = false;
-		do {
-			// handle menu
-			StandardIO.printDivider();
-			StandardIO.println("Current Location: " + currLoc.getName());
-			printPathsAway();// print a menu, 1 to N
-			StandardIO.printEscCharReminder();
-			choice = StandardIO.promptInt() -1;// convert from display values to indexes
-			StandardIO.printLineBreak();
-
-			// handle escape request
-			if( choice == -2 ){// account for offset of -1, EscChar is -2
-				return;
-			}
-
-			// handle good/bad inputs
-			if( choice >= 0  && choice < pathsAway.size()) {// catch good inputs
-				loopAgain = false;				
-			}else if(choice >= pathsAway.size() && choice < pathsAway.size() + lockedPathsAway.size()){// attempt to access locked paths
-				loopAgain = true;
-				StandardIO.println("That path is currently inaccessible.\n");
-			}else {// catch bad inputs
-				loopAgain = true;
-				StandardIO.printInputNotRecognized();
-			}
-		} while (loopAgain);
-
-		player.setLocation(getPathAway(choice));
-		StandardIO.printDivider();
-		StandardIO.println("You travelled to '" + getPathAway(choice).getName() + "'.\n");
-
-	}
+//	public static void travel(WorldMap world, Player player, Location currLoc) {
+//		int choice;
+//		boolean loopAgain = false;
+//		do {
+//			// handle menu
+//			StandardIO.printDivider();
+//			StandardIO.println("Current Location: " + currLoc.getName());
+//			printPathsAway(world, currLoc);// print a menu, 1 to N
+//			StandardIO.printEscCharReminder();
+//			choice = StandardIO.promptInt() -1;// convert from display values to indexes
+//			StandardIO.printLineBreak();
+//
+//			// handle escape request
+//			if( choice == -2 ){// account for offset of -1, EscChar is -2
+//				return;
+//			}
+//			
+//			List<>world.getOutboundPaths(currLoc);
+//
+//			// handle good/bad inputs
+//			if( choice >= 0  && choice < pathsAway.size()) {// catch good inputs
+//				loopAgain = false;				
+//			}else if(choice >= pathsAway.size() && choice < pathsAway.size() + lockedPathsAway.size()){// attempt to access locked paths
+//				loopAgain = true;
+//				StandardIO.println("That path is currently inaccessible.\n");
+//			}else {// catch bad inputs
+//				loopAgain = true;
+//				StandardIO.printInputNotRecognized();
+//			}
+//		} while (loopAgain);
+//
+//		player.setLocation(getPathAway(choice));
+//		StandardIO.printDivider();
+//		StandardIO.println("You travelled to '" + getPathAway(choice).getName() + "'.\n");
+//
+//	}
 	
 	/**
 	 * @return the name and description
 	 */
-	public String getLocationAsString(Location loc) {
+	public static String getLocationAsString(Location loc) {
 		String message = loc.getName() + ":\n\t" + loc.getMapDescription();
 		return message;
 	}
 
-	public void printPathsAway(WorldMap world, Location currLoc) {
+	public static void printPathsAway(WorldMap world, Location currLoc) {
 		// find open, closed paths
-		Map<Location, PathLock> pathsAway = world.getOutboundPaths(currLoc);
+		List<Map.Entry<Location, PathLock>> pathsAway = world.getOutboundPaths(currLoc);
 		List<Location> pathsAwayOpen = new ArrayList<Location>();
 		List<Location> pathsAwayLocked = new ArrayList<Location>();
-		for(Location dst : pathsAway.keySet()) {
-			PathLock lock = pathsAway.get(dst);
+		for(Map.Entry<Location,PathLock> entry : pathsAway) {
+			Location dst = entry.getKey();
+			PathLock lock = entry.getValue();
 			if(lock.isUnlocked())
 				pathsAwayOpen.add(dst);
 			else
@@ -98,7 +101,7 @@ public class LocationUtil {
 	/**
 	 * 
 	 */
-	public void printLocalDescription(Location loc) {
+	public static void printLocalDescription(Location loc) {
 		StandardIO.printDivider();
 		StandardIO.println(loc.getLocalDescription());
 		StandardIO.printLineBreak();

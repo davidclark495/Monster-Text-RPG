@@ -37,7 +37,7 @@ public abstract class Location {
 	 */
 	public void runActivity() {
 		runActivityIterations++;
-		LocationUtil.printLocalDescription();
+		LocationUtil.printLocalDescription(this);
 		activity.runActivity();
 //		boolean pathUnlocked = checkUnlockPaths(); // updates pathsAway, prints, and stores true if a new path was found
 	}
@@ -57,7 +57,7 @@ public abstract class Location {
 	 */
 	public void runTravelActivity() {
 		// move the trainer to a new area
-		LocationUtil.travel();
+//		LocationUtil.travel();
 	}
 
 

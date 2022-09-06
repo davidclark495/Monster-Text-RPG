@@ -1,8 +1,12 @@
 package location;
 
+import java.util.Random;
+
 import io.StandardIO;
 import pokemon.Dex;
 import pokemon.Pokemon;
+import pokemon.Species;
+import pokemon.SpeciesList;
 
 public class FirstArea extends StoryArea{
 
@@ -46,7 +50,9 @@ public class FirstArea extends StoryArea{
 		StandardIO.delayModerate();
 
 		StandardIO.setCrawlDelayPermissive(StandardIO.getCrawlDelay() * 2);
-		StandardIO.println(starterPoke.getCry() + "\n");
+		StandardIO.println("womp-\n");
+
+//		StandardIO.println(starterPoke.getCry() + "\n");
 		StandardIO.setCrawlDelayPermissive(StandardIO.getCrawlDelay() / 2);
 		StandardIO.printDivider(); 
 		StandardIO.delayLong();
@@ -95,9 +101,18 @@ public class FirstArea extends StoryArea{
 	}
 
 	private Pokemon chooseStarterRandom() {
-		Pokemon poke = Dex.generateEncounter(new Pokemon[] {Dex.vulpix, Dex.wooper, Dex.pikachu});
-		poke.setLevel(5);
-		return poke;
+		Species spec;
+		switch(new Random().nextInt(3)) {
+		case 0:
+			spec = SpeciesList.getSpecies("Togepi");
+			break;
+		case 1:
+			spec = SpeciesList.getSpecies("Vulpix");
+			break;
+		default:
+			spec = SpeciesList.getSpecies("Lotad");
+		}
+		return new Pokemon(spec, 5);
 	}
 
 }

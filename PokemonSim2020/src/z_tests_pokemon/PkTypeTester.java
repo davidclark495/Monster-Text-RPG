@@ -1,4 +1,4 @@
-package z_tests;
+package z_tests_pokemon;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertFalse;

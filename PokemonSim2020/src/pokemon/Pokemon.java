@@ -37,7 +37,7 @@ public class Pokemon {
 
 
 	public Pokemon(String species, int level) {
-		this.species = SpeciesList.getSpeciesList().getSpecies(species);
+		this.species = SpeciesList.getSpecies(species);
 		setLevel(level);
 		recalculateStats();
 	}

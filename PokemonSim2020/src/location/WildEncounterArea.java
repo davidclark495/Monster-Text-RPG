@@ -43,15 +43,6 @@ public class WildEncounterArea extends Location{
 			throw new IllegalArgumentException("Error: pokes[].length must be equal to rates[].length.");
 		}
 		
-		// check: sum of rates[] is 1
-		double sum = 0;
-		for(int i = 0; i < encounterRates.length; i++) {
-			sum += encounterRates[i];
-		}
-		if( sum != 1.0 ) {
-			throw new IllegalArgumentException("Error: sum of rates[] must be 1.0.");
-		}
-		
 		this.possibleSpecies = possiblePokes;
 		this.encounterRates = encounterRates;
 		this.pokeLowerLevelBound = pokeLowerLevelBound;
@@ -151,7 +142,23 @@ public class WildEncounterArea extends Location{
 			upperBound += encounterRates[i+1];
 		}
 
-		// this line should never execute
+		// this line may execute if sum of encounterRates is not 1.0
 		return new Pokemon(possibleSpecies[0], pokeLowerLevelBound[0]);
+	}
+	
+	
+	// TESTER METHODS
+	public String getEncountersString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%s:\n",this.getName()));
+		for(int i = 0; i < possibleSpecies.length; i++) {
+			sb.append(String.format("\t%.2f %12s %2d %2d\n", 
+					encounterRates[i],
+					possibleSpecies[i].getName(), 
+					pokeLowerLevelBound[i],
+					pokeUpperLevelBound[i]));
+		}
+		String temp = sb.toString();
+		return sb.toString();
 	}
 }

@@ -15,45 +15,30 @@ import pokemon.PkType;
 import pokemon.Species;
 import pokemon.SpeciesList;
 
-public class WorldMap {
+public class WorldMap {	
 
-	private Location start;
+	private static Location start;
 	
 	// maps a string w/ the location's name to the actual location
-	private static Map<String, Location> allLocations;
+	private static Map<String, Location> allLocations = new HashMap<>();
 	
 	/*
 	 * Stores outbound paths (known/traversible if PathLock is "unlocked") from
 	 * each location.
 	 */
-	private static Map<Location, List<Map.Entry<Location, PathLock>>> outboundPaths;
+	private static Map<Location, List<Map.Entry<Location, PathLock>>> outboundPaths = new HashMap<>();
 	
-	
-	
-	public WorldMap() {
+	static {
 		readLocationData();
 		readPathData();
 		readEncounterData();
-//		setUp();
 	}
 	
-	public void setUp() {
-		// make places
-		
-		
-		
-		// make connections
-		
-		
-		// set start
-//		start = firstArea;
-	}
-	
-	public Location getStart() {
+	public static Location getStart() {
 		return start;
 	}
 	
-	public List<Map.Entry<Location, PathLock>> getOutboundPaths(Location loc){
+	public static List<Map.Entry<Location, PathLock>> getOutboundPaths(Location loc){
 		return outboundPaths.get(loc);
 	}
 	
@@ -100,6 +85,9 @@ public class WorldMap {
 				break;
 			}
 			allLocations.put(name, loc);
+			boolean isStart = (list.get(5) == "YES");
+			if(isStart)
+				start = loc;
 		}
 	}
 	
@@ -133,8 +121,7 @@ public class WorldMap {
 			} else {
 				boolean needsActCompletion = (list.get(3) == "YES");
 				int numActAttemptsNeeded = Integer.parseInt(list.get(4));
-				String otherLocReqdStr = list.get(5);
-				Location otherLocReqd = allLocations.get(otherLocReqdStr);	// will be null if str is ""
+				Location otherLocReqd = allLocations.get(list.get(5));	
 				lock = new PathLock(needsActCompletion,numActAttemptsNeeded, otherLocReqd);
 			}	
 			// store the path (src,dst) along with the lock
@@ -179,7 +166,16 @@ public class WorldMap {
 		for(int i = 1; i < records.size(); i++) {
 			List<String> list = records.get(i);
 			String locStr = list.get(0);
-			if(currLoc != null && !(locStr.equals(currLoc.getName()))) { // if the location has changed, submit lines & reset
+			
+			currLoc = (WildEncounterArea) allLocations.get(locStr);
+			probabilities.add( Double.parseDouble(list.get(2)));
+			species.add( SpeciesList.getSpecies(list.get(3)));
+			levelLowerBounds.add(Integer.parseInt(list.get(4)));
+			levelUpperBounds.add(Integer.parseInt(list.get(5)));
+			
+			boolean isLastRecord = i+1 >= records.size();
+			boolean nextRecordIsNewLocation = (!isLastRecord) && (!locStr.equals(records.get(i+1).get(0)));
+			if(isLastRecord || nextRecordIsNewLocation) {  // if the location has changed, submit lines & reset
 				// convert from ArrayList<Num> to num[] (see "https://stackoverflow.com/questions/6018267/how-to-cast-from-listdouble-to-double-in-java")
 				currLoc.setPossibleEncounters(
 						species.toArray(new Species[0]), 
@@ -192,11 +188,47 @@ public class WorldMap {
 				levelLowerBounds.clear();
 				levelUpperBounds.clear();
 			}
-			probabilities.add( Double.parseDouble(list.get(1)));
-			species.add( SpeciesList.getSpeciesList().getSpecies(list.get(2)));
-			levelLowerBounds.add(Integer.parseInt(list.get(3)));
-			levelUpperBounds.add(Integer.parseInt(list.get(4)));
 		}
+	}
+	
+
+	// TESTER METHODS
+	public static String getAllLocationsString() {
+		StringBuilder sb = new StringBuilder();
+		for(String locName : allLocations.keySet()) {
+			sb.append(String.format("%s\n",locName));
+		}
+		
+		return sb.toString();
+	}
+	public static String getAllPathsString() {
+		StringBuilder sb = new StringBuilder();
+		for(Location src : outboundPaths.keySet()) {
+			sb.append(String.format("%s:\n",src.getName()));
+			for(Map.Entry<Location, PathLock> entry : outboundPaths.get(src)) {
+				Location dst = entry.getKey();
+				PathLock lock = entry.getValue();
+				if(lock.isUnlocked())
+					sb.append(String.format("\t- %s\n", dst.getName()));
+				else
+					sb.append(String.format("\t- [LOCKED]\n"));
+			}
+			sb.append("\n");
+		}
+		
+		return sb.toString();
+	}
+	public static String getAllEncountersString() {
+		StringBuilder sb = new StringBuilder();
+		for(Location loc : allLocations.values()) {
+			if(loc instanceof WildEncounterArea) {
+				sb.append( ((WildEncounterArea)loc).getEncountersString() );
+				sb.append("\n");
+			}
+			
+		}
+		
+		return sb.toString();
 	}
 	
 }

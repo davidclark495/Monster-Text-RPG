@@ -1,4 +1,4 @@
-package z_tests;
+package z_tests_pokemon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
