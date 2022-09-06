@@ -1,0 +1,1065 @@
+Number,Pokemon,Level ,Move
+1,Togepi,1,Growl
+1,Togepi,1,Pound
+1,Togepi,4,Sweet Kiss
+1,Togepi,8,Life Dew
+1,Togepi,12,Charm
+1,Togepi,16,Ancient Power
+1,Togepi,20,Yawn
+1,Togepi,24,Metronome
+1,Togepi,28,After You
+1,Togepi,32,Double-Edge
+1,Togepi,36,Safeguard
+1,Togepi,40,Follow Me
+1,Togepi,44,Baton Pass
+1,Togepi,48,Last Resort
+1,Togepi,52,Wish
+2,Togetic,1,Fairy Wind
+2,Togetic,1,Growl
+2,Togetic,1,Life Dew
+2,Togetic,1,Pound
+2,Togetic,1,Sweet Kiss
+2,Togetic,12,Charm
+2,Togetic,16,Ancient Power
+2,Togetic,20,Yawn
+2,Togetic,24,Metronome
+2,Togetic,28,After You
+2,Togetic,32,Double-Edge
+2,Togetic,36,Safeguard
+2,Togetic,40,Follow Me
+2,Togetic,44,Baton Pass
+2,Togetic,48,Last Resort
+2,Togetic,52,Wish
+3,Togekiss,1,After You
+3,Togekiss,1,Air Slash
+3,Togekiss,1,Ancient Power
+3,Togekiss,1,Aura Sphere
+3,Togekiss,1,Baton Pass
+3,Togekiss,1,Charm
+3,Togekiss,1,Double-Edge
+3,Togekiss,1,Extreme Speed
+3,Togekiss,1,Fairy Wind
+3,Togekiss,1,Follow Me
+3,Togekiss,1,Growl
+3,Togekiss,1,Last Resort
+3,Togekiss,1,Life Dew
+3,Togekiss,1,Metronome
+3,Togekiss,1,Pound
+3,Togekiss,1,Safeguard
+3,Togekiss,1,Sky Attack
+3,Togekiss,1,Sweet Kiss
+3,Togekiss,1,Tri Attack
+3,Togekiss,1,Wish
+3,Togekiss,1,Yawn
+4,Vulpix,1,Ember
+4,Vulpix,1,Tail Whip
+4,Vulpix,4,Disable
+4,Vulpix,8,Quick Attack
+4,Vulpix,12,Spite
+4,Vulpix,16,Incinerate
+4,Vulpix,20,Confuse Ray
+4,Vulpix,24,Will-O-Wisp
+4,Vulpix,28,Extrasensory
+4,Vulpix,32,Flamethrower
+4,Vulpix,36,Imprison
+4,Vulpix,40,Fire Spin
+4,Vulpix,44,Safeguard
+4,Vulpix,48,Inferno
+4,Vulpix,52,Grudge
+4,Vulpix,56,Fire Blast
+5,Ninetales,1,Confuse Ray
+5,Ninetales,1,Disable
+5,Ninetales,1,Ember
+5,Ninetales,1,Extrasensory
+5,Ninetales,1,Fire Blast
+5,Ninetales,1,Fire Spin
+5,Ninetales,1,Flamethrower
+5,Ninetales,1,Grudge
+5,Ninetales,1,Imprison
+5,Ninetales,1,Incinerate
+5,Ninetales,1,Inferno
+5,Ninetales,1,Nasty Plot
+5,Ninetales,1,Quick Attack
+5,Ninetales,1,Safeguard
+5,Ninetales,1,Spite
+5,Ninetales,1,Tail Whip
+5,Ninetales,1,Will-O-Wisp
+6,Lotad,1,Astonish
+6,Lotad,1,Growl
+6,Lotad,3,Absorb
+6,Lotad,6,Water Gun
+6,Lotad,9,Mist
+6,Lotad,12,Mega Drain
+6,Lotad,16,Flail
+6,Lotad,20,Bubble Beam
+6,Lotad,24,Nature Power
+6,Lotad,28,Giga Drain
+6,Lotad,33,Rain Dance
+6,Lotad,38,Zen Headbutt
+6,Lotad,43,Energy Ball
+7,Lombre,1,Absorb
+7,Lombre,1,Astonish
+7,Lombre,1,Fake Out
+7,Lombre,1,Flail
+7,Lombre,1,Growl
+7,Lombre,1,Knock Off
+7,Lombre,1,Teeter Dance
+7,Lombre,1,Water Gun
+7,Lombre,9,Mist
+7,Lombre,12,Mega Drain
+7,Lombre,18,Fury Swipes
+7,Lombre,24,Bubble Beam
+7,Lombre,30,Nature Power
+7,Lombre,36,Giga Drain
+7,Lombre,43,Rain Dance
+7,Lombre,50,Zen Headbutt
+7,Lombre,57,Energy Ball
+7,Lombre,64,Hydro Pump
+8,Ludicolo,1,Absorb
+8,Ludicolo,1,Astonish
+8,Ludicolo,1,Bubble Beam
+8,Ludicolo,1,Energy Ball
+8,Ludicolo,1,Fake Out
+8,Ludicolo,1,Flail
+8,Ludicolo,1,Fury Swipes
+8,Ludicolo,1,Giga Drain
+8,Ludicolo,1,Growl
+8,Ludicolo,1,Hydro Pump
+8,Ludicolo,1,Knock Off
+8,Ludicolo,1,Mega Drain
+8,Ludicolo,1,Mist
+8,Ludicolo,1,Nature Power
+8,Ludicolo,1,Rain Dance
+8,Ludicolo,1,Teeter Dance
+8,Ludicolo,1,Water Gun
+8,Ludicolo,1,Zen Headbutt
+9,Patrat,1,Tackle
+9,Patrat,3,Leer
+9,Patrat,6,Bite
+9,Patrat,8,Bide
+9,Patrat,11,Detect
+9,Patrat,13,Sand Attack
+9,Patrat,16,Crunch
+9,Patrat,18,Hypnosis
+9,Patrat,21,Super Fang
+9,Patrat,23,After You
+9,Patrat,26,Focus Energy
+9,Patrat,28,Work Up
+9,Patrat,31,Hyper Fang
+9,Patrat,33,Nasty Plot
+9,Patrat,36,Mean Look
+9,Patrat,38,Baton Pass
+9,Patrat,41,Slam
+10,Watchog,1,Bite
+10,Watchog,1,Confuse Ray
+10,Watchog,1,Leer
+10,Watchog,1,Low Kick
+10,Watchog,1,Rototiller
+10,Watchog,1,Tackle
+10,Watchog,3,Leer
+10,Watchog,6,Bite
+10,Watchog,8,Bide
+10,Watchog,11,Detect
+10,Watchog,13,Sand Attack
+10,Watchog,16,Crunch
+10,Watchog,18,Hypnosis
+10,Watchog,22,Super Fang
+10,Watchog,25,After You
+10,Watchog,29,Focus Energy
+10,Watchog,32,Psych Up
+10,Watchog,36,Hyper Fang
+10,Watchog,39,Nasty Plot
+10,Watchog,43,Mean Look
+10,Watchog,46,Baton Pass
+10,Watchog,50,Slam
+11,Helioptile,1,Mud-Slap
+11,Helioptile,1,Tail Whip
+11,Helioptile,4,Pound
+11,Helioptile,8,Thunder Shock
+11,Helioptile,12,Quick Attack
+11,Helioptile,16,Charge
+11,Helioptile,20,Bulldoze
+11,Helioptile,24,Volt Switch
+11,Helioptile,28,Parabolic Charge
+11,Helioptile,32,Thunder Wave
+11,Helioptile,36,Thunderbolt
+11,Helioptile,40,Electrify
+11,Helioptile,44,Thunder
+12,Heliolisk,1,Bulldoze
+12,Heliolisk,1,Charge
+12,Heliolisk,1,Discharge
+12,Heliolisk,1,Eerie Impulse
+12,Heliolisk,1,Electrify
+12,Heliolisk,1,Mud-Slap
+12,Heliolisk,1,Parabolic Charge
+12,Heliolisk,1,Pound
+12,Heliolisk,1,Quick Attack
+12,Heliolisk,1,Tail Whip
+12,Heliolisk,1,Thunder
+12,Heliolisk,1,Thunder Shock
+12,Heliolisk,1,Thunder Wave
+12,Heliolisk,1,Thunderbolt
+12,Heliolisk,1,Volt Switch
+13,Wooper,1,Tail Whip
+13,Wooper,1,Water Gun
+13,Wooper,4,Rain Dance
+13,Wooper,8,Mud Shot
+13,Wooper,12,Haze
+13,Wooper,12,Mist
+13,Wooper,16,Slam
+13,Wooper,21,Yawn
+13,Wooper,24,Aqua Tail
+13,Wooper,28,Muddy Water
+13,Wooper,32,Amnesia
+13,Wooper,36,Toxic
+13,Wooper,40,Earthquake
+14,Quagsire,1,Mud Shot
+14,Quagsire,1,Rain Dance
+14,Quagsire,1,Tail Whip
+14,Quagsire,1,Water Gun
+14,Quagsire,12,Haze
+14,Quagsire,12,Mist
+14,Quagsire,16,Slam
+14,Quagsire,23,Yawn
+14,Quagsire,28,Aqua Tail
+14,Quagsire,34,Muddy Water
+14,Quagsire,40,Amnesia
+14,Quagsire,46,Toxic
+14,Quagsire,52,Earthquake
+15,Fletchling,1,Growl
+15,Fletchling,1,Peck
+15,Fletchling,5,Quick Attack
+15,Fletchling,10,Ember
+15,Fletchling,15,Flail
+15,Fletchling,20,Acrobatics
+15,Fletchling,25,Agility
+15,Fletchling,30,Aerial Ace
+15,Fletchling,35,Tailwind
+15,Fletchling,40,Steel Wing
+15,Fletchling,45,Roost
+15,Fletchling,50,Fly
+16,Fletchinder,1,Ember
+16,Fletchinder,1,Feint
+16,Fletchinder,1,Flame Charge
+16,Fletchinder,1,Growl
+16,Fletchinder,1,Peck
+16,Fletchinder,1,Quick Attack
+16,Fletchinder,15,Flail
+16,Fletchinder,22,Acrobatics
+16,Fletchinder,29,Agility
+16,Fletchinder,36,Aerial Ace
+16,Fletchinder,43,Tailwind
+16,Fletchinder,50,Steel Wing
+16,Fletchinder,57,Roost
+16,Fletchinder,64,Fly
+17,Talonflame,1,Ember
+17,Talonflame,1,Feint
+17,Talonflame,1,Flame Charge
+17,Talonflame,1,Flare Blitz
+17,Talonflame,1,Growl
+17,Talonflame,1,Peck
+17,Talonflame,1,Quick Attack
+17,Talonflame,15,Flail
+17,Talonflame,22,Acrobatics
+17,Talonflame,29,Agility
+17,Talonflame,38,Aerial Ace
+17,Talonflame,47,Tailwind
+17,Talonflame,56,Steel Wing
+17,Talonflame,65,Roost
+17,Talonflame,74,Fly
+17,Talonflame,83,Brave Bird
+18,Nincada,1,Sand Attack
+18,Nincada,1,Scratch
+18,Nincada,5,Harden
+18,Nincada,10,False Swipe
+18,Nincada,15,Mud-Slap
+18,Nincada,21,Absorb
+18,Nincada,25,Metal Claw
+18,Nincada,30,Fury Swipes
+18,Nincada,35,Mind Reader
+18,Nincada,40,Dig
+19,Ninjask,1,Aerial Ace
+19,Ninjask,1,Baton Pass
+19,Ninjask,1,Dig
+19,Ninjask,1,Double Team
+19,Ninjask,1,False Swipe
+19,Ninjask,1,Fury Cutter
+19,Ninjask,1,Harden
+19,Ninjask,1,Metal Claw
+19,Ninjask,1,Mud-Slap
+19,Ninjask,1,Sand Attack
+19,Ninjask,1,Scratch
+19,Ninjask,1,Screech
+19,Ninjask,15,Agility
+19,Ninjask,23,Absorb
+19,Ninjask,29,Bug Bite
+19,Ninjask,36,Fury Swipes
+19,Ninjask,43,Mind Reader
+19,Ninjask,50,Slash
+19,Ninjask,57,Swords Dance
+19,Ninjask,64,X-Scissor
+20,Shedinja,1,Dig
+20,Shedinja,1,False Swipe
+20,Shedinja,1,Grudge
+20,Shedinja,1,Harden
+20,Shedinja,1,Metal Claw
+20,Shedinja,1,Mud-Slap
+20,Shedinja,1,Sand Attack
+20,Shedinja,1,Scratch
+20,Shedinja,1,Shadow Claw
+20,Shedinja,15,Confuse Ray
+20,Shedinja,23,Absorb
+20,Shedinja,29,Shadow Sneak
+20,Shedinja,36,Fury Swipes
+20,Shedinja,43,Mind Reader
+20,Shedinja,50,Shadow Ball
+20,Shedinja,57,Spite
+20,Shedinja,64,Phantom Force
+21,Milcery,1,Aromatic Mist
+21,Milcery,1,Tackle
+21,Milcery,5,Sweet Kiss
+21,Milcery,10,Sweet Scent
+21,Milcery,15,Draining Kiss
+21,Milcery,20,Aromatherapy
+21,Milcery,25,Attract
+21,Milcery,30,Acid Armor
+21,Milcery,35,Dazzling Gleam
+21,Milcery,40,Recover
+21,Milcery,45,Misty Terrain
+21,Milcery,50,Entrainment
+22,Alcremie,1,Aromatic Mist
+22,Alcremie,1,Decorate
+22,Alcremie,1,Sweet Kiss
+22,Alcremie,1,Sweet Scent
+22,Alcremie,1,Tackle
+22,Alcremie,15,Draining Kiss
+22,Alcremie,20,Aromatherapy
+22,Alcremie,25,Attract
+22,Alcremie,30,Acid Armor
+22,Alcremie,35,Dazzling Gleam
+22,Alcremie,40,Recover
+22,Alcremie,45,Misty Terrain
+22,Alcremie,50,Entrainment
+23,Combee,1,Bug Bite
+23,Combee,1,Gust
+23,Combee,1,Struggle Bug
+23,Combee,1,Sweet Scent
+24,Vespiquen,1,Bug Bite
+24,Vespiquen,1,Confuse Ray
+24,Vespiquen,1,Gust
+24,Vespiquen,1,Poison Sting
+24,Vespiquen,1,Slash
+24,Vespiquen,1,Struggle Bug
+24,Vespiquen,1,Sweet Scent
+24,Vespiquen,4,Fury Cutter
+24,Vespiquen,8,Aromatic Mist
+24,Vespiquen,12,Fell Stinger
+24,Vespiquen,16,Fury Swipes
+24,Vespiquen,20,Swagger
+24,Vespiquen,24,Aromatherapy
+24,Vespiquen,28,Air Slash
+24,Vespiquen,32,Power Gem
+24,Vespiquen,36,Toxic
+24,Vespiquen,40,Attack Order
+24,Vespiquen,40,Defend Order
+24,Vespiquen,44,Destiny Bond
+25,Cutiefly,1,Absorb
+25,Cutiefly,1,Fairy Wind
+25,Cutiefly,6,Stun Spore
+25,Cutiefly,12,Sweet Scent
+25,Cutiefly,18,Draining Kiss
+25,Cutiefly,24,Struggle Bug
+25,Cutiefly,30,Aromatherapy
+25,Cutiefly,36,Switcheroo
+25,Cutiefly,42,Dazzling Gleam
+25,Cutiefly,48,Bug Buzz
+25,Cutiefly,54,Quiver Dance
+26,Ribombee,1,Absorb
+26,Ribombee,1,Covet
+26,Ribombee,1,Fairy Wind
+26,Ribombee,1,Pollen Puff
+26,Ribombee,1,Stun Spore
+26,Ribombee,1,Sweet Scent
+26,Ribombee,18,Draining Kiss
+26,Ribombee,24,Struggle Bug
+26,Ribombee,32,Aromatherapy
+26,Ribombee,40,Switcheroo
+26,Ribombee,48,Dazzling Gleam
+26,Ribombee,56,Bug Buzz
+26,Ribombee,64,Quiver Dance
+27,Carnivine,1,Bind
+27,Carnivine,1,Growth
+27,Carnivine,7,Bite
+27,Carnivine,11,Vine Whip
+27,Carnivine,17,Sweet Scent
+27,Carnivine,21,Ingrain
+27,Carnivine,27,Grass Knot
+27,Carnivine,31,Leaf Tornado
+27,Carnivine,37,Spit Up
+27,Carnivine,37,Stockpile
+27,Carnivine,37,Swallow
+27,Carnivine,41,Crunch
+27,Carnivine,47,Seed Bomb
+27,Carnivine,50,Power Whip
+28,Grimer,1,Poison Gas
+28,Grimer,1,Pound
+28,Grimer,4,Harden
+28,Grimer,7,Mud-Slap
+28,Grimer,12,Disable
+28,Grimer,15,Sludge
+28,Grimer,18,Smog
+28,Grimer,21,Minimize
+28,Grimer,26,Fling
+28,Grimer,29,Sludge Bomb
+28,Grimer,32,Sludge Wave
+28,Grimer,37,Screech
+28,Grimer,40,Gunk Shot
+28,Grimer,43,Acid Armor
+28,Grimer,46,Belch
+28,Grimer,48,Memento
+29,Muk,1,Harden
+29,Muk,1,Mud-Slap
+29,Muk,1,Poison Gas
+29,Muk,1,Pound
+29,Muk,1,Venom Drench
+29,Muk,4,Harden
+29,Muk,7,Mud-Slap
+29,Muk,12,Disable
+29,Muk,15,Sludge
+29,Muk,18,Smog
+29,Muk,21,Minimize
+29,Muk,26,Fling
+29,Muk,29,Sludge Bomb
+29,Muk,32,Sludge Wave
+29,Muk,37,Screech
+29,Muk,40,Gunk Shot
+29,Muk,46,Acid Armor
+29,Muk,52,Belch
+29,Muk,57,Memento
+30,Drilbur,1,Mud Sport
+30,Drilbur,1,Scratch
+30,Drilbur,5,Rapid Spin
+30,Drilbur,8,Mud-Slap
+30,Drilbur,12,Fury Swipes
+30,Drilbur,15,Metal Claw
+30,Drilbur,19,Dig
+30,Drilbur,22,Hone Claws
+30,Drilbur,26,Slash
+30,Drilbur,29,Rock Slide
+30,Drilbur,33,Earthquake
+30,Drilbur,36,Swords Dance
+30,Drilbur,40,Sandstorm
+30,Drilbur,43,Drill Run
+30,Drilbur,47,Fissure
+31,Excadrill,1,Hone Claws
+31,Excadrill,1,Horn Drill
+31,Excadrill,1,Mud-Slap
+31,Excadrill,1,Rapid Spin
+31,Excadrill,1,Scratch
+31,Excadrill,12,Fury Swipes
+31,Excadrill,16,Metal Claw
+31,Excadrill,20,Sandstorm
+31,Excadrill,24,Crush Claw
+31,Excadrill,28,Rock Slide
+31,Excadrill,34,Dig
+31,Excadrill,40,Swords Dance
+31,Excadrill,46,Drill Run
+31,Excadrill,52,Earthquake
+31,Excadrill,58,Fissure
+32,Rolycoly,1,Smokescreen
+32,Rolycoly,1,Tackle
+32,Rolycoly,5,Rapid Spin
+32,Rolycoly,10,Smack Down
+32,Rolycoly,15,Rock Polish
+32,Rolycoly,20,Ancient Power
+32,Rolycoly,25,Incinerate
+32,Rolycoly,30,Stealth Rock
+32,Rolycoly,35,Heat Crash
+32,Rolycoly,40,Rock Blast
+33,Carkol,1,Flame Charge
+33,Carkol,1,Rapid Spin
+33,Carkol,1,Smack Down
+33,Carkol,1,Smokescreen
+33,Carkol,1,Tackle
+33,Carkol,15,Rock Polish
+33,Carkol,20,Ancient Power
+33,Carkol,27,Incinerate
+33,Carkol,35,Stealth Rock
+33,Carkol,41,Heat Crash
+33,Carkol,48,Rock Blast
+33,Carkol,55,Burn Up
+34,Coalossal,1,Flame Charge
+34,Coalossal,1,Rapid Spin
+34,Coalossal,1,Smack Down
+34,Coalossal,1,Smokescreen
+34,Coalossal,1,Tackle
+34,Coalossal,1,Tar Shot
+34,Coalossal,15,Rock Polish
+34,Coalossal,20,Ancient Power
+34,Coalossal,27,Incinerate
+34,Coalossal,37,Stealth Rock
+34,Coalossal,45,Heat Crash
+34,Coalossal,54,Rock Blast
+34,Coalossal,63,Burn Up
+35,Woobat,1,Attract
+35,Woobat,1,Gust
+35,Woobat,5,Confusion
+35,Woobat,10,Endeavor
+35,Woobat,15,Air Cutter
+35,Woobat,20,Imprison
+35,Woobat,25,Assurance
+35,Woobat,30,Amnesia
+35,Woobat,35,Air Slash
+35,Woobat,40,Psychic
+35,Woobat,45,Calm Mind
+35,Woobat,50,Future Sight
+35,Woobat,55,Simple Beam
+36,Swoobat,1,Attract
+36,Swoobat,1,Confusion
+36,Swoobat,1,Endeavor
+36,Swoobat,1,Gust
+36,Swoobat,15,Air Cutter
+36,Swoobat,20,Imprison
+36,Swoobat,25,Assurance
+36,Swoobat,30,Amnesia
+36,Swoobat,35,Air Slash
+36,Swoobat,40,Psychic
+36,Swoobat,45,Calm Mind
+36,Swoobat,50,Future Sight
+36,Swoobat,55,Simple Beam
+37,Larvitar,1,Leer
+37,Larvitar,1,Tackle
+37,Larvitar,3,Rock Throw
+37,Larvitar,6,Payback
+37,Larvitar,9,Bite
+37,Larvitar,12,Scary Face
+37,Larvitar,15,Rock Slide
+37,Larvitar,18,Stomping Tantrum
+37,Larvitar,21,Screech
+37,Larvitar,24,Dark Pulse
+37,Larvitar,27,Crunch
+37,Larvitar,31,Earthquake
+37,Larvitar,33,Stone Edge
+37,Larvitar,36,Thrash
+37,Larvitar,39,Sandstorm
+37,Larvitar,42,Hyper Beam
+38,Pupitar,1,Iron Defense
+38,Pupitar,1,Leer
+38,Pupitar,1,Payback
+38,Pupitar,1,Rock Throw
+38,Pupitar,1,Tackle
+38,Pupitar,9,Bite
+38,Pupitar,12,Scary Face
+38,Pupitar,15,Rock Slide
+38,Pupitar,18,Stomping Tantrum
+38,Pupitar,21,Screech
+38,Pupitar,24,Dark Pulse
+38,Pupitar,27,Crunch
+38,Pupitar,33,Earthquake
+38,Pupitar,37,Stone Edge
+38,Pupitar,42,Thrash
+38,Pupitar,47,Sandstorm
+38,Pupitar,52,Hyper Beam
+39,Tyranitar,1,Fire Fang
+39,Tyranitar,1,Ice Fang
+39,Tyranitar,1,Iron Defense
+39,Tyranitar,1,Leer
+39,Tyranitar,1,Payback
+39,Tyranitar,1,Rock Throw
+39,Tyranitar,1,Tackle
+39,Tyranitar,1,Thunder Fang
+39,Tyranitar,9,Bite
+39,Tyranitar,12,Scary Face
+39,Tyranitar,15,Rock Slide
+39,Tyranitar,18,Stomping Tantrum
+39,Tyranitar,21,Screech
+39,Tyranitar,24,Dark Pulse
+39,Tyranitar,27,Crunch
+39,Tyranitar,33,Earthquake
+39,Tyranitar,37,Stone Edge
+39,Tyranitar,42,Thrash
+39,Tyranitar,47,Sandstorm
+39,Tyranitar,52,Hyper Beam
+39,Tyranitar,59,Giga Impact
+40,Mankey,1,Covet
+40,Mankey,1,Focus Energy
+40,Mankey,1,Leer
+40,Mankey,1,Low Kick
+40,Mankey,1,Scratch
+40,Mankey,5,Fury Swipes
+40,Mankey,8,Mud-Slap
+40,Mankey,12,Seismic Toss
+40,Mankey,15,Retaliate
+40,Mankey,19,Swagger
+40,Mankey,22,Cross Chop
+40,Mankey,26,Assurance
+40,Mankey,29,Skull Bash
+40,Mankey,33,Thrash
+40,Mankey,36,Close Combat
+40,Mankey,40,Screech
+40,Mankey,43,Stomping Tantrum
+40,Mankey,47,Outrage
+40,Mankey,50,Final Gambit
+41,Primeape,1,Covet
+41,Primeape,1,Final Gambit
+41,Primeape,1,Fling
+41,Primeape,1,Focus Energy
+41,Primeape,1,Leer
+41,Primeape,1,Low Kick
+41,Primeape,1,Scratch
+41,Primeape,5,Fury Swipes
+41,Primeape,8,Mud-Slap
+41,Primeape,12,Seismic Toss
+41,Primeape,15,Retaliate
+41,Primeape,19,Swagger
+41,Primeape,22,Cross Chop
+41,Primeape,26,Assurance
+41,Primeape,30,Skull Bash
+41,Primeape,35,Thrash
+41,Primeape,39,Close Combat
+41,Primeape,44,Screech
+41,Primeape,48,Stomping Tantrum
+41,Primeape,53,Outrage
+41,Primeape,57,Final Gambit
+42,Jangmo-o,1,Leer
+42,Jangmo-o,1,Tackle
+42,Jangmo-o,4,Protect
+42,Jangmo-o,8,Dragon Tail
+42,Jangmo-o,12,Scary Face
+42,Jangmo-o,16,Headbutt
+42,Jangmo-o,20,Work Up
+42,Jangmo-o,24,Screech
+42,Jangmo-o,28,Iron Defense
+42,Jangmo-o,32,Dragon Claw
+42,Jangmo-o,36,Noble Roar
+42,Jangmo-o,40,Dragon Dance
+42,Jangmo-o,44,Outrage
+43,Hakamo-o,1,Autotomize
+43,Hakamo-o,1,Dragon Tail
+43,Hakamo-o,1,Leer
+43,Hakamo-o,1,Protect
+43,Hakamo-o,1,Tackle
+43,Hakamo-o,12,Scary Face
+43,Hakamo-o,16,Headbutt
+43,Hakamo-o,20,Work Up
+43,Hakamo-o,24,Screech
+43,Hakamo-o,28,Iron Defense
+43,Hakamo-o,32,Dragon Claw
+43,Hakamo-o,38,Noble Roar
+43,Hakamo-o,44,Dragon Dance
+43,Hakamo-o,50,Outrage
+43,Hakamo-o,56,Close Combat
+44,Kommo-o,1,Autotomize
+44,Kommo-o,1,Belly Drum
+44,Kommo-o,1,Clanging Scales
+44,Kommo-o,1,Dragon Tail
+44,Kommo-o,1,Leer
+44,Kommo-o,1,Protect
+44,Kommo-o,1,Tackle
+44,Kommo-o,12,Scary Face
+44,Kommo-o,16,Headbutt
+44,Kommo-o,20,Work Up
+44,Kommo-o,24,Screech
+44,Kommo-o,28,Iron Defense
+44,Kommo-o,32,Dragon Claw
+44,Kommo-o,38,Noble Roar
+44,Kommo-o,44,Dragon Dance
+44,Kommo-o,52,Outrage
+44,Kommo-o,60,Close Combat
+44,Kommo-o,68,Clangorous Soul
+44,Kommo-o,76,Boomburst
+45,Shroomish,1,Absorb
+45,Shroomish,1,Tackle
+45,Shroomish,5,Stun Spore
+45,Shroomish,8,Leech Seed
+45,Shroomish,12,Mega Drain
+45,Shroomish,15,Headbutt
+45,Shroomish,19,Poison Powder
+45,Shroomish,22,Worry Seed
+45,Shroomish,26,Giga Drain
+45,Shroomish,29,Growth
+45,Shroomish,33,Toxic
+45,Shroomish,36,Seed Bomb
+45,Shroomish,40,Spore
+46,Breloom,1,Absorb
+46,Breloom,1,Giga Drain
+46,Breloom,1,Growth
+46,Breloom,1,Leech Seed
+46,Breloom,1,Mach Punch
+46,Breloom,1,Poison Powder
+46,Breloom,1,Spore
+46,Breloom,1,Stun Spore
+46,Breloom,1,Tackle
+46,Breloom,1,Toxic
+46,Breloom,1,Worry Seed
+46,Breloom,5,Stun Spore
+46,Breloom,8,Leech Seed
+46,Breloom,12,Mega Drain
+46,Breloom,15,Headbutt
+46,Breloom,19,Feint
+46,Breloom,22,Counter
+46,Breloom,28,Force Palm
+46,Breloom,33,Mind Reader
+46,Breloom,39,Drain Punch
+46,Breloom,44,Seed Bomb
+46,Breloom,50,Dynamic Punch
+47,Pikachu,1,Charm
+47,Pikachu,1,Growl
+47,Pikachu,1,Nasty Plot
+47,Pikachu,1,Nuzzle
+47,Pikachu,1,Play Nice
+47,Pikachu,1,Quick Attack
+47,Pikachu,1,Sweet Kiss
+47,Pikachu,1,Tail Whip
+47,Pikachu,1,Thunder Shock
+47,Pikachu,4,Thunder Wave
+47,Pikachu,8,Double Team
+47,Pikachu,12,Electro Ball
+47,Pikachu,16,Feint
+47,Pikachu,20,Spark
+47,Pikachu,24,Agility
+47,Pikachu,28,Slam
+47,Pikachu,32,Discharge
+47,Pikachu,36,Thunderbolt
+47,Pikachu,40,Light Screen
+47,Pikachu,44,Thunder
+48,Raichu,1,Agility
+48,Raichu,1,Charm
+48,Raichu,1,Discharge
+48,Raichu,1,Double Team
+48,Raichu,1,Electro Ball
+48,Raichu,1,Feint
+48,Raichu,1,Growl
+48,Raichu,1,Light Screen
+48,Raichu,1,Nasty Plot
+48,Raichu,1,Nuzzle
+48,Raichu,1,Play Nice
+48,Raichu,1,Quick Attack
+48,Raichu,1,Slam
+48,Raichu,1,Spark
+48,Raichu,1,Sweet Kiss
+48,Raichu,1,Tail Whip
+48,Raichu,1,Thunder
+48,Raichu,1,Thunder Punch
+48,Raichu,1,Thunder Shock
+48,Raichu,1,Thunder Wave
+48,Raichu,1,Thunderbolt
+49,Ducklett,1,Water Gun
+49,Ducklett,3,Water Sport
+49,Ducklett,6,Defog
+49,Ducklett,9,Wing Attack
+49,Ducklett,13,Water Pulse
+49,Ducklett,15,Aerial Ace
+49,Ducklett,19,Bubble Beam
+49,Ducklett,21,Feather Dance
+49,Ducklett,24,Aqua Ring
+49,Ducklett,27,Air Slash
+49,Ducklett,30,Roost
+49,Ducklett,34,Rain Dance
+49,Ducklett,37,Tailwind
+49,Ducklett,41,Brave Bird
+49,Ducklett,46,Hurricane
+50,Swanna,1,Defog
+50,Swanna,1,Water Gun
+50,Swanna,1,Water Sport
+50,Swanna,1,Wing Attack
+50,Swanna,3,Water Sport
+50,Swanna,6,Defog
+50,Swanna,9,Wing Attack
+50,Swanna,13,Water Pulse
+50,Swanna,15,Aerial Ace
+50,Swanna,19,Bubble Beam
+50,Swanna,21,Feather Dance
+50,Swanna,24,Aqua Ring
+50,Swanna,27,Air Slash
+50,Swanna,30,Roost
+50,Swanna,34,Rain Dance
+50,Swanna,40,Tailwind
+50,Swanna,47,Brave Bird
+50,Swanna,55,Hurricane
+51,Emolga,1,Nuzzle
+51,Emolga,1,Tail Whip
+51,Emolga,5,Double Team
+51,Emolga,10,Quick Attack
+51,Emolga,15,Thunder Shock
+51,Emolga,20,Charge
+51,Emolga,25,Acrobatics
+51,Emolga,30,Spark
+51,Emolga,35,Encore
+51,Emolga,40,Volt Switch
+51,Emolga,45,Light Screen
+51,Emolga,50,Discharge
+51,Emolga,55,Agility
+52,Carvanha,1,Aqua Jet
+52,Carvanha,1,Leer
+52,Carvanha,4,Poison Fang
+52,Carvanha,8,Focus Energy
+52,Carvanha,12,Scary Face
+52,Carvanha,16,Bite
+52,Carvanha,20,Ice Fang
+52,Carvanha,24,Screech
+52,Carvanha,28,Swagger
+52,Carvanha,32,Crunch
+52,Carvanha,36,Agility
+52,Carvanha,40,Liquidation
+52,Carvanha,44,Take Down
+53,Sharpedo,1,Aqua Jet
+53,Sharpedo,1,Focus Energy
+53,Sharpedo,1,Leer
+53,Sharpedo,1,Night Slash
+53,Sharpedo,1,Poison Fang
+53,Sharpedo,1,Slash
+53,Sharpedo,12,Scary Face
+53,Sharpedo,16,Bite
+53,Sharpedo,20,Ice Fang
+53,Sharpedo,24,Screech
+53,Sharpedo,28,Swagger
+53,Sharpedo,34,Crunch
+53,Sharpedo,40,Agility
+53,Sharpedo,46,Liquidation
+53,Sharpedo,52,Take Down
+54,Slowpoke,1,Curse
+54,Slowpoke,1,Tackle
+54,Slowpoke,3,Growl
+54,Slowpoke,6,Water Gun
+54,Slowpoke,9,Yawn
+54,Slowpoke,12,Confusion
+54,Slowpoke,15,Disable
+54,Slowpoke,18,Water Pulse
+54,Slowpoke,21,Headbutt
+54,Slowpoke,24,Zen Headbutt
+54,Slowpoke,27,Amnesia
+54,Slowpoke,30,Surf
+54,Slowpoke,33,Slack Off
+54,Slowpoke,36,Psychic
+54,Slowpoke,39,Psych Up
+54,Slowpoke,42,Rain Dance
+54,Slowpoke,45,Heal Pulse
+55,Slowbro,1,Curse
+55,Slowbro,1,Growl
+55,Slowbro,1,Tackle
+55,Slowbro,1,Water Gun
+55,Slowbro,1,Withdraw
+55,Slowbro,9,Yawn
+55,Slowbro,12,Confusion
+55,Slowbro,15,Disable
+55,Slowbro,18,Water Pulse
+55,Slowbro,21,Headbutt
+55,Slowbro,24,Zen Headbutt
+55,Slowbro,27,Amnesia
+55,Slowbro,30,Surf
+55,Slowbro,33,Slack Off
+55,Slowbro,36,Psychic
+55,Slowbro,41,Psych Up
+55,Slowbro,46,Rain Dance
+55,Slowbro,51,Heal Pulse
+56,Slowking,1,Acid
+56,Slowking,1,Curse
+56,Slowking,1,Eerie Spell
+56,Slowking,1,Growl
+56,Slowking,1,Nasty Plot
+56,Slowking,1,Power Gem
+56,Slowking,1,Swagger
+56,Slowking,1,Tackle
+56,Slowking,9,Yawn
+56,Slowking,12,Confusion
+56,Slowking,15,Disable
+56,Slowking,18,Water Pulse
+56,Slowking,21,Headbutt
+56,Slowking,24,Zen Headbutt
+56,Slowking,27,Amnesia
+56,Slowking,30,Surf
+56,Slowking,33,Slack Off
+56,Slowking,36,Psychic
+56,Slowking,39,Psych Up
+56,Slowking,42,Rain Dance
+56,Slowking,45,Heal Pulse
+57,Shellder,1,Tackle
+57,Shellder,1,Water Gun
+57,Shellder,4,Withdraw
+57,Shellder,8,Ice Shard
+57,Shellder,12,Leer
+57,Shellder,16,Whirlpool
+57,Shellder,20,Supersonic
+57,Shellder,24,Aurora Beam
+57,Shellder,28,Protect
+57,Shellder,32,Razor Shell
+57,Shellder,36,Iron Defense
+57,Shellder,40,Ice Beam
+57,Shellder,44,Shell Smash
+57,Shellder,48,Hydro Pump
+58,Cloyster,1,Aurora Beam
+58,Cloyster,1,Hydro Pump
+58,Cloyster,1,Ice Beam
+58,Cloyster,1,Ice Shard
+58,Cloyster,1,Icicle Crash
+58,Cloyster,1,Icicle Spear
+58,Cloyster,1,Iron Defense
+58,Cloyster,1,Leer
+58,Cloyster,1,Protect
+58,Cloyster,1,Razor Shell
+58,Cloyster,1,Shell Smash
+58,Cloyster,1,Spikes
+58,Cloyster,1,Supersonic
+58,Cloyster,1,Tackle
+58,Cloyster,1,Toxic Spikes
+58,Cloyster,1,Water Gun
+58,Cloyster,1,Whirlpool
+58,Cloyster,1,Withdraw
+59,Shuppet,1,Knock Off
+59,Shuppet,4,Screech
+59,Shuppet,7,Night Shade
+59,Shuppet,10,Spite
+59,Shuppet,13,Shadow Sneak
+59,Shuppet,16,Will-O-Wisp
+59,Shuppet,19,Pain Split
+59,Shuppet,22,Hex
+59,Shuppet,26,Curse
+59,Shuppet,30,Shadow Ball
+59,Shuppet,34,Role Play
+59,Shuppet,38,Sucker Punch
+59,Shuppet,42,Knock Off
+59,Shuppet,46,Grudge
+59,Shuppet,50,Trick
+59,Shuppet,54,Phantom Force
+60,Banette,1,Knock Off
+60,Banette,1,Night Shade
+60,Banette,1,Phantom Force
+60,Banette,1,Screech
+60,Banette,1,Spite
+60,Banette,4,Screech
+60,Banette,7,Night Shade
+60,Banette,10,Spite
+60,Banette,13,Shadow Sneak
+60,Banette,16,Will-O-Wisp
+60,Banette,19,Pain Split
+60,Banette,22,Hex
+60,Banette,26,Curse
+60,Banette,30,Shadow Ball
+60,Banette,34,Role Play
+60,Banette,40,Sucker Punch
+60,Banette,46,Knock Off
+60,Banette,52,Grudge
+60,Banette,58,Trick
+60,Banette,64,Phantom Force
+61,Impidimp,1,Confide
+61,Impidimp,1,Fake Out
+61,Impidimp,4,Bite
+61,Impidimp,8,Flatter
+61,Impidimp,12,Fake Tears
+61,Impidimp,16,Assurance
+61,Impidimp,20,Swagger
+61,Impidimp,24,Sucker Punch
+61,Impidimp,28,Torment
+61,Impidimp,33,Dark Pulse
+61,Impidimp,36,Nasty Plot
+61,Impidimp,40,Play Rough
+61,Impidimp,44,Foul Play
+62,Morgrem,1,Bite
+62,Morgrem,1,Confide
+62,Morgrem,1,Fake Out
+62,Morgrem,1,False Surrender
+62,Morgrem,1,Flatter
+62,Morgrem,12,Fake Tears
+62,Morgrem,16,Assurance
+62,Morgrem,20,Swagger
+62,Morgrem,24,Sucker Punch
+62,Morgrem,28,Torment
+62,Morgrem,35,Dark Pulse
+62,Morgrem,40,Nasty Plot
+62,Morgrem,46,Play Rough
+62,Morgrem,52,Foul Play
+63,Grimmsnarl,1,Bite
+63,Grimmsnarl,1,Bulk Up
+63,Grimmsnarl,1,Confide
+63,Grimmsnarl,1,Fake Out
+63,Grimmsnarl,1,False Surrender
+63,Grimmsnarl,1,Flatter
+63,Grimmsnarl,1,Power-Up Punch
+63,Grimmsnarl,1,Spirit Break
+63,Grimmsnarl,12,Fake Tears
+63,Grimmsnarl,16,Assurance
+63,Grimmsnarl,20,Swagger
+63,Grimmsnarl,24,Sucker Punch
+63,Grimmsnarl,28,Torment
+63,Grimmsnarl,35,Dark Pulse
+63,Grimmsnarl,40,Nasty Plot
+63,Grimmsnarl,48,Play Rough
+63,Grimmsnarl,56,Foul Play
+63,Grimmsnarl,64,Hammer Arm
+64,Misdreavus,1,Confusion
+64,Misdreavus,1,Growl
+64,Misdreavus,5,Spite
+64,Misdreavus,10,Astonish
+64,Misdreavus,14,Confuse Ray
+64,Misdreavus,19,Mean Look
+64,Misdreavus,23,Hex
+64,Misdreavus,28,Psybeam
+64,Misdreavus,32,Pain Split
+64,Misdreavus,37,Payback
+64,Misdreavus,41,Shadow Ball
+64,Misdreavus,46,Perish Song
+64,Misdreavus,50,Grudge
+64,Misdreavus,55,Power Gem
+65,Mismagius,1,Astonish
+65,Mismagius,1,Confuse Ray
+65,Mismagius,1,Confusion
+65,Mismagius,1,Growl
+65,Mismagius,1,Grudge
+65,Mismagius,1,Hex
+65,Mismagius,1,Magical Leaf
+65,Mismagius,1,Mean Look
+65,Mismagius,1,Mystical Fire
+65,Mismagius,1,Pain Split
+65,Mismagius,1,Payback
+65,Mismagius,1,Perish Song
+65,Mismagius,1,Phantom Force
+65,Mismagius,1,Power Gem
+65,Mismagius,1,Psybeam
+65,Mismagius,1,Shadow Ball
+65,Mismagius,1,Spite
+66,Stunky,1,Poison Gas
+66,Stunky,1,Scratch
+66,Stunky,3,Feint
+66,Stunky,6,Smokescreen
+66,Stunky,9,Acid Spray
+66,Stunky,12,Fury Swipes
+66,Stunky,15,Focus Energy
+66,Stunky,18,Bite
+66,Stunky,21,Venoshock
+66,Stunky,24,Screech
+66,Stunky,27,Toxic
+66,Stunky,30,Sucker Punch
+66,Stunky,33,Memento
+66,Stunky,36,Night Slash
+66,Stunky,39,Belch
+66,Stunky,42,Venom Drench
+66,Stunky,45,Explosion
+67,Skuntank,1,Feint
+67,Skuntank,1,Flamethrower
+67,Skuntank,1,Poison Gas
+67,Skuntank,1,Scratch
+67,Skuntank,1,Smokescreen
+67,Skuntank,9,Acid Spray
+67,Skuntank,12,Fury Swipes
+67,Skuntank,15,Focus Energy
+67,Skuntank,18,Bite
+67,Skuntank,21,Venoshock
+67,Skuntank,24,Screech
+67,Skuntank,27,Toxic
+67,Skuntank,30,Sucker Punch
+67,Skuntank,33,Memento
+67,Skuntank,38,Night Slash
+67,Skuntank,43,Belch
+67,Skuntank,48,Venom Drench
+67,Skuntank,53,Explosion
+68,Meowth,1,Fake Out
+68,Meowth,1,Growl
+68,Meowth,4,Hone Claws
+68,Meowth,8,Scratch
+68,Meowth,12,Pay Day
+68,Meowth,16,Metal Claw
+68,Meowth,20,Taunt
+68,Meowth,24,Swagger
+68,Meowth,29,Fury Swipes
+68,Meowth,32,Screech
