@@ -7,9 +7,12 @@ import java.util.Scanner;
 
 import items.Bag;
 import pokemon.Move;
+import pokemon.MoveList;
 import pokemon.PkType;
 import pokemon.Player;
 import pokemon.Pokemon;
+import pokemon.Species;
+import pokemon.SpeciesList;
 import pokemon.Trainer;
 
 public class SaveFileManager {
@@ -28,10 +31,6 @@ public class SaveFileManager {
 				writer.print(""
 						+ poke.getName() + "\n"
 						+ poke.getNickname() + "\n"
-						+ poke.getType() + "\n"
-						+ poke.getMaxHp() + "\n"
-						+ poke.getATK() + "\n"
-						+ poke.getDEF() + "\n"
 						+ poke.getLevel() + "\n"
 						//						+ poke.getHpMod() + "\n"
 						//						+ poke.getAtkMod() + "\n"
@@ -46,10 +45,8 @@ public class SaveFileManager {
 					writer.print("Move: \n");
 					writer.print(""
 							+ move.getName() + "\n"
-							+ move.getPower() + "\n"
-							+ move.getType() + "\n"
-							+ move.getMaxPP() + "\n"
-							+ move.getAudioPath() + "\n");
+							);
+//							+ move.getAudioPath() + "\n");
 				}
 			}
 
@@ -66,39 +63,32 @@ public class SaveFileManager {
 		try {
 			Scanner reader = new Scanner(new File("res/game_files/team_save.txt"));
 			Trainer newTrainer = new Trainer();
-			for(int i = 0; i < 6; i++) {
-				Pokemon tempPoke = new Pokemon();
-				
+			for(int i = 0; i < 6; i++) {				
 				if(reader.nextLine().equals("Null"))
 					continue;
 				
-				tempPoke.setName(reader.nextLine());
-				tempPoke.setNickname(reader.nextLine());
-				tempPoke.setType(PkType.getTypeFromString(reader.nextLine()));
-				tempPoke.setMaxHp(reader.nextInt());
-				tempPoke.setATK(reader.nextInt());
-				tempPoke.setDEF(reader.nextInt()); 
-				tempPoke.setLevel(reader.nextInt()); reader.nextLine();
+				Species spec = SpeciesList.getSpecies(reader.nextLine());
+				String nickname = reader.nextLine();
+				int level = reader.nextInt();
+				reader.nextLine();
+				Pokemon poke = new Pokemon(spec, level);
+				poke.setNickname(nickname);
 				
+				// delete unnecessary moves, result of construction
+				for(int j = 0; j < 4; j++)
+					poke.forgetMove(0);
 				
+				// relearn saved moves
 				for(int j = 0; j < 4; j++) {
-					Move tempMove;
 					if(reader.nextLine().equals("Null"))
 						continue;
-					
-					String tempName = reader.nextLine();
-					int tempDmg = reader.nextInt(); reader.nextLine();
-					PkType tempType = PkType.getTypeFromString(reader.nextLine());
-					int tempPP = reader.nextInt(); reader.nextLine();
-					
-					tempMove = new Move(tempName, tempDmg, tempType, tempPP);
-					tempMove.setAudioPath(reader.nextLine());
-					
-					tempPoke.teachMove(tempMove);
+					Move move = MoveList.getMove(reader.nextLine());
+					poke.teachMove(move);
 				}
 				
-				newTrainer.addPokemon(tempPoke);
+				newTrainer.addPokemon(poke);
 			}
+			
 			// set bag, same every time
 			newTrainer.setBag(Bag.getBasicBag());
 			return newTrainer;

@@ -16,7 +16,7 @@ public class Potion extends Item{
 	
 	private int healAmount;
 	
-	public Potion(String nm, int healAmt) {
+	private Potion(String nm, int healAmt) {
 		super(nm);
 		this.healAmount = healAmt;
 	}
@@ -24,8 +24,9 @@ public class Potion extends Item{
 	/**
 	 * 
 	 */
-	public void healPokemon(Pokemon poke) {
+	public int healPokemon(Pokemon poke) {
 		poke.heal(healAmount);
+		return getHealAmt();
 	}
 	
 	public int getHealAmt() {

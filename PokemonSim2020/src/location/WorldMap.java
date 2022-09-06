@@ -71,7 +71,13 @@ public class WorldMap {
 			Location loc = null;
 			switch(type) {
 			case "Story":
-				loc = new StoryArea(name, mapDesc, localDesc);
+				boolean isStart = (list.get(5).equals("YES"));
+				if(isStart) {
+					loc = new FirstArea(name, mapDesc, localDesc);
+					start = loc;
+				} else {					
+					loc = new StoryArea(name, mapDesc, localDesc);
+				}
 				break;
 			case "Encounter":
 				String encounterPrompt = list.get(4);
@@ -85,9 +91,7 @@ public class WorldMap {
 				break;
 			}
 			allLocations.put(name, loc);
-			boolean isStart = (list.get(5) == "YES");
-			if(isStart)
-				start = loc;
+			
 		}
 	}
 	

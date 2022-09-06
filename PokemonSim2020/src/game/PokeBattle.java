@@ -4,10 +4,12 @@ import java.util.Random;
 import audio.SoundPlayer;
 import io.StandardIO;
 import items.Item;
+import items.ItemUtil;
 import items.Pokeball;
 import items.Potion;
 import pokemon.Player;
 import pokemon.Pokemon;
+import pokemon.PokemonUtil;
 import pokemon.Trainer;
 
 public class PokeBattle {
@@ -110,7 +112,7 @@ public class PokeBattle {
 	 * Prints an intro message.
 	 */
 	private void runStart() {
-		StandardIO.println("\nA wild " + enemyPokemon.getName() + " appeared!");
+		StandardIO.println("A wild " + enemyPokemon.getName() + " appeared!");
 		StandardIO.printLineBreak();
 		StandardIO.delayModerate();
 	}
@@ -128,10 +130,10 @@ public class PokeBattle {
 			// e.g.
 			// PlayerPoke: 20 HP	(Lvl 5)
 			// EnemyPoke: ********	(Lvl 4)
-			String status = String.format("%s: %d HP\t\t(Lvl %d)\n"
-					+ "%s: %s \t(Lvl %d)\n", 
-					playerPokemon.getNickname(), playerPokemon.getHp(), playerPokemon.getLevel(),
-					enemyPokemon.getName(), enemyPokemon.getHealthBar(), enemyPokemon.getLevel());
+			String status = String.format("%12s: %-3d HP\t\t(Lvl %2d)\n"
+					+ "%12s: %10s \t(Lvl %2d)\n", 
+					playerPokemon.getNickname(), playerPokemon.getHP(), playerPokemon.getLevel(),
+					enemyPokemon.getName(), PokemonUtil.getHealthBar(enemyPokemon), enemyPokemon.getLevel());
 			StandardIO.println(status);
 
 			// print options
@@ -203,7 +205,7 @@ public class PokeBattle {
 		}while(loopAgain);
 
 		// execute the attack
-		String atkSummary = playerPokemon.attack(enemyPokemon, choice);	
+		String atkSummary = PokemonUtil.attack(playerPokemon, choice, enemyPokemon);	
 		StandardIO.println(atkSummary);
 	}
 
@@ -317,7 +319,7 @@ public class PokeBattle {
 	private void useItem(Item item) {
 		if(item instanceof Pokeball) {
 			Pokeball ball = (Pokeball)(item);
-			boolean catchSuccess = ball.catchAttemptPrint(player, enemyPokemon);
+			boolean catchSuccess = ItemUtil.catchAttemptPrint(player, enemyPokemon, ball);
 			if(catchSuccess) {
 				continueBattle = false;
 				renameCaughtPokemon(enemyPokemon);
@@ -397,7 +399,10 @@ public class PokeBattle {
 	private void runEnemyTurn() {
 		Random rng = new Random();
 		int enemyAttackChoice = rng.nextInt(enemyPokemon.getNumMoves());
-		String atkSummary = enemyPokemon.attack(playerPokemon, enemyAttackChoice);
+		
+		PokemonUtil.attack(enemyPokemon, enemyAttackChoice, playerPokemon);
+		String atkSummary = PokemonUtil.attack(enemyPokemon, enemyAttackChoice, playerPokemon);
+
 		StandardIO.println(atkSummary);
 	}
 
@@ -421,35 +426,48 @@ public class PokeBattle {
 	 * and prints a relevant summary
 	 */
 	private void winningExpProcessor() {
-		StandardIO.println(playerPokemon.getNickname() + " gained " + enemyPokemon.getExpDropped() + " experience!\n");
 
 		int prevLevel = playerPokemon.getLevel();
 		int prevExp = playerPokemon.getCurrentExp();
 		String levelMessage = "Level:\t" + prevLevel;
-		String expMessage = "Exp:\t" + prevExp + "/" + playerPokemon.getExpNextLevel();
-		String hpMessage = "HP:\t" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp();
+		String expMessage = "Exp:\t" + prevExp + "/" + playerPokemon.getExpHeldAtNextLevel();
+		String hpMessage = "HP:\t" + playerPokemon.getHP() + "/" + playerPokemon.getMaxHP();
 		String atkMessage = "ATK:\t" + playerPokemon.getATK();
 		String defMessage = "DEF:\t" + playerPokemon.getDEF();
+		String spAtkMessage = "SpATK:\t" + playerPokemon.getSpATK();
+		String spDefMessage = "SpDEF:\t" + playerPokemon.getSpDEF();
+		String spdMessage = "SPD:\t" + playerPokemon.getSPD();
+
+
+
 		
-		playerPokemon.gainExp(enemyPokemon.getExpDropped());
+		int expGained = PokemonUtil.getExpDropped(enemyPokemon);
+		playerPokemon.gainExp(expGained);
 
 		int newLevel = playerPokemon.getLevel();
 		int newExp = playerPokemon.getCurrentExp();
 
 		if(newLevel > prevLevel) {// if a level up occurred, give a more detailed message w/ stats
-			hpMessage += " --> " + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + "\n";
+			hpMessage += " --> " + playerPokemon.getHP() + "/" + playerPokemon.getMaxHP() + "\n";
 			atkMessage += " --> " + playerPokemon.getATK() + "\n";
 			defMessage += " --> " + playerPokemon.getDEF() + "\n";
+			spAtkMessage += " --> " + playerPokemon.getSpATK() + "\n";
+			spDefMessage += " --> " + playerPokemon.getSpDEF() + "\n";
+			spdMessage += " --> " + playerPokemon.getSPD() + "\n";
 		}else {
 			hpMessage = "";
 			atkMessage = "";
 			defMessage = "";
+			spAtkMessage = "";
+			spDefMessage = "";
+			spdMessage = "";
 		}
 
 		levelMessage += " --> " + newLevel + "\n";
-		expMessage += " --> " + newExp + "/" + playerPokemon.getExpNextLevel() + "\n";
+		expMessage += " --> " + newExp + "/" + playerPokemon.getExpHeldAtNextLevel() + "\n";
 
-		StandardIO.println(levelMessage + expMessage + hpMessage + atkMessage + defMessage);
+		StandardIO.println(String.format("%s gained %d experience!\n", playerPokemon.getNickname(), PokemonUtil.getExpDropped(enemyPokemon)));
+		StandardIO.println(levelMessage + expMessage + hpMessage + atkMessage + defMessage + spAtkMessage + spDefMessage + spdMessage);
 
 		// play audio if level up occurred
 		if(newLevel > prevLevel)

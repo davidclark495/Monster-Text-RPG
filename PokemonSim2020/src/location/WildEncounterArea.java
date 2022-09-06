@@ -95,12 +95,14 @@ public class WildEncounterArea extends Location{
 			choice = StandardIO.promptChar();
 
 			// proceess response
-			if(choice == 'y')
+			if(choice == 'y') {
+				StandardIO.printLineBreak();
+				StandardIO.printDivider();
 				return true;
-			else if(choice == 'n')
+			} else if(choice == 'n') {
 				return false;
 			// bad input: allow loop to repeat
-			else {
+			} else {
 				StandardIO.printLineBreak();
 				StandardIO.printInputNotRecognized();
 			}

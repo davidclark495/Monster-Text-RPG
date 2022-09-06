@@ -6,10 +6,12 @@ import io.StandardIO;
 import items.Bag;
 import items.Pokeball;
 import items.Potion;
+import location.LocationUtil;
 import location.WorldMap;
 import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
+import pokemon.PokemonUtil;
 import pokemon.Trainer;
 
 public class MainGame {
@@ -57,7 +59,7 @@ public class MainGame {
 				break;
 			case 2:
 				// "travel"
-				player.getLocation().runTravelActivity();
+				LocationUtil.travel(worldmap, player, player.getLocation());
 				break;
 			case 3:
 				// "status"
@@ -151,7 +153,7 @@ public class MainGame {
 		case 1:
 			// view stats
 			StandardIO.printDivider();
-			StandardIO.println( selectedPokemon.getStatistics() + selectedPokemon.getAllMovesString());
+			StandardIO.println( PokemonUtil.getStatistics(selectedPokemon) + selectedPokemon.getAllMovesString());
 			StandardIO.delayVeryLong();
 			break;
 		case 2:
@@ -297,14 +299,9 @@ public class MainGame {
 	private void setUpPlayer() {
 		// set up the player 
 		player = new Player();
-		player.setLocation(worldmap.getStart());
-		// set up the player's team
-		Trainer playerTrainer = player.getTrainer();
-		playerTrainer = player.getTrainer();
-		//playerTrainer.addPokemon(new Pokemon(Dex.vulpix, 5));
-		//playerTrainer.addPokemon(new Pokemon(Dex.wooper));
-
-		playerTrainer.setBag(Bag.getBasicBag());
+		player.setLocation(WorldMap.getStart());
+		// set up the player's bag
+		player.getTrainer().setBag(Bag.getBasicBag());
 
 	}
 }

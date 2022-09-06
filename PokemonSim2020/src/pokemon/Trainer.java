@@ -131,7 +131,7 @@ public class Trainer {
 		private String getAllPokemonString() {
 			String str = "Number of Pokemon: " + teamSize + "\n";
 			for(int i = 1; i <= teamSize; i++) {
-				str += i + " - " + team[i-1];
+				str += i + " - " + PokemonUtil.getInlineSummary(team[i-1]);
 			}
 			return str;
 		}

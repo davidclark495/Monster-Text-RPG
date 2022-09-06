@@ -1,6 +1,7 @@
 package location;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.StandardIO;
 import pokemon.Player;
@@ -15,7 +16,7 @@ public abstract class Location {
 	// administrative details about activities
 	private Activity activity; // a functor that represents the main activity of this location
 	protected int runActivityIterations = 0; // used for various encounters in same place
-
+	private boolean isVisited = false;
 	
 	/**
 	 * 
@@ -36,9 +37,20 @@ public abstract class Location {
 	 * 
 	 */
 	public void runActivity() {
-		runActivityIterations++;
 		LocationUtil.printLocalDescription(this);
-		activity.runActivity();
+		boolean actComplete = activity.runActivity();
+		
+		// bookkeeping
+		runActivityIterations++;
+		isVisited = true;
+
+		// update locks
+		for(Map.Entry<Location, PathLock> entry : WorldMap.getOutboundPaths(this)) {
+			PathLock lock = entry.getValue();
+			lock.noteActivityAttempted();
+			if(actComplete)
+				lock.noteActivityCompleted();
+		}
 //		boolean pathUnlocked = checkUnlockPaths(); // updates pathsAway, prints, and stores true if a new path was found
 	}
 
@@ -50,14 +62,6 @@ public abstract class Location {
 
 	protected void setActivity(Activity activity) {
 		this.activity = activity;
-	}
-	
-	/**
-	 * 
-	 */
-	public void runTravelActivity() {
-		// move the trainer to a new area
-//		LocationUtil.travel();
 	}
 
 

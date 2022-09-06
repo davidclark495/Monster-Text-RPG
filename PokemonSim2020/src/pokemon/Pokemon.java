@@ -19,7 +19,7 @@ public class Pokemon {
 		MaxHP, ATK, DEF, SpATK, SpDEF, SPD;
 	}
 
-	private static final double EXPNEXT_SCALEFACTOR = 1.25;
+	private static final double EXPNEXT_SCALEFACTOR = 3;
 
 	// presentation
 	private String nickname;
@@ -27,25 +27,24 @@ public class Pokemon {
 	//	private String asciiFilePath;
 	// code objects
 	private Species species; 			// contains info. shared by all similar pokemon (e.g. all Pikachu)
-	private MovesTracker movesTracker;
+	private MovesTracker movesTracker = new MovesTracker();
 	private Trainer trainer;
 	// stats
 	private int currHP;
-	private int level = 5, totalExp = 0, totalExpNextLvl = 50;
+	private int level = 0, totalExp = 0;
 	private Map<Stat, Double> stats = new EnumMap<>(Stat.class);
 
 
 
 	public Pokemon(String species, int level) {
-		this.species = SpeciesList.getSpecies(species);
-		setLevel(level);
-		recalculateStats();
+		this(SpeciesList.getSpecies(species), level);
 	}
-	
+
 	public Pokemon(Species species, int level) {
 		this.species = species;
 		setLevel(level);
 		recalculateStats();
+		currHP = getMaxHP();
 	}
 
 
@@ -62,7 +61,6 @@ public class Pokemon {
 
 
 
-	
 
 
 
@@ -71,7 +69,8 @@ public class Pokemon {
 
 
 
-	
+
+
 
 
 
@@ -88,7 +87,7 @@ public class Pokemon {
 	}
 
 	public String getNickname() {
-		return nickname;
+		return (nickname!=null ? nickname : getName());
 	}
 
 	public PkType getType1() {
@@ -103,8 +102,8 @@ public class Pokemon {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
-		
+
+
 
 	//	public String getAsciiFilePath() {
 	//		return asciiFilePath;
@@ -135,25 +134,22 @@ public class Pokemon {
 	 */
 	public void gainExp(int expAmount) {
 		totalExp += expAmount;
-		while(totalExp > totalExpNextLvl) {
+		while(totalExp >= getExpHeldAtLevel(level+1)) {
 			levelUp();
 		}
 	}
 	private void levelUp() {
 		// update level, increase totalExp until next level, do not modify current totalExp
 		level++;
-		totalExpNextLvl = (int)(Math.pow(level, 3));
 		// learn moves, if applicable
 		// TODO: get user input on which moves should be forgotten
-		this.teachAllMoves(species.getMovesLearnedAtLevel(level).toArray(new Move[0]));
+		if(species.getMovesLearnedAtLevel(level) != null)
+			this.teachAllMoves(species.getMovesLearnedAtLevel(level).toArray(new Move[0]));
 		// recalculate stats w/ the higher level
 		recalculateStats();
 	}
 	public int getCurrentExp() {
 		return totalExp;
-	}
-	public int getExpNextLevel() {
-		return totalExpNextLvl;
 	}
 	public int getLevel() {
 		return level;
@@ -164,9 +160,12 @@ public class Pokemon {
 	 * @return the min. amount of total exp the pokemon must have to reach the given level
 	 */
 	private int getExpHeldAtLevel(int level) {
-		return (int) Math.pow(EXPNEXT_SCALEFACTOR, level);
+		return (int) Math.pow(level, EXPNEXT_SCALEFACTOR);
 	}
-	
+	public int getExpHeldAtNextLevel() {
+		return getExpHeldAtLevel(level+1);
+	}
+
 	private void setLevel(int level) {
 		this.gainExp(getExpHeldAtLevel(level) - getCurrentExp());
 	}
@@ -181,11 +180,11 @@ public class Pokemon {
 		int baseSPD = species.getBaseStat(Species.BaseStat.BaseSPD);
 
 		double maxHP 	= (2*baseHP*level)/100.0 + level + 10;
-		double atk 		= (2*baseATK*level) + 5;
-		double def 		= (2*baseDEF*level) + 5;
-		double spAtk 	= (2*baseSpATK*level) + 5;
-		double spDef 	= (2*baseSpDEF*level) + 5;
-		double spd 		= (2*baseSPD*level) + 5;
+		double atk 		= (2*baseATK*level)/100.0 + 5;
+		double def 		= (2*baseDEF*level)/100.0 + 5;
+		double spAtk 	= (2*baseSpATK*level)/100.0 + 5;
+		double spDef 	= (2*baseSpDEF*level)/100.0 + 5;
+		double spd 		= (2*baseSPD*level)/100.0 + 5;
 
 		stats.put(Stat.MaxHP, maxHP);
 		stats.put(Stat.ATK, atk);
@@ -194,11 +193,11 @@ public class Pokemon {
 		stats.put(Stat.SpDEF, spDef);
 		stats.put(Stat.SPD, spd);
 	}
-	
-	public int getHp() {
+
+	public int getHP() {
 		return currHP;
 	}
-	
+
 	/**
 	 * Sets the current currHP value to the given value.
 	 * If the new value is greater than the max currHP, the current currHP value will be set to the max currHP.
@@ -289,6 +288,19 @@ public class Pokemon {
 		return movesTracker.addAllMoves(moves);
 	}
 
+	/**
+	 * 
+	 * @param move
+	 * @return
+	 */
+	public boolean forgetMove(Move move) {
+		return movesTracker.removeMove(move);
+	}
+
+	public boolean forgetMove(int index) {
+		return movesTracker.removeMove(index);
+	}
+
 	public String getAllMovesString() {
 		return movesTracker.toString();
 	}
@@ -302,7 +314,7 @@ public class Pokemon {
 		return movesTracker.getAllMoves();
 	}
 
-	
+
 	/**
 	 * 
 	 * @param index
@@ -374,17 +386,6 @@ public class Pokemon {
 			numMoves = 0;
 		}
 
-		private MovesTracker(Move[] moves) {
-			moves = new Move[MAX_NUM_MOVES];
-			numMoves = 0;
-			this.addAllMoves(moves);
-		}
-
-		private MovesTracker(MovesTracker mvsTrckr) {
-			moves = mvsTrckr.getAllMoves();
-			numMoves = mvsTrckr.getNumMoves();
-		}
-
 
 		/**
 		 * 
@@ -433,13 +434,7 @@ public class Pokemon {
 		 * @return true if move was added, false if move couldn't be added
 		 */
 		private boolean addMove(Move newMove) {
-			if(numMoves < MAX_NUM_MOVES) {
-				moves[numMoves] = newMove;
-				ppLeft[numMoves] = newMove.getMaxPP();
-				numMoves++;
-				return true;
-			}
-			return false;
+			return addAllMoves(new Move[] {newMove});
 		}
 
 		/**
@@ -451,14 +446,53 @@ public class Pokemon {
 		 * @return true if moves were added, false if moves couldn't be added
 		 */
 		private boolean addAllMoves(Move[] newMoves) {
+			if(newMoves == null || newMoves.length == 0)
+				return false;
+
 			if(newMoves.length + numMoves > MAX_NUM_MOVES) 
 				return false;
 
 			for(int i = 0; i < newMoves.length; i++) {
 				moves[numMoves] = newMoves[i];
+				ppLeft[numMoves] = newMoves[i].getMaxPP();
 				numMoves++;
 			}
 			return true;
+		}
+
+		// return true if the move was successfully removed,
+		//		false if the move could not be found
+		private boolean removeMove(Move newMove) {
+			for(int i = 0; i < numMoves; i++) {
+				if(moves[i].equals(newMove)) {
+					for(int j = i; j < numMoves; j++) {
+						if(j+1 < numMoves)
+							moves[j] = moves[j+1];
+						else
+							moves[j] = null;
+					}
+					numMoves--;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		// return true if the move was successfully removed,
+		//		false if the move could not be found
+		private boolean removeMove(int index) {
+			if(0 <= index && index < numMoves) {
+				for(int j = index; j < numMoves; j++) {
+					if(j+1 < numMoves)
+						moves[j] = moves[j+1];
+					else
+						moves[j] = null;
+				}
+				numMoves--;
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
@@ -468,7 +502,7 @@ public class Pokemon {
 		private int getNumMoves() {
 			return numMoves;
 		}
-		
+
 		/**
 		 * Returns the PP of the move at the given index.
 		 * 
@@ -478,7 +512,7 @@ public class Pokemon {
 		private int getPP(int index) {
 			return ppLeft[index];
 		}
-		
+
 		/**
 		 * Decrements the PP of the move at the given index.
 		 * 

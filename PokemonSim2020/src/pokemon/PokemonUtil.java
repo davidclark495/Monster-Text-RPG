@@ -61,7 +61,12 @@ public class PokemonUtil {
 		netDamage *= (0.4 * atkr.getLevel()) + 2;
 
 		// calculate type-relation modifiers on the net damage 
-		double typeRelationMult = PkType.getDmgMultiplier(move.getType(), dfdr.getType1(), dfdr.getType2());
+		
+		double typeRelationMult;
+		if(dfdr.getType2() == null)
+			typeRelationMult = PkType.getDmgMultiplier(move.getType(), dfdr.getType1());
+		else
+			typeRelationMult = PkType.getDmgMultiplier(move.getType(), dfdr.getType1(), dfdr.getType2());
 		netDamage *= typeRelationMult;
 		if( typeRelationMult == 2 ) {
 			typeMatchupSummary = "* It was super effective!\n";
@@ -81,8 +86,9 @@ public class PokemonUtil {
 		}
 
 		// calculate STAB
-		if( atkr.getType1().equals(move.getType()) 
-				|| atkr.getType2().equals(move.getType())) {
+		boolean atkrT1Stab = atkr.getType1().equals(move.getType());
+		boolean atkrT2Stab = (atkr.getType2() != null) && (atkr.getType2().equals(move.getType()));
+		if( atkrT1Stab || atkrT2Stab ) {
 			netDamage *= 1.5;			
 		}
 
@@ -90,6 +96,9 @@ public class PokemonUtil {
 		Random rng = new Random();
 		double randomProportion = (rng.nextInt(15) + 85) / (double)100;// value btwn .85 and 1.00
 		netDamage = (int)Math.floor(netDamage * randomProportion);
+		
+		// bring it down a little
+		netDamage /= 50;
 
 		// respond to the final damage dealt
 		dfdr.takeDamage(netDamage);
@@ -97,7 +106,6 @@ public class PokemonUtil {
 
 		// build a summary of what happened (dmg, typeMatchup)
 		finalDefSummary = dmgSummary + typeMatchupSummary;
-
 
 		// RETURN a text summary
 		return atkSummary + finalDefSummary;
@@ -109,40 +117,61 @@ public class PokemonUtil {
 		 * @return a summary of this Pokemon
 		 */
 		public static String getInlineSummary(Pokemon poke) {
-			String message = String.format("%s:\tlevel %d | %d/%d | [%s %s]\n", 
-					poke.getNickname(), poke.getLevel(), poke.getHp(), 
-					poke.getMaxHP(), poke.getType1(), poke.getType2());
+			String levelStr = String.format("level %d", poke.getLevel());
+			String hpStr = String.format("%3d/%-3d HP", poke.getHP(), poke.getMaxHP());
+			String typeStr;
+			if(poke.getType2() == null) 
+				typeStr = String.format("[%s]", poke.getType1());
+			else
+				typeStr = String.format("[%s %s]", poke.getType1(), poke.getType2());
+			
+			String message = String.format("%-15s %s | %s | %s\n", 
+					poke.getNickname(), levelStr, hpStr, typeStr); 
 
 			return message;
 		}
 
-		public String getStatistics(Pokemon poke) {
+		public static String getStatistics(Pokemon poke) {
+			String nameStr;
+			if(poke.getNickname().equals(poke.getName()))
+				nameStr = String.format("Name: %s", poke.getName());
+			else
+				nameStr = String.format("Name: %s (%s)", poke.getName(), poke.getNickname());
+			
+			String typeStr;
+			if(poke.getType2() == null) 
+				typeStr = String.format("Type: %s", poke.getType1());
+			else
+				typeStr = String.format("Type: %s %s", poke.getType1(), poke.getType2());
+			
 			String message = 
 					String.format("--Statistics--\n"
-							+ "Name: %s (%s)\n"
-							+ "Type: %s %s\n"
-							+ "HP: %3d / %3d\n"
+							+ "%s\n"
+							+ "%s\n"
+							+ "Level: %3d\n"
+							+ "Exp: %d/%d\n" 
+							+ "HP: %3d/%-3d\n"
 							+ "ATK:   %3d DEF:   %3d\n"
 							+ "SpATK: %3d SpDEF: %3d\n"
-							+ "SPD:   %3d\n"
-							+ "Level: %d\n", 
-							poke.getNickname(), poke.getName(),
-							poke.getType1(), poke.getType2(),
-							poke.getHp(), poke.getMaxHP(),
+							+ "SPD:   %3d\n",
+							nameStr,
+							typeStr,
+							poke.getLevel(), 
+							poke.getCurrentExp(), poke.getExpHeldAtNextLevel(),
+							poke.getHP(), poke.getMaxHP(),
 							poke.getATK(), poke.getDEF(),
 							poke.getSpATK(), poke.getSpDEF(),
-							poke.getSPD(),
-							poke.getLevel() );
+							poke.getSPD());
 			return message + "\n";
 		}
 
 		/**
 		 * Gets the values that are likely to change over the course of a battle.
 		 */
-		public String getStatus(Pokemon poke) {
+		public static String getStatus(Pokemon poke) {
 			String message = "Current Status:"
 					+ "\nName: " + poke.getName()
-					+ "\nCurrent HP: " + poke.getHp()
+					+ "\nCurrent HP: " + poke.getHP()
 					+ "\n";
 			return message;
 		}
@@ -153,8 +182,8 @@ public class PokemonUtil {
 		 * @param poke
 		 * @return
 		 */
-		public String getHealthBar(Pokemon poke) {
-			int numTenths = (int)Math.ceil(poke.getHp()/(double)poke.getMaxHP() * 10);
+		public static String getHealthBar(Pokemon poke) {
+			int numTenths = (int)Math.ceil(poke.getHP()/(double)poke.getMaxHP() * 10);
 			String message = "";
 			for(int i = 0; i < numTenths; i++)
 				message += "*";
@@ -167,7 +196,7 @@ public class PokemonUtil {
 		 * 
 		 * @return the amount of exp the pokemon drops when defeated
 		 */
-		public int getExpDropped(Pokemon poke) {
+		public static int getExpDropped(Pokemon poke) {
 			double lvlMult = 10;
 			double maxHpMult = 0.2;
 

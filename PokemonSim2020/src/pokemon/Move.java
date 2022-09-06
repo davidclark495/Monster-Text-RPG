@@ -20,8 +20,9 @@ public class Move {
 
 	public Move(String name, PkType type, Category category, int power, int pp, double acc) {
 		this.name = name;
-		this.basePower = power;
 		this.type = type;
+		this.category = category;
+		this.basePower = power;
 		this.maxPP = pp;
 		this.accuracy = acc;
 //		audiopath = null;
@@ -29,14 +30,20 @@ public class Move {
 
 
 
-	//	public String toString() {
-	//		String str = name + ":\t" + basePower + " dmg\t(" + type + ")";
-	//		return str;
-	//	}
-	public String toString() {
-		String str = String.format("%10s: %3d pwr (%s) [%s]", name, basePower, type, category);
-		return str;
+	@Override
+	public boolean equals(Object other) {
+		if(!(other instanceof Move))
+			return false;
+		return this.name.equals(((Move)other).name);
 	}
+	
+	public String toString() {
+		if(category == Category.STATUS)
+			return String.format("%10s: \t\t (%s) \t [%s]", name, type, category);
+		
+		return String.format("%10s: %3d pwr \t (%s) \t [%s]", name, basePower, type, category);
+	}
+	
 
 
 	// getters and setters //

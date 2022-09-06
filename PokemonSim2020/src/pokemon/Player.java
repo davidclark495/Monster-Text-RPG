@@ -30,7 +30,7 @@ public class Player {
 		return location;
 	}
 	public void setLocation(Location newLocation) {
-		location = newLocation;
+		this.location = newLocation;
 		location.setPlayer(this);
 		if(newLocation instanceof PokeCenter) {
 			lastPokeCenter = (PokeCenter)newLocation;
