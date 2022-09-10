@@ -1,0 +1,45 @@
+Pokemon,Next Stage,At Level,Held Item,Req. Friendship?,Req. Trade?,Gender,Stage
+Togepi,Togetic,-1,NONE,YES,NO,ANY,1
+Togetic,Togekiss,-1,Shiny Stone,NO,NO,ANY,2
+Vulpix,Ninetales,-1,Fire Stone,NO,NO,ANY,1
+Lotad,Lombre,14,NONE,NO,NO,ANY,1
+Lombre,Ludicolo,-1,Water Stone,NO,NO,ANY,2
+Patrat,Watchog,20,NONE,NO,NO,ANY,1
+Helioptile,Heliolisk,-1,Sun Stone,NO,NO,ANY,1
+Wooper,Quagsire,20,NONE,NO,NO,ANY,1
+Fletchling,Fletchinder,17,NONE,NO,NO,ANY,1
+Fletchinder,Talonflame,35,NONE,NO,NO,ANY,2
+Nincada,Ninjask,20,NONE,NO,NO,ANY,1
+Nincada,Shedinja,20,NONE,NO,NO,ANY,1
+Milcery,Alcremie,-1,NONE,NO,NO,ANY,1
+Combee,Vespiquen,21,NONE,NO,NO,FEMALE,1
+Cutiefly,Ribombee,25,NONE,NO,NO,ANY,1
+Grimer,Muk,38,NONE,NO,NO,ANY,1
+Drilbur,Excadrill,31,NONE,NO,NO,ANY,1
+Rolycoly,Carkol,18,NONE,NO,NO,ANY,1
+Carkol,Coalossal,34,NONE,NO,NO,ANY,2
+Woobat,Swoobat,-1,NONE,YES,NO,ANY,1
+Larvitar,Pupitar,30,NONE,NO,NO,ANY,1
+Pupitar,Tyranitar,55,NONE,NO,NO,ANY,2
+Mankey,Primeape,28,NONE,NO,NO,ANY,1
+Jangmo-o,Hakamo-o,35,NONE,NO,NO,ANY,1
+Hakamo-o,Kommo-o,45,NONE,NO,NO,ANY,2
+Shroomish,Breloom,23,NONE,NO,NO,ANY,1
+Pikachu,Raichu,-1,Thunder Stone,NO,NO,ANY,1
+Ducklett,Swanna,35,NONE,NO,NO,ANY,1
+Carvanha,Sharpedo,30,NONE,NO,NO,ANY,1
+Slowpoke,Slowbro,37,NONE,NO,NO,ANY,1
+Slowpoke,Slowking,-1,Kings Rock,NO,YES,ANY,1
+Shellder,Cloyster,-1,Water Stone,NO,NO,ANY,1
+Shuppet,Banette,37,NONE,NO,NO,ANY,1
+Impidimp,Morgrem,32,NONE,NO,NO,ANY,1
+Morgrem,Grimmsnarl,42,NONE,NO,NO,ANY,2
+Misdreavus,Mismagius,-1,Dusk Stone,NO,NO,ANY,1
+Stunky,Skuntank,34,NONE,NO,NO,ANY,1
+Meowth,Persian,28,NONE,NO,NO,ANY,1
+Sneasel,Weavile,-1,Razor Claw,NO,NO,ANY,1
+Bagon,Shelgon,30,NONE,NO,NO,ANY,1
+Shelgon,Salamence,50,NONE,NO,NO,ANY,2
+Tentacool,Tentacruel,30,NONE,NO,NO,ANY,1
+Lileep,Cradily,40,NONE,NO,NO,ANY,1
+Chinchou,Lanturn,27,NONE,NO,NO,ANY,1

@@ -1,0 +1,36 @@
+Place (FROM),Place (TO),Default Unlocked?,Needs Activity Completed,# Activity Attempts,Must Visit
+Field A,Field B,NO,YES,0,NONE
+Field B,Pokemon Center,YES,NO,0,NONE
+Field B,Nearby Cave,NO,NO,2,NONE
+Field B,Sticky Hive,NO,NO,4,NONE
+Nearby Cave,High Cliff,NO,NO,2,NONE
+High Cliff,Field C,NO,YES,0,NONE
+Field C,Pokemon Center,YES,NO,0,NONE
+Pokemon Center,Field C,NO,NO,0,Field C
+Field C,River Crossing,NO,NO,1,NONE
+River Crossing,Imposing Gateway,NO,NO,1,NONE
+River Crossing,River Bank,NO,NO,2,NONE
+River Bank,Under the Crossing,NO,NO,2,NONE
+Imposing Gateway,Odd Camp,NO,YES,0,NONE
+Imposing Gateway,Rocket HQ Entrance,NO,YES,0,NONE
+Rocket HQ Entrance,Rocket HQ,NO,NO,2,NONE
+Rocket HQ,Dark Tunnel,NO,NO,3,NONE
+Rocket HQ,Vault Door,NO,NO,4,NONE
+Dark Tunnel,Underground Lake,NO,NO,2,NONE
+Vault Door,Inside the Vault,NO,YES,0,NONE
+Field B,Field A,YES,NO,0,NONE
+Pokemon Center,Field B,YES,NO,0,NONE
+Nearby Cave,Field B,YES,NO,0,NONE
+Sticky Hive,Field B,YES,NO,0,NONE
+High Cliff,Nearby Cave,YES,NO,0,NONE
+River Crossing,Field C,YES,NO,0,NONE
+Imposing Gateway,River Crossing,YES,NO,0,NONE
+River Bank,River Crossing,YES,NO,0,NONE
+Under the Crossing,River Bank,YES,NO,0,NONE
+Odd Camp,Imposing Gateway,YES,NO,0,NONE
+Rocket HQ Entrance,Imposing Gateway,YES,NO,0,NONE
+Rocket HQ,Rocket HQ Entrance,YES,NO,0,NONE
+Dark Tunnel,Rocket HQ,YES,NO,0,NONE
+Vault Door,Rocket HQ,YES,NO,0,NONE
+Underground Lake,Dark Tunnel,YES,NO,0,NONE
+Inside the Vault,Vault Door,YES,NO,0,NONE

@@ -1,191 +1,108 @@
 package pokemon;
 
-public class PkType {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
 
-	public static PkType 
-			normal = new PkType("NORMAL"), 
-			grass = new PkType("GRASS"), 
-			fire = new PkType("FIRE"), 
-			water = new PkType("WATER"),
-			electric = new PkType("ELECTRIC"),
-			flying = new PkType("FLYING"),
-			rock = new PkType("ROCK"),
-			bug = new PkType("BUG"),
-			fairy = new PkType("FAIRY"),
-			poison = new PkType("POISON");
+public enum PkType {
 	
-	static {
-			normal.setWeaknesses(null);
-			normal.setResistances(null);
-			grass.setWeaknesses(new PkType[] {PkType.fire, PkType.flying, PkType.poison, PkType.bug});
-			grass.setResistances(new PkType[] {PkType.water, PkType.grass});
-			fire.setWeaknesses(new PkType[] {PkType.water});
-			fire.setResistances(new PkType[] {PkType.grass, PkType.fire, PkType.bug, PkType.fairy});
-			water.setWeaknesses(new PkType[] {PkType.grass, PkType.electric});
-			water.setResistances(new PkType[] {PkType.fire, PkType.water});
-			electric.setWeaknesses(null);
-			electric.setResistances(new PkType[] {water});
-			flying.setWeaknesses(new PkType[] {electric, rock});
-			flying.setResistances(new PkType[] {grass, bug});
-			rock.setWeaknesses(new PkType[] {grass, water});
-			rock.setResistances(new PkType[] {normal, fire, flying, poison});
-			bug.setWeaknesses(new PkType[] {fire, flying, rock});
-			bug.setResistances(new PkType[] {grass});
-			fairy.setWeaknesses(new PkType[] {poison});
-			fairy.setResistances(new PkType[] {bug});
-			poison.setWeaknesses(new PkType[] {});
-			poison.setResistances(new PkType[] {grass, bug, fairy, poison});
-	}
+	NORMAL, FIRE, WATER, GRASS, ELECTRIC, ICE,
+	FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
+	BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY;
 	
-	private String typeName;
-	private PkType[] weaknesses;
-	private PkType[] resistances;
-	
-	private PkType(String typeName) {
-		this.typeName = typeName;
-	}
-	
-	private PkType(String typeName, PkType[] weak, PkType[] resist) {
-		this(typeName);
-		this.weaknesses = weak;
-		this.resistances = resist;
-	}
-
-	/**
-	 * Returns true if the Pokemon is weak to the attacking type
-	 * 
-	 * @param atkType 
-	 * @return true if the Pokemon is weak to the attacking type
+	// DEFINE TYPE RELATIONSHIPS
+	/* 
+	 * For each type, what multiplier does it have 
+	 * when attacking each other type?
+	 * Could be articulated as: Map<Atkr, Map<Dfdr, Mult>> 
 	 */
-	public static boolean pokeIsWeakTo(Pokemon defender, PkType atkType) {
-		PkType type = defender.getType();
-		if(type.weaknesses == null)
-			return false;
-		for(int i = 0; i < type.weaknesses.length; i++) {
-			if(type.weaknesses[i].equals(atkType)) {
-				return true;
+	private static EnumMap<PkType, EnumMap<PkType, Double>> allAtkrRelations;
+	static {
+		final String COMMA_DELIMITER = ",";
+		
+    	// Read CSV into an ArrayList
+		List<List<String>> records = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader("csv/typeRelations.csv"))){
+			String line;
+			while((line = br.readLine()) != null) {
+				String[] values = line.split(COMMA_DELIMITER);
+				records.add(Arrays.asList(values));
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return false;
+		
+		// Store relationships in a map of maps
+		allAtkrRelations = new EnumMap<PkType, EnumMap<PkType, Double>>(PkType.class);
+		List<String> headerRow =  records.get(0);
+		for(int atkr = 1; atkr < records.size(); atkr++) {
+			EnumMap<PkType, Double> dmgMultipliers = new EnumMap<>(PkType.class);
+			
+			List<String> list = records.get(atkr);
+			for(int dfdr = 1; dfdr < list.size(); dfdr++) {
+				String dfdrStr = headerRow.get(dfdr);
+				PkType dfdrType = PkType.valueOf(dfdrStr);
+				double multiplier = Double.parseDouble(list.get(dfdr));
+				dmgMultipliers.put(dfdrType, multiplier);
+			}
+			
+			PkType atkrType = PkType.valueOf(records.get(atkr).get(0));
+			allAtkrRelations.put(atkrType, dmgMultipliers);
+		}
+	}
+	
+	
+	/**
+	 * Returns the type-based damage multiplier btwn the attacking and defending types
+	 * @param atkr
+	 * @param dfdr
+	 * @return
+	 */
+	public static double getDmgMultiplier(PkType atkr, PkType dfdr) {
+		return allAtkrRelations.get(atkr).get(dfdr);
 	}
 	
 	/**
-	 * Returns true if the attacking type exists in this type's weaknesses
+	 * Returns the type-based damage multiplier btwn the attacking and defending types
+	 * @param atkr
+	 * @param dfdr1
+	 * @param dfdr1
+	 * @return
+	 */
+	public static double getDmgMultiplier(PkType atkr, PkType dfdr1, PkType dfdr2) {
+		return allAtkrRelations.get(atkr).get(dfdr1) 
+				* allAtkrRelations.get(atkr).get(dfdr2);
+	}
+	
+	/**
+	 * Returns true if this type is weak to the attacking type
 	 * 
-	 * @param atkType 
+	 * @param atkrType 
 	 * @return true if this type is weak to the attacking type
 	 */
-	public boolean isWeakTo(PkType atkType) {
-		if(this.weaknesses == null)
-			return false;
-		for(int i = 0; i < this.weaknesses.length; i++) {
-			if(weaknesses[i].equals(atkType)) {
-				return true;
-			}
-		}
+	public boolean isWeakTo(PkType atkrType) {
+		PkType dfdrType = this;
+		if(allAtkrRelations.get(atkrType).get(dfdrType) == 2)
+			return true;
+		
 		return false;
 	}
 	
-	/**
-	 * Returns true if the Pokemon resists the attacking type
-	 * 
-	 * @param atkType 
-	 * @return true if the Pokemon resists the attacking type
-	 */
-	public static boolean pokeIsResistantTo(Pokemon defender, PkType atkType) {
-		PkType type = defender.getType();
-		if(type.resistances == null)
-			return false;
-		for(int i = 0; i < type.resistances.length; i++) {
-			if(type.resistances[i].equals(atkType)) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	/**
 	 * Returns true if the attacking type exists in this type's resistances
 	 * 
-	 * @param atkType 
+	 * @param atkrType 
 	 * @return true if this type is resistant to the attacking type
 	 */
-	public boolean isResistantTo(PkType atkType) {
-		if(this.resistances == null)
-			return false;
-		for(int i = 0; i < this.resistances.length; i++) {
-			if(resistances[i].equals(atkType)) {
-				return true;
-			}
-		}
+	public boolean isResistantTo(PkType atkrType) {
+		PkType dfdrType = this;
+		if(allAtkrRelations.get(atkrType).get(dfdrType) == 0.5)
+			return true;
+		
 		return false;
 	}
-	
-	/**
-	 * If the types have the same name, then they are equal
-	 * @return 
-	 */
-	public boolean equals(PkType other) {
-		return this.typeName == other.typeName;
-	}
-	
-	/**
-	 * @return the name of the type
-	 */
-	public String toString() {
-		return typeName;
-	}
-	
-	public static PkType getTypeFromString(String typeName) {
-		switch(typeName) {
-		case "NORMAL":
-			return PkType.normal;
-		case "GRASS":
-			return PkType.grass;
-		case "FIRE":
-			return PkType.fire;
-		case "WATER":
-			return PkType.water;
-		case "ELECTRIC":
-			return PkType.electric;
-		case "FLYING":
-			return PkType.flying;
-		case "ROCK":
-			return PkType.rock;
-		case "BUG":
-			return PkType.bug;
-		case "FAIRY":
-			return PkType.fairy;
-		case "POISON":
-			return PkType.poison;
-		}
-		return PkType.bug;
-	}
-	
-	/**
-	 * @return the name of the type
-	 */
-	public String getTypeName() {
-		return typeName;
-	}
-	
-	/**
-	 * Sets this type's weaknesses to the specified values
-	 * (for use only in setting-up this class's static Types)
-	 * @param weaknesses An array of PkTypes that this type is weak to
-	 */
-	private void setWeaknesses(PkType[] weaknesses) {
-		this.weaknesses = weaknesses;
-	}
-	
-	/**
-	 * Sets this type's resistances to the specified values
-	 * (for use only in setting-up this class's static Types)
-	 * @param resistances An array of PkTypes that this type is resistant to
-	 */
-	private void setResistances(PkType[] resistances) {
-		this.resistances = resistances;
-	}
-	
-	
 }

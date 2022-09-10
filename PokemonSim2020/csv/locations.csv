@@ -1,0 +1,19 @@
+Place,Map Description,Local Description,Type,Encounter Prompt,Is First?
+Field A,The start of a journey.,...a strange sound.,Story,,YES
+Field B,A place with tall grass and wild pokemon.,There's a warm breeze.,Encounter,Walk into the tall grass?,NO
+Sticky Hive,A sticky-sappy paradise for bug pokemon.,There's a sickly sweet aroma.,Encounter,Try the honey?,NO
+Nearby Cave,A dark place with wild pokemon.,Your footsteps echo through the space.,Encounter,Step into the dark?,NO
+High Cliff,A dangerous precipice. Home to a special pokemon.,There's a nest full of eggs by the edge.,Boss,Approach the edge?,NO
+Pokemon Center,A place to heal your pokemon.,The quiet ambiance is reassuring.,PokeCenter,,NO
+Field C,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+River Crossing,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+River Bank,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Under the Crossing,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Imposing Gateway,*placeholder*,*placeholder*,Boss,,NO
+Odd Camp,*placeholder*,*placeholder*,PokeCenter,,NO
+Rocket HQ Entrance,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Rocket HQ,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Dark Tunnel,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Underground Lake,*placeholder*,*placeholder*,Encounter,*placeholder*,NO
+Vault Door,*placeholder*,*placeholder*,Boss,,NO
+Inside the Vault,*placeholder*,*placeholder*,Story,,NO
