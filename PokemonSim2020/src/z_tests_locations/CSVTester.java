@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import io.StandardIO;
 import location.WorldMap;
+import pokemon.EvolutionLock;
+import pokemon.Species;
 import pokemon.SpeciesList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +53,20 @@ public class CSVTester {
 	@Test
 	void SpeciesList_readLearnSetData_demo() {
 
+	}
+	
+	@Test
+	void SpeciesList_readEvolutionsData_demo() {
+		for(Species spec : SpeciesList.getAllSpecies().values()) {
+			for(EvolutionLock evoLock : spec.getEvolutions()) {
+				System.out.printf("%s --> %s\n", spec.getName(), evoLock.getNewSpecies().getName());
+				System.out.printf("\tlevel: %d\n", evoLock.getLevelReqd());
+				System.out.printf("\theld-item: %s\n", evoLock.getHeldItemReqd());
+				System.out.printf("\tneeds-friendship: %b\n", evoLock.isFriendshipReqd());
+				System.out.printf("\tneeds-trade: %b\n", evoLock.isTradeReqd());
+				System.out.printf("\tgender-reqd: %s\n", "(not yet implemented)");
+			}
+		}
 	}
 	
 }

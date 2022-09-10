@@ -23,6 +23,7 @@ public class Species{
 	private PkType type1, type2;
 	private Map<BaseStat, Integer> baseStats = new EnumMap<>(BaseStat.class);;
 	private Map<Integer, List<Move>> learnset = new HashMap<>();
+	private List<EvolutionLock> evolutions = new ArrayList<>();
 
 	
 	public Species(String name, PkType type1, PkType type2, int baseHP, 
@@ -39,6 +40,7 @@ public class Species{
 		this.baseStats.put(BaseStat.BaseSPD, baseSPD);
 	}
 	
+	// MUTATORS
 	// needs thorough testing
 	public void addMoveToLearnset(int level, Move moveLearned) {
 		if(learnset.get(level) == null) {
@@ -50,8 +52,8 @@ public class Species{
 		}
 	}
 	
-	public List<Move> getMovesLearnedAtLevel(int level){
-		return learnset.get(level);
+	public void addEvolution(EvolutionLock evoLock) {
+		evolutions.add(evoLock);
 	}
 	
 	// ACCESSORS
@@ -77,6 +79,14 @@ public class Species{
 	
 	public int getBaseStat(BaseStat stat){
 		return baseStats.get(stat);
+	}
+	
+	public List<Move> getMovesLearnedAtLevel(int level){
+		return learnset.get(level);
+	}
+	
+	public List<EvolutionLock> getEvolutions(){
+		return evolutions;
 	}
 	
 }

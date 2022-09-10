@@ -14,7 +14,8 @@ public class SpeciesList {
 		
 	static {
 		readSpeciesData();
-		readLearnsetData();
+		readLearnsetData();		// req's SpeciesData, MovesData (Movelist)
+		readEvolutionData();	// req's SpeciesData, ItemsData (ItemList)
 	}
 	
 	public static Species getSpecies(String name) {		
@@ -22,12 +23,32 @@ public class SpeciesList {
 	}
 		
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// tester method, should not be public
+	public static Map<String, Species> getAllSpecies(){
+		return allSpecies;
+	}
 
-	
-	
-	
-	
-	
+
+	// ///////// //
+	// Read CSVs //
+	// ///////// //
+
 	/*
 	 * Gathers data about all available pokemon Species from a CSV. 
 	 */
@@ -108,5 +129,40 @@ public class SpeciesList {
         	species.addMoveToLearnset(level, move);
         }
 	}
+	
+
+	private static void readEvolutionData() {
+		final String COMMA_DELIMITER = ",";
+		
+		// Read CSV into an ArrayList
+        List<List<String>> records = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("csv/evolutions.csv"))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(COMMA_DELIMITER);
+                records.add(Arrays.asList(values));
+            }
+        } catch (Exception e) { 
+        	e.printStackTrace(); 
+        }
+        
+        for(int i = 1; i < records.size(); i++) {
+        	List<String> list = records.get(i);
+        	
+        	Species specFrom = getSpecies(list.get(0));	
+        	Species specInto = getSpecies(list.get(1));	
+        	int evolvesAtLvl = Integer.parseInt(list.get(2));
+//        	Item heldItem = ItemList.getItem(list.get(3));
+        	boolean reqsFriendship = list.get(4).equals("YES");
+        	boolean reqsTrade = list.get(5).equals("YES");
+//        	Pokemon.Gender genderReqd = Pokemon.Gender.valueof(list.get(6));
+        	
+        	EvolutionLock evoLock = new EvolutionLock(specInto, evolvesAtLvl, 
+        			null, reqsFriendship, reqsTrade);
+        	
+        	specFrom.addEvolution(evoLock);
+        }
+	}
+
 	
 }
