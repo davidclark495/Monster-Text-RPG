@@ -4,7 +4,7 @@ import audio.SoundPlayer;
 
 public class StandardMenu {
 
-	public static boolean getYesOrNo(String prompt) {
+	public static boolean promptYesOrNo(String prompt) {
 		char response = ' ';
 		while( !(response == 'y' || response == 'n')) {
 
@@ -27,16 +27,16 @@ public class StandardMenu {
 		// code shouldn't get here
 		return false;
 	}
-
-	public static int getSelection(String prompt, String[] options) {
-		return getSelection(prompt, options, false);
+	
+	public static int promptSelection(String prompt, String[] options) {
+		return promptSelection(prompt, options, false);
 	}
 
-	public static int getSelectionEscapable(String prompt, String[] options) {
-		return getSelection(prompt, options, true);
+	public static int promptSelectionEscapable(String prompt, String[] options) {
+		return promptSelection(prompt, options, true);
 	}
 
-	private static int getSelection(String prompt, String[] options, boolean isEscapable) {
+	private static int promptSelection(String prompt, String[] options, boolean isEscapable) {
 		assert options.length > 0;
 
 		boolean choiceIsValid = false;
@@ -74,9 +74,22 @@ public class StandardMenu {
 			} 
 
 			StandardIO.println("Input not recognized. Please choose one of the given options.\n");
+			StandardIO.printDivider();
 		} 
 
 		// shouldn't get here
 		return -1;
+	}
+	
+	public static int promptIndex(String prompt, String[] options) {
+		int selection = promptSelection(prompt, options, false);
+		return selection - 1;
+	}
+	
+	public static int promptIndexEscapable(String prompt, String[] options) {
+		int selection = promptSelection(prompt, options, true);
+		if(selection == StandardIO.ESCAPE_INT)
+			return selection;
+		return selection - 1;
 	}
 }

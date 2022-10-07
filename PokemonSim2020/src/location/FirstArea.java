@@ -62,7 +62,7 @@ public class FirstArea extends StoryArea{
 
 		
 		String prompt = "Pick up the Pokemon?";
-		boolean playerPicksUpPokemon = StandardMenu.getYesOrNo(prompt);
+		boolean playerPicksUpPokemon = StandardMenu.promptYesOrNo(prompt);
 		
 		// respond to input
 		if(playerPicksUpPokemon) {

@@ -57,7 +57,7 @@ public class MainGame {
 					"quit game"
 			};
 
-			int choice = StandardMenu.getSelection(prompt, options);
+			int choice = StandardMenu.promptSelection(prompt, options);
 			switch(choice) {		
 			case 1:
 				// "explore", i.e. current location activity
@@ -101,7 +101,7 @@ public class MainGame {
 				"team info"
 		};
 
-		int choice = StandardMenu.getSelectionEscapable(prompt, options);
+		int choice = StandardMenu.promptSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// print player location
@@ -143,7 +143,7 @@ public class MainGame {
 				"heal" 
 		};
 
-		int actionChoice = StandardMenu.getSelectionEscapable(prompt, options);
+		int actionChoice = StandardMenu.promptSelectionEscapable(prompt, options);
 		switch(actionChoice) {		
 		case 1:
 			// view stats
@@ -171,31 +171,14 @@ public class MainGame {
 	}
 
 	private int selectPokemonIndex(String question) {
-		int pokeChoice;
-		boolean loopAgain = false;
-		do {
-			// handle menu
-			StandardIO.printDivider();
-			StandardIO.println(question + "\n");
-			StandardIO.println(player.getTrainer().getAllPokemonStr());// print menu, 1-6
-			StandardIO.printEscCharReminder();
-			pokeChoice = StandardIO.promptInt() -1;// convert from display values to indexes
-			StandardIO.printLineBreak();
+		// build menu
+		StandardIO.printDivider();
+		Pokemon[] pokes = player.getTrainer().getAllPokemon();
+		String[] options = new String[player.getTrainer().getNumPokemon()];
+		for(int i = 0; i < options.length; i++)
+			options[i] = PokemonUtil.getInlineSummary(pokes[i]);
 
-			// handle escape request
-			if( pokeChoice == -2 ){// account for -1 offset, EscChar is -2
-				return -1;
-			}
-			// catch bad inputs
-			if(player.getTrainer().getPokemon(pokeChoice) == null) {// bad input: pokemon at index "choice" doesn't exist
-				loopAgain = true;
-				StandardIO.println("You don't have that pokemon.\n");
-			}
-			else {
-				loopAgain = false;
-			}
-		}while(loopAgain);
-
+		int pokeChoice = StandardMenu.promptIndexEscapable(question, options);
 		return pokeChoice;
 	}
 
@@ -212,7 +195,7 @@ public class MainGame {
 				"load"
 		};
 
-		int choice = StandardMenu.getSelectionEscapable(prompt, options);
+		int choice = StandardMenu.promptSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// "save"
@@ -252,7 +235,7 @@ public class MainGame {
 				"audio"
 		};
 
-		int choice = StandardMenu.getSelectionEscapable(prompt, options);
+		int choice = StandardMenu.promptSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// print current crawl speed
@@ -269,7 +252,7 @@ public class MainGame {
 					+ (!SoundPlayer.isAllowedSound() ? " not" : "") + " allowed.");
 
 			prompt = "Allow audio?";
-			boolean activateAudio = StandardMenu.getYesOrNo(prompt);
+			boolean activateAudio = StandardMenu.promptYesOrNo(prompt);
 			if(activateAudio) {
 				SoundPlayer.setAllowSound(true);
 				SoundPlayer.playSound("sounds/game_sounds/toggle.wav");

@@ -3,6 +3,7 @@ package game;
 import java.util.Random;
 import audio.SoundPlayer;
 import io.StandardIO;
+import io.StandardMenu;
 import items.Item;
 import items.ItemUtil;
 import items.Pokeball;
@@ -123,56 +124,47 @@ public class PokeBattle {
 	 * Prints the battles status, then asks the player to make a choice, then handles that choice.
 	 */
 	private void runBattleMenu() {
-		boolean loopAgain = false;
-		do {
-			// print battle info
-			StandardIO.printDivider();
-			// e.g.
-			// PlayerPoke: 20 HP	(Lvl 5)
-			// EnemyPoke: ********	(Lvl 4)
-			String status = String.format("%12s: %-3d HP\t\t(Lvl %2d)\n"
-					+ "%12s: %10s \t(Lvl %2d)\n", 
-					playerPokemon.getNickname(), playerPokemon.getHP(), playerPokemon.getLevel(),
-					enemyPokemon.getName(), PokemonUtil.getHealthBar(enemyPokemon), enemyPokemon.getLevel());
-			StandardIO.println(status);
+		// print battle info
+		StandardIO.printDivider();
+		// e.g.
+		// PlayerPoke: 20 HP	(Lvl 5)
+		// EnemyPoke: ********	(Lvl 4)
+		String status = String.format("%12s: %-3d HP\t\t(Lvl %2d)\n"
+				+ "%12s: %10s \t(Lvl %2d)\n", 
+				playerPokemon.getNickname(), playerPokemon.getHP(), playerPokemon.getLevel(),
+				enemyPokemon.getName(), PokemonUtil.getHealthBar(enemyPokemon), enemyPokemon.getLevel());
+		StandardIO.println(status);
 
-			// print options
-			String options = "What would you like to do?\n"
-					+ "1 - attack\n"
-					+ "2 - run away\n"
-					+ "3 - bag\n"
-					+ "4 - pokemon\n";
-			StandardIO.println(options);
+		// define options
+		String prompt = "What would you like to do?";
+		String[] options = {
+				"attack",
+				"run away",
+				"bag",
+				"pokemon"
+		};
 
-			// respond to user choice
-			int choice = StandardIO.promptInt();
-			StandardIO.printLineBreak();
-			switch(choice) {		
-			case 1:
-				// "attack" 
-				choiceMovesMenu();
-				loopAgain = false;
-				break;
-			case 2:
-				// "run away"
-				choiceAttemptToEscape();
-				loopAgain = false;
-				break;
-			case 3:
-				// "bag"
-				choiceBagMenu();
-				loopAgain = false;
-				break;
-			case 4:
-				// "pokemon"
-				choicePokemonMenu();
-				loopAgain = false;
-				break;
-			default:
-				StandardIO.printEscCharReminder();
-				loopAgain = true;
-			}
-		} while(loopAgain);
+		// respond to user choice
+		int choice = StandardMenu.promptSelection(prompt, options);
+		switch(choice) {		
+		case 1:
+			// "attack" 
+			choiceMovesMenu();
+			break;
+		case 2:
+			// "run away"
+			choiceAttemptToEscape();
+			break;
+		case 3:
+			// "bag"
+			choiceBagMenu();
+			break;
+		case 4:
+			// "pokemon"
+			choicePokemonMenu();
+			break;
+		}
+
 	}
 
 	/**
@@ -399,7 +391,7 @@ public class PokeBattle {
 	private void runEnemyTurn() {
 		Random rng = new Random();
 		int enemyAttackChoice = rng.nextInt(enemyPokemon.getNumMoves());
-		
+
 		String atkSummary = PokemonUtil.attack(enemyPokemon, enemyAttackChoice, playerPokemon);
 
 		StandardIO.println(atkSummary);
@@ -439,7 +431,7 @@ public class PokeBattle {
 
 
 
-		
+
 		int expGained = PokemonUtil.getExpDropped(enemyPokemon);
 		playerPokemon.gainExp(expGained);
 
