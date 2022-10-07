@@ -9,6 +9,7 @@ public class StandardIO {
 	private static Scanner scanner = new Scanner(System.in);
 	private static int textCrawlDelay = 2;
 	private static final int MIN_CRAWL_DELAY = 0, MAX_CRAWL_DELAY = 50;
+	public static final int ESCAPE_INT = -1;
 
 
 	// get input //

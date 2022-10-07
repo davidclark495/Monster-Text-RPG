@@ -3,9 +3,11 @@ package game;
 import audio.SoundPlayer;
 import io.SaveFileManager;
 import io.StandardIO;
+import io.StandardMenu;
 import items.Bag;
 import items.Pokeball;
 import items.Potion;
+import location.Location;
 import location.LocationUtil;
 import location.WorldMap;
 import pokemon.Dex;
@@ -35,26 +37,30 @@ public class MainGame {
 	 * Helper for run().
 	 * Prints options, then asks the player to make a choice, then handles that choice.
 	 */
+	/**
+	 * Helper for run().
+	 * Prints options, then asks the player to make a choice, then handles that choice.
+	 */
 	private void gameLoopMenu() {
 		boolean runLoop = true;
 		while(runLoop) {
 			// print options
 			StandardIO.printDivider();
-			String options = "What would you like to do?\n"
-					+ "1 - explore " + player.getLocation().getName() + "\n"
-					+ "2 - travel\n"
-					+ "3 - check status\n"
-					+ "4 - save/load (in development)\n"
-					+ "5 - options\n"
-					+ "6 - quit game\n";
-			StandardIO.println(options);
 
-			// respond to user choice
-			int choice = StandardIO.promptInt();
-			StandardIO.printLineBreak();
+			String prompt = "What would you like to do?";
+			String[] options = {
+					"explore " + player.getLocation().getName(),
+					"travel",
+					"check status",
+					"save/load (in development)",
+					"options",
+					"quit game"
+			};
+
+			int choice = StandardMenu.getSelection(prompt, options);
 			switch(choice) {		
 			case 1:
-				// "current location activity" 
+				// "explore", i.e. current location activity
 				player.getLocation().runActivity();
 				break;
 			case 2:
@@ -77,8 +83,6 @@ public class MainGame {
 				// "quit"
 				runLoop = false;
 				break;
-			default:
-				StandardIO.println("Input not recognized. Please choose one of the given options.\n");
 			}
 		} 
 	}
@@ -90,16 +94,14 @@ public class MainGame {
 	private void statusMenu() {
 		// print options
 		StandardIO.printDivider();
-		String options = "What would you like to see?\n"
-				+ "1 - current location\n"
-				+ "2 - bag info\n"
-				+ "3 - team info\n";
-		StandardIO.println(options);
-		StandardIO.printEscCharReminder();
+		String prompt = "What would you like to see?";
+		String[] options = {
+				"current location",
+				"bag info",
+				"team info"
+		};
 
-		// respond to user choice
-		int choice = StandardIO.promptInt();
-		StandardIO.printLineBreak();
+		int choice = StandardMenu.getSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// print player location
@@ -117,11 +119,6 @@ public class MainGame {
 			// print player team info
 			pokemonStatusMenu();
 			break;
-		case -1:
-			// "escape character"
-			break;
-		default:
-			StandardIO.printInputNotRecognized();
 		}
 	}
 
@@ -139,16 +136,14 @@ public class MainGame {
 		// ask what to do with selected pokemon 
 		// print options
 		StandardIO.printDivider();
-		String options = "What would you like to do?\n"
-				+ "1 - view stats\n"
-				+ "2 - swap\n"
-				+ "3 - heal\n";
-		StandardIO.println(options);
-		StandardIO.printEscCharReminder();
+		String prompt = "What would you like to do?";
+		String[] options = {
+				"view stats",
+				"swap",
+				"heal" 
+		};
 
-		// respond to user choice
-		int actionChoice = StandardIO.promptInt();
-		StandardIO.printLineBreak();
+		int actionChoice = StandardMenu.getSelectionEscapable(prompt, options);
 		switch(actionChoice) {		
 		case 1:
 			// view stats
@@ -172,11 +167,6 @@ public class MainGame {
 			StandardIO.println( "Not yet implemented.\n" );
 			StandardIO.delayLong();
 			break;
-		case -1:
-			// "escape character"
-			break;
-		default:
-			StandardIO.printInputNotRecognized();
 		}
 	}
 
@@ -216,14 +206,13 @@ public class MainGame {
 	private void saveOrLoadMenu() {
 		// print options
 		StandardIO.printDivider();
-		String options = "What would you like to do?\n"
-				+ "1 - save\n"
-				+ "2 - load\n";
-		StandardIO.println(options);
+		String prompt = "What would you like to do?";
+		String[] options = {
+				"save",
+				"load"
+		};
 
-		// respond to user choice
-		int choice = StandardIO.promptInt();
-		StandardIO.printLineBreak();
+		int choice = StandardMenu.getSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// "save"
@@ -257,15 +246,13 @@ public class MainGame {
 	private void optionsMenu() {
 		// print options
 		StandardIO.printDivider();
-		String options = "What would you like to change?\n"
-				+ "1 - text-crawl delay\n"
-				+ "2 - audio\n";
-		StandardIO.println(options);
-		StandardIO.printEscCharReminder();
+		String prompt = "What would you like to change?";
+		String[] options = {
+				"text-crawl delay",
+				"audio"
+		};
 
-		// respond to user choice
-		int choice = StandardIO.promptInt();
-		StandardIO.printLineBreak();
+		int choice = StandardMenu.getSelectionEscapable(prompt, options);
 		switch(choice) {		
 		case 1:
 			// print current crawl speed
@@ -278,24 +265,18 @@ public class MainGame {
 		case 2:
 			// print current crawl speed
 			StandardIO.printDivider();
-			StandardIO.println("Audio is currently" + (!SoundPlayer.isAllowedSound() ? " not" : "") + " allowed.");
-			StandardIO.println("Allow audio? (y/n)\n");
-			char response = StandardIO.promptChar();
-			if(response == 'y') {
+			StandardIO.println("Audio is currently" 
+					+ (!SoundPlayer.isAllowedSound() ? " not" : "") + " allowed.");
+
+			prompt = "Allow audio?";
+			boolean activateAudio = StandardMenu.getYesOrNo(prompt);
+			if(activateAudio) {
 				SoundPlayer.setAllowSound(true);
 				SoundPlayer.playSound("sounds/game_sounds/toggle.wav");
-			}else if(response == 'n') {
+			}else{
 				SoundPlayer.setAllowSound(false);
-			}else {
-				StandardIO.printInputNotRecognized();
 			}
-			StandardIO.printLineBreak();
 			break;
-		case -1:
-			// "escape character"
-			break;
-		default:
-			StandardIO.printInputNotRecognized();
 		}
 	}
 

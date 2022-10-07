@@ -92,10 +92,10 @@ public class WildEncounterArea extends Location{
 			StandardIO.printDivider();
 			StandardIO.println(encounterPrompt + " (y/n)");
 			choice = StandardIO.promptChar();
+			StandardIO.printLineBreak();
 
 			// proceess response
 			if(choice == 'y') {
-				StandardIO.printLineBreak();
 				StandardIO.printDivider();
 				return true;
 			} else if(choice == 'n') {

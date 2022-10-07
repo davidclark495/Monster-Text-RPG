@@ -3,6 +3,7 @@ package location;
 import java.util.Random;
 
 import io.StandardIO;
+import io.StandardMenu;
 import pokemon.Dex;
 import pokemon.Pokemon;
 import pokemon.Species;
@@ -59,25 +60,16 @@ public class FirstArea extends StoryArea{
 
 		StandardIO.println("The Pokemon is frantically searching for... something.\n");
 
-		boolean loopAgain = true;
-		char input = 0;
-		while(loopAgain) {// get valid input			
-			StandardIO.println("Pick up the Pokemon? (y/n)");
-			input = StandardIO.promptChar();
-			StandardIO.println("");
-			if(input == 'y' || input == 'n') {
-				loopAgain = false;					
-			} else {
-				StandardIO.printInputNotRecognized();	
-			}
-			StandardIO.printDivider();
-		}
+		
+		String prompt = "Pick up the Pokemon?";
+		boolean playerPicksUpPokemon = StandardMenu.getYesOrNo(prompt);
+		
 		// respond to input
-		if(input == 'y') {
+		if(playerPicksUpPokemon) {
 			StandardIO.println("...the wild Pokemon seems to calm down.\n");
 			StandardIO.println("They leap to the ground. They want you to follow.\n");
 		}
-		else if(input == 'n') {
+		else {
 			StandardIO.println("The wild Pokemon looks at you cautiously. It approaches.\n");
 			StandardIO.println("The Pokemon gives you a quick sniff, then resumes its search.\n");
 			StandardIO.println("They've found a trail.\n");

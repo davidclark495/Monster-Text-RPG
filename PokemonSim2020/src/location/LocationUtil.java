@@ -45,7 +45,7 @@ public class LocationUtil {
 			
 
 			// handle good/bad inputs
-			if( choice < 0  || choice > outPaths.size()) {// catch out-of-bounds inputs
+			if( choice < 0  || choice >= outPaths.size()) {// catch out-of-bounds inputs
 				loopAgain = true;
 				StandardIO.printInputNotRecognized();
 			}else if( !(outPaths.get(choice).getValue().isUnlocked()) ){// attempt to access locked paths
