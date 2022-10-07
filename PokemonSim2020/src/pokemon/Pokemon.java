@@ -36,8 +36,9 @@ public class Pokemon {
 
 
 
-	public Pokemon(String species, int level) {
-		this(SpeciesList.getSpecies(species), level);
+	// Constructors
+	public Pokemon(String speciesStr, int level) {
+		this(SpeciesList.getSpecies(speciesStr), level);
 	}
 
 	public Pokemon(Species species, int level) {
@@ -58,20 +59,6 @@ public class Pokemon {
 	public boolean sameSpecies(Pokemon other) {
 		return species.equals(other.species);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

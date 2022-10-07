@@ -238,8 +238,14 @@ public class MainGame {
 			// "load"
 			StandardIO.printDivider();
 			Trainer loadedTrainer = SaveFileManager.loadTrainerFromSave();
-			if(loadedTrainer != null)
+			if(loadedTrainer != null) {
 				player.setTrainer(loadedTrainer);
+				StandardIO.println("The save file was correctly loaded.");
+				StandardIO.println("(BETA - team/bag info restored, locations/box not recovered)");
+			} else {
+				StandardIO.println("Unfortunately, the save file could not be loaded.");
+			}
+			StandardIO.printLineBreak();
 			break;
 		}
 	}

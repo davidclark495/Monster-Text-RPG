@@ -56,7 +56,6 @@ public class WildEncounterArea extends Location{
 	 */
 	private void startEncounterLoop() {
 		boolean runLoop = startEncounterPrompt();
-		StandardIO.printLineBreak();
 		while(runLoop) {
 
 

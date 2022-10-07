@@ -400,7 +400,6 @@ public class PokeBattle {
 		Random rng = new Random();
 		int enemyAttackChoice = rng.nextInt(enemyPokemon.getNumMoves());
 		
-		PokemonUtil.attack(enemyPokemon, enemyAttackChoice, playerPokemon);
 		String atkSummary = PokemonUtil.attack(enemyPokemon, enemyAttackChoice, playerPokemon);
 
 		StandardIO.println(atkSummary);
@@ -472,8 +471,6 @@ public class PokeBattle {
 		// play audio if level up occurred
 		if(newLevel > prevLevel)
 			SoundPlayer.playSound("sounds/game_sounds/level_up.wav");
-
-		StandardIO.printDivider();
 	}
 
 	/**
