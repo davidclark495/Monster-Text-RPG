@@ -20,6 +20,21 @@ public class MoveList {
 		return allMoves.get(name);
 	}
 	
+	
+	
+	
+	
+	
+	// tester method
+	public static Map<String, Move> getAllMoves() {
+		return allMoves;
+	}
+	
+	
+	
+	// read CSVs
+	
+	
 	private static void readMovesData() {
 		final String COMMA_DELIMITER = ",";
 		

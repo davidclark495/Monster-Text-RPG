@@ -226,6 +226,7 @@ public class PokeCenter extends Location{
 			//SoundPlayer.playSound("sounds/game_sounds/toggle.wav");
 		}
 		StandardIO.printLineBreak();
+		StandardIO.printLineBreak();
 		StandardIO.println("You have successfully healed your pokemon.\n");
 	}
 }
