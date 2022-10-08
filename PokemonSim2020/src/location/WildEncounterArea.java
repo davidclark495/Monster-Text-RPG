@@ -5,7 +5,6 @@ import java.util.Random;
 import game.PokeBattle;
 import io.StandardIO;
 import io.StandardMenu;
-import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.Species;
@@ -58,8 +57,6 @@ public class WildEncounterArea extends Location{
 	private void startEncounterLoop() {
 		boolean runLoop = startEncounterPrompt();
 		while(runLoop) {
-
-
 			// generate a new wild pokemon
 			Pokemon wildPoke = generateEncounter();
 
@@ -70,11 +67,10 @@ public class WildEncounterArea extends Location{
 			// run the battle
 			PokeBattle battle = new PokeBattle(this.getPlayer(), wildPoke);
 			battle.run();
-			// repeat? 
+			// allow repeat (if player still has healthy pokemon)
 			if(this.getPlayer().getTrainer().canFight()) {
 				runLoop = startEncounterPrompt();
-			}
-			else {
+			} else {
 				runLoop = false;
 			}
 		}
@@ -143,7 +139,6 @@ public class WildEncounterArea extends Location{
 					pokeLowerLevelBound[i],
 					pokeUpperLevelBound[i]));
 		}
-		String temp = sb.toString();
 		return sb.toString();
 	}
 }

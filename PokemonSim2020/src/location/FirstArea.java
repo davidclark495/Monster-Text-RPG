@@ -4,7 +4,6 @@ import java.util.Random;
 
 import io.StandardIO;
 import io.StandardMenu;
-import pokemon.Dex;
 import pokemon.Pokemon;
 import pokemon.Species;
 import pokemon.SpeciesList;

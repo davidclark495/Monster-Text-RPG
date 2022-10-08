@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import items.Bag;
 import items.Pokeball;
 import location.Location;
-import pokemon.Dex;
 import pokemon.PkType;
 import pokemon.Pokemon;
 import pokemon.Trainer;

@@ -61,45 +61,4 @@ public class ItemUtil {
 		}
 
 	}
-	
-
-	
-	
-	
-//	/**
-//	 * Attempts to catch the pokemon, does not print results
-//	 * The chance of success is a product of the pokemon's current Hp, etc.
-//	 * Pokemon must have trainer == null, trainer.addPokemon() must be successful (otherwise poke is added to box)
-//	 * 
-//	 * @param player The player
-//	 * @param poke The pokemon this ball is thrown at
-//	 * @return whether the catch succeeded (the pokemon was caught) or failed
-//	 */
-//	public boolean catchAttemptSilent(Player player, Pokemon poke) {
-//		Trainer thrower = player.getTrainer();
-//		Random generator = new Random();
-//		double successThreshold = 0.5 + 0.5*(poke.getHp())/poke.getMaxHp() ;// math, can be tweaked
-//		double value = generator.nextDouble() * ballBonus;// math, can be tweaked
-//		
-//		// pokemon belongs to another trainer, cannot be caught
-//		if(poke.getTrainer() != null) {
-//			return false;
-//		}
-//		// capture fails
-//		if( (successThreshold > value) ) {
-//			return false;
-//		}
-//		
-//		// success!
-//		poke.setNewTrainer(thrower);
-//		if( thrower.addPokemon(poke))
-//			return true;
-//		else {// trainer has no space on team, send to box
-//			poke.setNewTrainer(thrower);
-//			player.getBox().addPokemon(poke);
-//			return true;
-//		}
-//	}
-
-	
 }

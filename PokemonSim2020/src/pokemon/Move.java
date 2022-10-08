@@ -36,14 +36,6 @@ public class Move {
 			return false;
 		return this.name.equals(((Move)other).name);
 	}
-	
-	public String toString() {
-		if(category == Category.STATUS)
-			return String.format("%10s: \t\t (%s) \t [%s]", name, type, category);
-		
-		return String.format("%10s: %3d pwr \t (%s) \t [%s]", name, basePower, type, category);
-	}
-	
 
 
 	// getters and setters //

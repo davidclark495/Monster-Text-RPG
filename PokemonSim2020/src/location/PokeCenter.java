@@ -2,8 +2,8 @@ package location;
 
 import audio.SoundPlayer;
 import io.StandardIO;
+import io.StandardMenu;
 import items.PokemonStorageBox;
-import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.Trainer;
@@ -33,38 +33,23 @@ public class PokeCenter extends Location{
 	 * choose between healing and using the box
 	 */
 	private void runMenu() {
-		boolean loopAgain = false;
-		do {
-			// print options
-			StandardIO.printDivider();
-			String options = "What would you like to do?\n"
-					+ "1 - heal\n"
-					+ "2 - box\n";
-			StandardIO.println(options);
-			StandardIO.printEscCharReminder();
+		String prompt = "What would you like to do?";
+		String[] options = {
+				"heal",
+				"box"
+		};
 
-			// respond to user choice
-			int choice = StandardIO.promptInt();
-			StandardIO.printLineBreak();
-			switch(choice) {		
-			case 1:
-				// "heal" 
-				healPokemon();
-				loopAgain = false;
-				break;
-			case 2:
-				// "box"
-				boxMenu();
-				loopAgain = false;
-				break;
-			case -1:
-				loopAgain = false;
-				break;
-			default:
-				StandardIO.printInputNotRecognized();
-				loopAgain = true;
-			}
-		} while(loopAgain);
+		int choice = StandardMenu.promptSelectionEscapable(prompt, options);
+		switch(choice) {		
+		case 1:
+			// "heal" 
+			healPokemon();
+			break;
+		case 2:
+			// "box"
+			boxMenu();
+			break;
+		}
 	}
 
 	/**
@@ -72,42 +57,30 @@ public class PokeCenter extends Location{
 	 * loop until EscChar is input
 	 */
 	private void boxMenu() {
-		boolean loopAgain = true;
-		while(loopAgain) {
-			// print options
+		String prompt = "What would you like to do?";
+		String[] options = {
+				"deposit",
+				"withdraw",
+				"summary"
+		};
+
+		int choice = StandardMenu.promptSelectionEscapable(prompt, options);
+		switch(choice) {		
+		case 1:
+			// "deposit" 
+			depositPokemon();
+			break;
+		case 2:
+			// "withdraw"
+			withdrawPokemon();
+			break;
+		case 3:
+			// "summary"
 			StandardIO.printDivider();
-			String options = "What would you like to do?\n"
-					+ "1 - deposit\n"
-					+ "2 - withdraw\n"
-					+ "3 - summary\n";
-			StandardIO.println(options);
-			StandardIO.printEscCharReminder();
+			StandardIO.println( getPlayer().getBox().getAllPokemonStr() );
+			break;
+		}
 
-			// respond to user choice
-			int choice = StandardIO.promptInt();
-			StandardIO.printLineBreak();
-			switch(choice) {		
-			case 1:
-				// "deposit" 
-				depositPokemon();
-				break;
-			case 2:
-				// "withdraw"
-				withdrawPokemon();
-				break;
-
-			case 3:
-				// "summary"
-				StandardIO.printDivider();
-				StandardIO.println( getPlayer().getBox().getAllPokemonStr() );
-				break;
-			case -1:
-				loopAgain = false;
-				break;
-			default:
-				StandardIO.printEscCharReminder();
-			}
-		} 
 	}
 
 	/**
@@ -210,7 +183,7 @@ public class PokeCenter extends Location{
 		StandardIO.printDivider();
 		StandardIO.println("You withdrew " + withdrawnPoke.getNickname() + ".\n");
 	}
-	
+
 	/**
 	 * Helper for healLoop
 	 * Heal all pokemon of the known trainer
@@ -220,10 +193,10 @@ public class PokeCenter extends Location{
 			Pokemon temp = getPlayer().getTrainer().getPokemon(i);
 			temp.setHp(temp.getMaxHP());;
 			temp.restoreAllPP();
-			
+
 			StandardIO.print(".");
 			StandardIO.delayModerate();
-			//SoundPlayer.playSound("sounds/game_sounds/toggle.wav");
+			SoundPlayer.playSound("sounds/game_sounds/toggle.wav");
 		}
 		StandardIO.printLineBreak();
 		StandardIO.printLineBreak();

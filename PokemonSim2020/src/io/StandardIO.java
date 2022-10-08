@@ -49,6 +49,9 @@ public class StandardIO {
 	
 
 	// standard output //
+	public static void print(String message) {
+		System.out.print(message);
+	}
 	public static void println(String message) {
 		//prints w/ a text crawl
 		for(String line : message.split("\n", -1)){
@@ -58,9 +61,6 @@ public class StandardIO {
 			}
 			print("\n");
 		}
-	}
-	public static void print(String message) {
-		System.out.print(message);
 	}
 	public static void printDivider() {
 		println("--------------------\n");

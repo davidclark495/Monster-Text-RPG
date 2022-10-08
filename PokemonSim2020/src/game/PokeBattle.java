@@ -181,7 +181,7 @@ public class PokeBattle {
 		Move[] moves = playerPokemon.getAllMoves();
 		String[] options = new String[playerPokemon.getNumMoves()];
 		for(int i = 0; i < options.length; i++) {
-			options[i] = moves[i].toString();
+			options[i] = PokemonUtil.getInlineSummary(moves[i]);
 		}
 
 		int choice = StandardMenu.promptIndexEscapable(prompt, options);

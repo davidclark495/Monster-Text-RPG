@@ -2,6 +2,10 @@ package pokemon;
 
 import java.util.Random;
 
+import io.StandardIO;
+import io.StandardMenu;
+import pokemon.Move.Category;
+
 /**
  * Contains utility methods for accessing / altering Pokemon and their data.
  * 
@@ -9,7 +13,7 @@ import java.util.Random;
  * date: 09/02/2022
  */
 public class PokemonUtil {
-	
+
 	// battle methods //
 	/**
 	 * Uses the attacker's specified attack on the defending pokemon. 
@@ -61,7 +65,7 @@ public class PokemonUtil {
 		netDamage *= (0.4 * atkr.getLevel()) + 2;
 
 		// calculate type-relation modifiers on the net damage 
-		
+
 		double typeRelationMult;
 		if(dfdr.getType2() == null)
 			typeRelationMult = PkType.getDmgMultiplier(move.getType(), dfdr.getType1());
@@ -96,7 +100,7 @@ public class PokemonUtil {
 		Random rng = new Random();
 		double randomProportion = (rng.nextInt(15) + 85) / (double)100;// value btwn .85 and 1.00
 		netDamage = (int)Math.floor(netDamage * randomProportion);
-		
+
 		// bring it down a little
 		netDamage /= 50;
 
@@ -111,97 +115,149 @@ public class PokemonUtil {
 		return atkSummary + finalDefSummary;
 	}
 
-	
+
 	// string methods //
-		/**
-		 * @return a summary of this Pokemon
-		 */
-		public static String getInlineSummary(Pokemon poke) {
-			String levelStr = String.format("level %d", poke.getLevel());
-			String hpStr = String.format("%3d/%-3d HP", poke.getHP(), poke.getMaxHP());
-			String typeStr;
-			if(poke.getType2() == null) 
-				typeStr = String.format("[%s]", poke.getType1());
-			else
-				typeStr = String.format("[%s %s]", poke.getType1(), poke.getType2());
-			
-			String message = String.format("%-15s %s | %s | %s", 
-					poke.getNickname(), levelStr, hpStr, typeStr); 
+	/**
+	 * @return a one-line summary of this Pokemon
+	 */
+	public static String getInlineSummary(Pokemon poke) {
+		String levelStr = String.format("level %d", poke.getLevel());
+		String hpStr = String.format("%3d/%-3d HP", poke.getHP(), poke.getMaxHP());
+		String typeStr;
+		if(poke.getType2() == null) 
+			typeStr = String.format("[%s]", poke.getType1());
+		else
+			typeStr = String.format("[%s %s]", poke.getType1(), poke.getType2());
 
-			return message;
-		}
+		String message = String.format("%-15s %s | %s | %s", 
+				poke.getNickname(), levelStr, hpStr, typeStr); 
 
-		public static String getStatistics(Pokemon poke) {
-			String nameStr;
-			if(poke.getNickname().equals(poke.getName()))
-				nameStr = String.format("Name: %s", poke.getName());
-			else
-				nameStr = String.format("Name: %s (%s)", poke.getName(), poke.getNickname());
-			
-			String typeStr;
-			if(poke.getType2() == null) 
-				typeStr = String.format("Type: %s", poke.getType1());
-			else
-				typeStr = String.format("Type: %s %s", poke.getType1(), poke.getType2());
-			
-			String message = 
-					String.format("--Statistics--\n"
-							+ "%s\n"
-							+ "%s\n"
-							+ "Level: %3d\n"
-							+ "Exp: %d/%d\n" 
-							+ "HP: %3d/%-3d\n"
-							+ "ATK:   %3d DEF:   %3d\n"
-							+ "SpATK: %3d SpDEF: %3d\n"
-							+ "SPD:   %3d\n",
-							nameStr,
-							typeStr,
-							poke.getLevel(), 
-							poke.getCurrentExp(), poke.getExpHeldAtNextLevel(),
-							poke.getHP(), poke.getMaxHP(),
-							poke.getATK(), poke.getDEF(),
-							poke.getSpATK(), poke.getSpDEF(),
-							poke.getSPD());
-			return message + "\n";
-		}
-
-		/**
-		 * Gets the values that are likely to change over the course of a battle.
-		 */
-		public static String getStatus(Pokemon poke) {
-			String message = "Current Status:"
-					+ "\nName: " + poke.getName()
-					+ "\nCurrent HP: " + poke.getHP()
-					+ "\n";
-			return message;
-		}
+		return message;
+	}
+	
+	/**
+	 * @return a one-line summary of this move
+	 */
+	public static String getInlineSummary(Move move) {
+		if(move.getCategory() == Move.Category.STATUS)
+			return String.format("%10s: \t\t (%s) \t [%s]", move.getName(), move.getType(), move.getCategory());
 		
-		/**
-		 * Returns a visual representation of the pokemon's health.
-		 * The precise HP value is obscured.
-		 * @param poke
-		 * @return
-		 */
-		public static String getHealthBar(Pokemon poke) {
-			int numTenths = (int)Math.ceil(poke.getHP()/(double)poke.getMaxHP() * 10);
-			String message = "";
-			for(int i = 0; i < numTenths; i++)
-				message += "*";
-			return String.format("%-10s", message);
-		}
-		
-		
-		// LEVELS, EXP, and STATS //
-		/** 
-		 * 
-		 * @return the amount of exp the pokemon drops when defeated
-		 */
-		public static int getExpDropped(Pokemon poke) {
-			double lvlMult = 10;
-			double maxHpMult = 0.2;
+		return String.format("%10s: %3d pwr \t (%s) \t [%s]", move.getName(), move.getPower(), move.getType(), move.getCategory());
+	}
 
-			int expDropped = (int)(poke.getLevel()*lvlMult + poke.getMaxHP()*maxHpMult);
-			return expDropped;
+	public static String getStatistics(Pokemon poke) {
+		String nameStr;
+		if(poke.getNickname().equals(poke.getName()))
+			nameStr = String.format("Name: %s", poke.getName());
+		else
+			nameStr = String.format("Name: %s (%s)", poke.getName(), poke.getNickname());
+
+		String typeStr;
+		if(poke.getType2() == null) 
+			typeStr = String.format("Type: %s", poke.getType1());
+		else
+			typeStr = String.format("Type: %s %s", poke.getType1(), poke.getType2());
+
+		String message = 
+				String.format("--Statistics--\n"
+						+ "%s\n"
+						+ "%s\n"
+						+ "Level: %3d\n"
+						+ "Exp: %d/%d\n" 
+						+ "HP: %3d/%-3d\n"
+						+ "ATK:   %3d DEF:   %3d\n"
+						+ "SpATK: %3d SpDEF: %3d\n"
+						+ "SPD:   %3d\n",
+						nameStr,
+						typeStr,
+						poke.getLevel(), 
+						poke.getCurrentExp(), poke.getExpHeldAtNextLevel(),
+						poke.getHP(), poke.getMaxHP(),
+						poke.getATK(), poke.getDEF(),
+						poke.getSpATK(), poke.getSpDEF(),
+						poke.getSPD());
+		return message + "\n";
+	}
+
+	/**
+	 * Gets the values that are likely to change over the course of a battle.
+	 */
+	public static String getStatus(Pokemon poke) {
+		String message = "Current Status:"
+				+ "\nName: " + poke.getName()
+				+ "\nCurrent HP: " + poke.getHP()
+				+ "\n";
+		return message;
+	}
+
+	/**
+	 * Returns a visual representation of the pokemon's health.
+	 * The precise HP value is obscured.
+	 * @param poke
+	 * @return
+	 */
+	public static String getHealthBar(Pokemon poke) {
+		int numTenths = (int)Math.ceil(poke.getHP()/(double)poke.getMaxHP() * 10);
+		String message = "";
+		for(int i = 0; i < numTenths; i++)
+			message += "*";
+		return String.format("%-10s", message);
+	}
+
+
+	// LEVELS, EXP, and STATS //
+	/** 
+	 * 
+	 * @return the amount of exp the pokemon drops when defeated
+	 */
+	public static int getExpDropped(Pokemon poke) {
+		double lvlMult = 10;
+		double maxHpMult = 0.2;
+
+		int expDropped = (int)(poke.getLevel()*lvlMult + poke.getMaxHP()*maxHpMult);
+		return expDropped;// * 20;
+	}
+
+	/**
+	 * Called when a pokemon needs player-permission to learn a new move.
+	 * 
+	 * @param pokemon
+	 * @param newMove
+	 */
+	public static void promptTeachMove(Pokemon pokemon, Move newMove) {
+		StandardIO.printDivider();
+		
+		// if pokemon can learn without forgetting, do so
+		if(pokemon.getNumMoves() < Pokemon.MAX_NUM_MOVES) {
+			pokemon.teachMove(newMove);
+			StandardIO.println(String.format("%s learned %s!", pokemon.getNickname(), newMove.getName()));
+			StandardIO.printLineBreak();
+			return;
 		}
+
+		// if pokemon must forget, request player input
+		StandardIO.println(String.format("%s wants to learn %s.", pokemon.getNickname(), newMove.getName()));
+		String prompt = String.format("Which move should %s forget to learn %s?", pokemon.getNickname(), newMove.getName());
+		String[] options = new String[pokemon.getNumMoves()+1];
+		for(int i = 0; i < pokemon.getNumMoves(); i++) {
+			options[i] = PokemonUtil.getInlineSummary(pokemon.getMove(i));
+		}
+		int lastIdx = pokemon.getNumMoves();
+		options[lastIdx] = PokemonUtil.getInlineSummary(newMove);
+		
+		int choice = StandardMenu.promptIndexEscapable(prompt, options);
+		if(0 <= choice && choice < pokemon.getNumMoves()) {// choice is a 'forgettable', indexed move
+			Move forgottenMove = pokemon.getMove(choice);
+			pokemon.forgetMove(choice);
+			pokemon.teachMove(newMove);
+			StandardIO.println(String.format("%s forgot %s.", pokemon.getNickname(), forgottenMove.getName()));
+			StandardIO.delayModerate();
+			StandardIO.println(String.format("%s learned %s!", pokemon.getNickname(), newMove.getName()));
+		} 
+		else if(choice == lastIdx || choice == StandardIO.ESCAPE_INT) {// choice is the new move (or 'escape')
+			StandardIO.println(String.format("%s did not learn %s", pokemon.getNickname(), newMove.getName()));
+		}
+		return;
+	}
 
 }

@@ -10,7 +10,6 @@ import items.Potion;
 import location.Location;
 import location.LocationUtil;
 import location.WorldMap;
-import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.PokemonUtil;

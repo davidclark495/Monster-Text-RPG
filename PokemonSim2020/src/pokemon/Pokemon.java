@@ -1,17 +1,7 @@
 package pokemon;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import audio.SoundPlayer;
-import io.StandardIO;
 
 public class Pokemon {
 
@@ -19,6 +9,7 @@ public class Pokemon {
 		MaxHP, ATK, DEF, SpATK, SpDEF, SPD;
 	}
 
+	public static final int MAX_NUM_MOVES = 4;
 	private static final double EXPNEXT_SCALEFACTOR = 3;
 
 	// presentation
@@ -126,12 +117,20 @@ public class Pokemon {
 		}
 	}
 	private void levelUp() {
-		// update level, increase totalExp until next level, do not modify current totalExp
 		level++;
+
 		// learn moves, if applicable
-		// TODO: get user input on which moves should be forgotten
-		if(species.getMovesLearnedAtLevel(level) != null)
-			this.teachAllMoves(species.getMovesLearnedAtLevel(level).toArray(new Move[0]));
+		if(species.getMovesLearnedAtLevel(level) != null) {
+			
+			if(this.getTrainer() != null) // if pokemon has trainer, request input when learning moves
+				for(Move newMove : species.getMovesLearnedAtLevel(level).toArray(new Move[0]))
+					PokemonUtil.promptTeachMove(this, newMove);
+			
+			else // otherwise, always learn the new move
+				for(Move newMove : species.getMovesLearnedAtLevel(level).toArray(new Move[0]))
+					this.movesTracker.forceAddMove(newMove);
+		}
+
 		// recalculate stats w/ the higher level
 		recalculateStats();
 	}
@@ -159,12 +158,12 @@ public class Pokemon {
 
 	// called after level-up
 	private void recalculateStats() {
-		int baseHP = species.getBaseStat(Species.BaseStat.BaseHP);
-		int baseATK = species.getBaseStat(Species.BaseStat.BaseATK);
-		int baseDEF = species.getBaseStat(Species.BaseStat.BaseDEF);
+		int baseHP 	  = species.getBaseStat(Species.BaseStat.BaseHP);
+		int baseATK   = species.getBaseStat(Species.BaseStat.BaseATK);
+		int baseDEF   = species.getBaseStat(Species.BaseStat.BaseDEF);
 		int baseSpATK = species.getBaseStat(Species.BaseStat.BaseSpATK);
 		int baseSpDEF = species.getBaseStat(Species.BaseStat.BaseSpDEF);
-		int baseSPD = species.getBaseStat(Species.BaseStat.BaseSPD);
+		int baseSPD   = species.getBaseStat(Species.BaseStat.BaseSPD);
 
 		double maxHP 	= (2*baseHP*level)/100.0 + level + 10;
 		double atk 		= (2*baseATK*level)/100.0 + 5;
@@ -266,24 +265,6 @@ public class Pokemon {
 		return movesTracker.addMove(move);
 	}
 
-	/**
-	 * 
-	 * @param move
-	 * @return
-	 */
-	public boolean teachAllMoves(Move[] moves) {
-		return movesTracker.addAllMoves(moves);
-	}
-
-	/**
-	 * 
-	 * @param move
-	 * @return
-	 */
-	public boolean forgetMove(Move move) {
-		return movesTracker.removeMove(move);
-	}
-
 	public boolean forgetMove(int index) {
 		return movesTracker.removeMove(index);
 	}
@@ -361,8 +342,7 @@ public class Pokemon {
 
 	private class MovesTracker{
 
-		private static final int MAX_NUM_MOVES = 4;
-
+		int oldestMoveIndex = 0;
 		private Move[] moves;	
 		private int[] ppLeft;	
 		private int numMoves;
@@ -381,7 +361,7 @@ public class Pokemon {
 		public String toString() {
 			String str = "Available Moves: " + numMoves + "\n";
 			for(int i = 1; i <= numMoves; i++) {
-				str += String.format("%d - %s\n", i, moves[i-1]);
+				str += String.format("%d - %s\n", i, PokemonUtil.getInlineSummary(moves[i-1]));
 			}
 			return str;
 		}
@@ -445,6 +425,24 @@ public class Pokemon {
 				numMoves++;
 			}
 			return true;
+		}
+
+		/**
+		 * 
+		 * @param newMove
+		 * @return if newMove replaced an existing move, this method returns the forgotten move (else null)
+		 */
+		private Move forceAddMove(Move newMove) {
+			if(this.numMoves < MAX_NUM_MOVES) {
+				this.addMove(newMove);
+				return null;
+			} else {
+				Move forgottenMove = this.getMove(0);
+				this.removeMove(0);
+				this.addMove(newMove);
+				return forgottenMove;				
+			}
+
 		}
 
 		// return true if the move was successfully removed,
