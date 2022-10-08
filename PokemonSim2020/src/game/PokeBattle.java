@@ -1,6 +1,8 @@
 package game;
 
 import java.util.Random;
+import java.util.Set;
+
 import audio.SoundPlayer;
 import io.StandardIO;
 import io.StandardMenu;
@@ -8,6 +10,7 @@ import items.Item;
 import items.ItemUtil;
 import items.Pokeball;
 import items.Potion;
+import pokemon.Move;
 import pokemon.Player;
 import pokemon.Pokemon;
 import pokemon.PokemonUtil;
@@ -122,13 +125,13 @@ public class PokeBattle {
 	 * Helper for run().
 	 * Represents the Player's turn.
 	 * Prints the battles status, then asks the player to make a choice, then handles that choice.
+	 * e.g.
+	 * PlayerPoke: 20 HP	(Lvl 5)
+	 * EnemyPoke: ********	(Lvl 4)
 	 */
 	private void runBattleMenu() {
 		// print battle info
 		StandardIO.printDivider();
-		// e.g.
-		// PlayerPoke: 20 HP	(Lvl 5)
-		// EnemyPoke: ********	(Lvl 4)
 		String status = String.format("%12s: %-3d HP\t\t(Lvl %2d)\n"
 				+ "%12s: %10s \t(Lvl %2d)\n", 
 				playerPokemon.getNickname(), playerPokemon.getHP(), playerPokemon.getLevel(),
@@ -164,7 +167,6 @@ public class PokeBattle {
 			choicePokemonMenu();
 			break;
 		}
-
 	}
 
 	/**
@@ -173,28 +175,20 @@ public class PokeBattle {
 	 * If the player chooses an invalid move, the menu will prompt for a new choice
 	 */
 	private void choiceMovesMenu() {
-		int choice;
-		boolean loopAgain;
-		do {
-			// handle menu
-			StandardIO.printDivider();
-			StandardIO.println(playerPokemon.getAllMovesString());// displays a list, 1-4
-			StandardIO.printEscCharReminder();
-			choice = StandardIO.promptInt() -1;// account for the conversion from display to indexes
-			StandardIO.printLineBreak();
+		// handle menu
+		StandardIO.printDivider();
+		String prompt = String.format("Which move should %s use?", playerPokemon.getNickname());
+		Move[] moves = playerPokemon.getAllMoves();
+		String[] options = new String[playerPokemon.getNumMoves()];
+		for(int i = 0; i < options.length; i++) {
+			options[i] = moves[i].toString();
+		}
 
-			// handle escape request
-			if( choice == -2 ){// account for -1 offset, EscChar is -2
-				runBattleMenu();
-				return;
-			}
-			// handle bad inputs w/ loop
-			loopAgain = playerPokemon.getMove(choice) == null;
-			if(loopAgain) {
-				StandardIO.println(playerPokemon.getNickname() + " didn't understand you. "
-						+ "\nPlease choose a valid move.\n");
-			}
-		}while(loopAgain);
+		int choice = StandardMenu.promptIndexEscapable(prompt, options);
+		if(choice == -1) {
+			runBattleMenu();
+			return;
+		}
 
 		// execute the attack
 		String atkSummary = PokemonUtil.attack(playerPokemon, choice, enemyPokemon);	
@@ -213,6 +207,7 @@ public class PokeBattle {
 			StandardIO.println("You failed to get away.\n");
 		}else {
 			//succeeds in escaping
+			StandardIO.printDivider();
 			StandardIO.println("You got away safely.\n");
 			continueBattle = false;
 		}
@@ -229,33 +224,23 @@ public class PokeBattle {
 			return;
 		}
 
-		int choice;
-		boolean loopAgain;
-		do {
-			// handle menu
-			StandardIO.printDivider();
-			StandardIO.println( playerTrainer.getBag().getAllItemsSummary() );// displays a list, 1-4
-			StandardIO.printEscCharReminder();
-			choice = StandardIO.promptInt() -1;// account for the conversion from display to indexes
-			StandardIO.printLineBreak();
-
-			// handle escape request
-			if( choice == -2 ){// account for -1 offset, EscChar is -2
-				runBattleMenu();
-				return;
-			}
-
-			// handle loop/repeats
-			loopAgain = (playerTrainer.getBag().getItem(choice) == null);// loops again if bag fails to spend item
-			if(loopAgain) {
-				StandardIO.println("You don't have that item.\n");
-			}
-		}while(loopAgain);
+		// handle menu
+		StandardIO.printDivider();
+		String prompt = "Which item will you use?";
+		Item[] items = playerTrainer.getBag().getItemSet().toArray(new Item[0]);
+		String[] options = new String[items.length];
+		for(int i = 0; i < options.length; i++) {
+			options[i] = items[i].toString();// + playerTrainer.getBag().getItemQuantity(items[i]);
+		}
+		int choice = StandardMenu.promptIndexEscapable(prompt, options);
+		if(choice == -1) {
+			runBattleMenu();
+			return;
+		}
 
 		// use the item
 		Item item = playerTrainer.getBag().spendItem(choice);
 		useItem(item);
-		//StandardIO.println("Your bag is empty.\n");
 	}
 
 	/**
@@ -265,35 +250,30 @@ public class PokeBattle {
 		int choice;
 		boolean loopAgain = false;
 		do {
-			// handle menu
+			// build menu
 			StandardIO.printDivider();
-			StandardIO.println(playerTrainer.getAllPokemonStr());// print menu, 1-6
-			StandardIO.printEscCharReminder();
-			choice = StandardIO.promptInt() -1;// convert from display values to indexes
-			StandardIO.printLineBreak();
+			String prompt = "Which pokemon will you choose?";
+			Pokemon[] pokes = player.getTrainer().getAllPokemon();
+			String[] options = new String[player.getTrainer().getNumPokemon()];
+			for(int i = 0; i < options.length; i++)
+				options[i] = PokemonUtil.getInlineSummary(pokes[i]);
 
-			// handle escape request
-			if( choice == -2 ){// account for -1 offset, EscChar is -2
+			choice = StandardMenu.promptIndexEscapable(prompt, options);
+			if(choice == -1) {
 				runBattleMenu();
 				return;
 			}
-			// catch bad inputs
-			if(playerTrainer.getPokemon(choice) == null) {// bad input: pokemon at index "choice" doesn't exist
+
+			// catch invalid options
+			if(playerTrainer.getPokemon(choice) == playerPokemon) {// bad input: can't send out pokemon who is already out
 				loopAgain = true;
-				StandardIO.println("You don't have that pokemon.\n");
-			}
-			else if(playerTrainer.getPokemon(choice) == playerPokemon) {// bad input: can't send out pokemon who is already out
-				loopAgain = true;
-				StandardIO.println(playerPokemon.getNickname() + " is already on the field!\n");
+				StandardIO.println(String.format("%s is already on the field!\n", playerPokemon.getNickname()));
 			}
 			else if(playerTrainer.getPokemon(choice).isFainted()) {// bad input: pokemon at index "choice" is fainted
 				loopAgain = true;
-				StandardIO.println(playerTrainer.getPokemon(choice).getNickname() + " is resting. Give them a moment.\n");
+				StandardIO.println(String.format("%s is resting. Give them a moment.\n", playerTrainer.getPokemon(choice).getNickname()));
 			} 
-			else {
-				loopAgain = false;
-			}
-		}while(loopAgain);
+		} while (loopAgain);
 
 		// make the swap
 		playerTrainer.swapPokemonToFront(choice);
@@ -309,42 +289,44 @@ public class PokeBattle {
 	 * @param item
 	 */
 	private void useItem(Item item) {
+		StandardIO.printDivider();
 		if(item instanceof Pokeball) {
 			Pokeball ball = (Pokeball)(item);
 			boolean catchSuccess = ItemUtil.catchAttemptPrint(player, enemyPokemon, ball);
 			if(catchSuccess) {
 				continueBattle = false;
 				renameCaughtPokemon(enemyPokemon);
-				winningExpProcessor();
+				StandardIO.printDivider();
+				PokeBattleUtil.winningExpProcessor(playerPokemon, enemyPokemon);
+			}else {
+				StandardIO.printDivider();
 			}
-		}
+		} 
 		else if(item instanceof Potion) {
 			Potion pot = (Potion)(item);
 			// get choice: which pokemon should be healed?
-			int choice;
-			boolean loopAgain;
+			Pokemon pokeChoice;
+			boolean loopAgain = false;
 			do {
-				// handle menu
-				StandardIO.println("Which pokemon should be healed?\n");
-				StandardIO.println(playerTrainer.getAllPokemonStr());// print menu, 1-6
-				StandardIO.printEscCharReminder();
-				choice = StandardIO.promptInt() -1;// convert from display values to indexes
-				StandardIO.printLineBreak();
+				// build menu
+				StandardIO.printDivider();
+				String prompt = "Choose a pokemon to send out.";
+				Pokemon[] pokes = player.getTrainer().getAllPokemon();
+				String[] options = new String[player.getTrainer().getNumPokemon()];
+				for(int i = 0; i < options.length; i++)
+					options[i] = PokemonUtil.getInlineSummary(pokes[i]);
 
-				// handle escape request
-				if( choice == -2 ){// account for -1 offset, EscChar is -2
-					runBattleMenu();
-					return;
-				}
-				// handle bad inputs w/ loop
-				loopAgain = (playerTrainer.getPokemon(choice) == null);
-				if(loopAgain) {
-					StandardIO.println("You don't have that pokemon.");
-				}
-			}while(loopAgain);
+				int choice = StandardMenu.promptIndex(prompt, options);
+
+				// catch invalid options
+				pokeChoice = playerTrainer.getPokemon(choice);
+				if(pokeChoice.getHP() == pokeChoice.getMaxHP()) {// bad input: pokemon at index "choice" has full health
+					loopAgain = true;
+					StandardIO.println(String.format("%s doesn't need healing.\n", pokeChoice.getNickname()));
+				} 
+			} while (loopAgain);
 
 			// heal the pokemon
-			Pokemon pokeChoice = playerTrainer.getPokemon(choice);
 			pot.healPokemon(pokeChoice);
 			StandardIO.println("You healed " + pokeChoice.getNickname() + " by " + pot.getHealAmt() + ".\n");
 		}
@@ -357,30 +339,13 @@ public class PokeBattle {
 	 * helper method for useItem()
 	 */
 	private void renameCaughtPokemon(Pokemon caughtPoke) {
-		char choice;
-		boolean loopAgain = false;
-		do {
-			// prompt input
-			StandardIO.printDivider();
-			StandardIO.println("Give the caught pokemon a nickname? (y/n) \n");
-			choice = StandardIO.promptChar();
-			StandardIO.printLineBreak();
-
-			// handle each outcome
-			if( choice == 'y' ) {
-				StandardIO.println("Please type the new nickname for " + caughtPoke.getName() + ".\n");
-				String newNickname = StandardIO.promptInput();
-				caughtPoke.setNickname(newNickname);
-				StandardIO.println("\n" + caughtPoke.getName() + " was renamed to " + caughtPoke.getNickname() + "!\n");
-				StandardIO.printDivider();
-				loopAgain = false;
-			}else if( choice == 'n' ){
-				loopAgain = false;
-			}else {
-				loopAgain = true;
-				StandardIO.println("\"" + choice + "\" wasn't recognized. Please input \"y\" or \"n\".\n");
-			}
-		}while(loopAgain);
+		boolean giveNickname = StandardMenu.promptYesOrNo("Give the caught pokemon a nickname?");
+		if(giveNickname) {
+			StandardIO.println("Please type the new nickname for " + caughtPoke.getName() + ".\n");
+			String newNickname = StandardIO.promptInput();
+			caughtPoke.setNickname(newNickname);
+			StandardIO.println("\n" + caughtPoke.getName() + " was renamed to " + caughtPoke.getNickname() + "!\n");
+		} 
 	}
 
 	/**
@@ -408,61 +373,8 @@ public class PokeBattle {
 		StandardIO.println(enemyPokemon.getName() + " fainted! " + playerPokemon.getNickname() + " won the battle!\n");
 
 		// handle exp, level ups
-		winningExpProcessor();
-	}
-
-	/**
-	 * Helper for runPlayerWinsEnding()
-	 * updates the player pokemon's exp / level / stats
-	 * and prints a relevant summary
-	 */
-	private void winningExpProcessor() {
-
-		int prevLevel = playerPokemon.getLevel();
-		int prevExp = playerPokemon.getCurrentExp();
-		String levelMessage = "Level:\t" + prevLevel;
-		String expMessage = "Exp:\t" + prevExp + "/" + playerPokemon.getExpHeldAtNextLevel();
-		String hpMessage = "HP:\t" + playerPokemon.getHP() + "/" + playerPokemon.getMaxHP();
-		String atkMessage = "ATK:\t" + playerPokemon.getATK();
-		String defMessage = "DEF:\t" + playerPokemon.getDEF();
-		String spAtkMessage = "SpATK:\t" + playerPokemon.getSpATK();
-		String spDefMessage = "SpDEF:\t" + playerPokemon.getSpDEF();
-		String spdMessage = "SPD:\t" + playerPokemon.getSPD();
-
-
-
-
-		int expGained = PokemonUtil.getExpDropped(enemyPokemon);
-		playerPokemon.gainExp(expGained);
-
-		int newLevel = playerPokemon.getLevel();
-		int newExp = playerPokemon.getCurrentExp();
-
-		if(newLevel > prevLevel) {// if a level up occurred, give a more detailed message w/ stats
-			hpMessage += " --> " + playerPokemon.getHP() + "/" + playerPokemon.getMaxHP() + "\n";
-			atkMessage += " --> " + playerPokemon.getATK() + "\n";
-			defMessage += " --> " + playerPokemon.getDEF() + "\n";
-			spAtkMessage += " --> " + playerPokemon.getSpATK() + "\n";
-			spDefMessage += " --> " + playerPokemon.getSpDEF() + "\n";
-			spdMessage += " --> " + playerPokemon.getSPD() + "\n";
-		}else {
-			hpMessage = "";
-			atkMessage = "";
-			defMessage = "";
-			spAtkMessage = "";
-			spDefMessage = "";
-			spdMessage = "";
-		}
-
-		levelMessage += " --> " + newLevel + "\n";
-		expMessage += " --> " + newExp + "/" + playerPokemon.getExpHeldAtNextLevel() + "\n";
-
-		StandardIO.println(String.format("%s gained %d experience!\n", playerPokemon.getNickname(), PokemonUtil.getExpDropped(enemyPokemon)));
-		StandardIO.println(levelMessage + expMessage + hpMessage + atkMessage + defMessage + spAtkMessage + spDefMessage + spdMessage);
-
-		// play audio if level up occurred
-		if(newLevel > prevLevel)
-			SoundPlayer.playSound("sounds/game_sounds/level_up.wav");
+		StandardIO.printDivider();
+		PokeBattleUtil.winningExpProcessor(playerPokemon, enemyPokemon);
 	}
 
 	/**
@@ -483,28 +395,22 @@ public class PokeBattle {
 		int choice;
 		boolean loopAgain = false;
 		do {
-			//print context
+			// build menu
 			StandardIO.printDivider();
-			StandardIO.println("Choose a pokemon to send out.\n");
+			String prompt = "Choose a pokemon to send out.";
+			Pokemon[] pokes = player.getTrainer().getAllPokemon();
+			String[] options = new String[player.getTrainer().getNumPokemon()];
+			for(int i = 0; i < options.length; i++)
+				options[i] = PokemonUtil.getInlineSummary(pokes[i]);
 
-			// handle menu
-			StandardIO.println(playerTrainer.getAllPokemonStr());// print a menu, 1-6
-			choice = StandardIO.promptInt() -1;// convert from display values to indexes
-			StandardIO.printLineBreak();
+			choice = StandardMenu.promptIndex(prompt, options);
 
-			// catch bad inputs
-			if(playerTrainer.getPokemon(choice) == null) {// bad input: pokemon at index "choice" doesn't exist
+			// catch invalid options
+			if(playerTrainer.getPokemon(choice).isFainted()) {// bad input: pokemon at index "choice" is fainted
 				loopAgain = true;
-				StandardIO.println("You don't have that pokemon.\n");
-			}
-			else if(playerTrainer.getPokemon(choice).isFainted()) {// bad input: pokemon at index "choice" is fainted
-				loopAgain = true;
-				StandardIO.println(playerTrainer.getPokemon(choice).getNickname() + " is resting. Give them a moment.\n");
-			}
-			else {
-				loopAgain = false;
-			}
-		}while(loopAgain);
+				StandardIO.println(String.format("%s is resting. Give them a moment.\n", playerTrainer.getPokemon(choice).getNickname()));
+			} 
+		} while (loopAgain);
 
 		// make the swap
 		playerTrainer.swapPokemonToFront(choice);

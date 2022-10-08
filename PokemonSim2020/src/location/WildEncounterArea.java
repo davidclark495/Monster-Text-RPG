@@ -4,6 +4,7 @@ import java.util.Random;
 
 import game.PokeBattle;
 import io.StandardIO;
+import io.StandardMenu;
 import pokemon.Dex;
 import pokemon.Player;
 import pokemon.Pokemon;
@@ -72,7 +73,6 @@ public class WildEncounterArea extends Location{
 			// repeat? 
 			if(this.getPlayer().getTrainer().canFight()) {
 				runLoop = startEncounterPrompt();
-				StandardIO.printLineBreak();
 			}
 			else {
 				runLoop = false;
@@ -85,27 +85,11 @@ public class WildEncounterArea extends Location{
 	 * Loops until the player chooses "No" (false) or "Yes" (true)
 	 */
 	private boolean startEncounterPrompt() {
-		int choice;
-		while(true) {
-
-			// handle menu
+		boolean startEncounter = StandardMenu.promptYesOrNo(encounterPrompt);
+		if(startEncounter)
 			StandardIO.printDivider();
-			StandardIO.println(encounterPrompt + " (y/n)");
-			choice = StandardIO.promptChar();
-			StandardIO.printLineBreak();
-
-			// proceess response
-			if(choice == 'y') {
-				StandardIO.printDivider();
-				return true;
-			} else if(choice == 'n') {
-				return false;
-			// bad input: allow loop to repeat
-			} else {
-				StandardIO.printLineBreak();
-				StandardIO.printInputNotRecognized();
-			}
-		}
+		
+		return startEncounter;
 	}
 
 

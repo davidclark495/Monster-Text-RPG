@@ -125,7 +125,7 @@ public class PokemonUtil {
 			else
 				typeStr = String.format("[%s %s]", poke.getType1(), poke.getType2());
 			
-			String message = String.format("%-15s %s | %s | %s\n", 
+			String message = String.format("%-15s %s | %s | %s", 
 					poke.getNickname(), levelStr, hpStr, typeStr); 
 
 			return message;
