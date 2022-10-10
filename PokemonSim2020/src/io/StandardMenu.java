@@ -14,6 +14,7 @@ public class StandardMenu {
 			response = StandardIO.promptChar();
 			StandardIO.printLineBreak();
 
+			StandardIO.printDivider();
 			if(response == 'y') {
 				return true;
 			}else if(response == 'n') {
@@ -46,21 +47,19 @@ public class StandardMenu {
 
 			// print options w/ labels
 			int label = 1;
-			for(String opt : options) {
+			for(String opt : options) 
 				StandardIO.println(String.format("%d - %s", label++, opt));
-			}
+			StandardIO.printLineBreak();
 
 			if(isEscapable) {
-				StandardIO.printLineBreak();
 				StandardIO.printEscCharReminder();
-			} else {
-				StandardIO.printLineBreak();				
-			}
+			} 
 
 
 			// get user choice
 			int choice = StandardIO.promptInt();
 			StandardIO.printLineBreak();
+			StandardIO.printDivider();
 
 			// allow escape?
 			if(isEscapable && choice == StandardIO.ESCAPE_INT) {

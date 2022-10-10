@@ -36,16 +36,10 @@ public class MainGame {
 	 * Helper for run().
 	 * Prints options, then asks the player to make a choice, then handles that choice.
 	 */
-	/**
-	 * Helper for run().
-	 * Prints options, then asks the player to make a choice, then handles that choice.
-	 */
 	private void gameLoopMenu() {
 		boolean runLoop = true;
 		while(runLoop) {
 			// print options
-			StandardIO.printDivider();
-
 			String prompt = "What would you like to do?";
 			String[] options = {
 					"explore " + player.getLocation().getName(),
@@ -83,6 +77,7 @@ public class MainGame {
 				runLoop = false;
 				break;
 			}
+//			StandardIO.printDivider();
 		} 
 	}
 
@@ -92,7 +87,6 @@ public class MainGame {
 	 */
 	private void statusMenu() {
 		// print options
-		StandardIO.printDivider();
 		String prompt = "What would you like to see?";
 		String[] options = {
 				"current location",
@@ -104,15 +98,16 @@ public class MainGame {
 		switch(choice) {		
 		case 1:
 			// print player location
-			StandardIO.printDivider();
-			StandardIO.println( player.getLocation().toString() + "\n");
+			StandardIO.println(LocationUtil.getLocationAsString(player.getLocation()));
+			StandardIO.printLineBreak();
 			StandardIO.delayModerate();
+			StandardIO.printDivider();
 			break;
 		case 2:
 			// print player bag info
-			StandardIO.printDivider();
 			StandardIO.println( player.getTrainer().getBag().getAllItemsSummary() );
 			StandardIO.delayVeryLong();
+			StandardIO.printDivider();
 			break;
 		case 3:
 			// print player team info
@@ -134,7 +129,7 @@ public class MainGame {
 
 		// ask what to do with selected pokemon 
 		// print options
-		StandardIO.printDivider();
+//		StandardIO.printDivider();
 		String prompt = "What would you like to do?";
 		String[] options = {
 				"view stats",
@@ -146,9 +141,9 @@ public class MainGame {
 		switch(actionChoice) {		
 		case 1:
 			// view stats
-			StandardIO.printDivider();
 			StandardIO.println( PokemonUtil.getStatistics(selectedPokemon) + selectedPokemon.getAllMovesString());
 			StandardIO.delayVeryLong();
+			StandardIO.printDivider();
 			break;
 		case 2:
 			// swap
@@ -157,21 +152,21 @@ public class MainGame {
 				return;
 			Pokemon swapPartner = player.getTrainer().getPokemon(swapPartnerIndex);
 			player.getTrainer().swapPokemon(selectedPokeIndex, swapPartnerIndex);
-			StandardIO.println(selectedPokemon.getNickname() + " traded places with " + swapPartner.getNickname() + ".\n" );
+			StandardIO.println(String.format("%s traded places with %s.", selectedPokemon.getNickname(), swapPartner.getNickname()));
+			StandardIO.printDivider();
 			break;
 		case 3:
 			// heal
 			// heal(selectedPokemon);
-			StandardIO.printDivider();
 			StandardIO.println( "Not yet implemented.\n" );
 			StandardIO.delayLong();
+			StandardIO.printDivider();
 			break;
 		}
 	}
 
 	private int selectPokemonIndex(String question) {
 		// build menu
-		StandardIO.printDivider();
 		Pokemon[] pokes = player.getTrainer().getAllPokemon();
 		String[] options = new String[player.getTrainer().getNumPokemon()];
 		for(int i = 0; i < options.length; i++)
@@ -187,7 +182,6 @@ public class MainGame {
 	 */
 	private void saveOrLoadMenu() {
 		// print options
-		StandardIO.printDivider();
 		String prompt = "What would you like to do?";
 		String[] options = {
 				"save",
@@ -198,16 +192,15 @@ public class MainGame {
 		switch(choice) {		
 		case 1:
 			// "save"
-			StandardIO.printDivider();
 			if(SaveFileManager.writeTeamToSave(player)) {
 				StandardIO.println("Your team was successfully saved.\n");
 			}else {
 				StandardIO.println("Your team could not be saved.\n");
 			}
+			StandardIO.printDivider();
 			break;
 		case 2:
 			// "load"
-			StandardIO.printDivider();
 			Trainer loadedTrainer = SaveFileManager.loadTrainerFromSave();
 			if(loadedTrainer != null) {
 				player.setTrainer(loadedTrainer);
@@ -217,6 +210,7 @@ public class MainGame {
 				StandardIO.println("Unfortunately, the save file could not be loaded.");
 			}
 			StandardIO.printLineBreak();
+			StandardIO.printDivider();
 			break;
 		}
 	}
@@ -227,7 +221,6 @@ public class MainGame {
 	 */
 	private void optionsMenu() {
 		// print options
-		StandardIO.printDivider();
 		String prompt = "What would you like to change?";
 		String[] options = {
 				"text-crawl delay",
@@ -238,15 +231,14 @@ public class MainGame {
 		switch(choice) {		
 		case 1:
 			// print current crawl speed
-			StandardIO.printDivider();
 			StandardIO.println("Current crawl delay: " + StandardIO.getCrawlDelay());
 			StandardIO.print("New crawl delay: ");
 			StandardIO.setCrawlDelay( StandardIO.getInt() );
 			StandardIO.printLineBreak();
+			StandardIO.printDivider();
 			break;
 		case 2:
 			// print current crawl speed
-			StandardIO.printDivider();
 			StandardIO.println("Audio is currently" 
 					+ (!SoundPlayer.isAllowedSound() ? " not" : "") + " allowed.");
 
@@ -258,6 +250,7 @@ public class MainGame {
 			}else{
 				SoundPlayer.setAllowSound(false);
 			}
+			StandardIO.printDivider();
 			break;
 		}
 	}

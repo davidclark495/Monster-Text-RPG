@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import io.StandardIO;
 import pokemon.Move;
 import pokemon.PkType;
 import pokemon.Species;
@@ -116,14 +117,14 @@ public class WorldMap {
 			Location srcLoc = allLocations.get(srcStr);
 			String dstStr = list.get(1);
 			Location dstLoc = allLocations.get(dstStr);
-			boolean defaultUnlocked = (list.get(2) == "YES");			
+			boolean defaultUnlocked = (list.get(2).equals("YES"));			
 			// build an un-locked lock, 
 			// or gather more data and build a real lock
 			PathLock lock;
 			if(defaultUnlocked) {
 				lock = new PathLock(false, 0, null);
 			} else {
-				boolean needsActCompletion = (list.get(3) == "YES");
+				boolean needsActCompletion = (list.get(3).equals("YES"));
 				int numActAttemptsNeeded = Integer.parseInt(list.get(4));
 				Location otherLocReqd = allLocations.get(list.get(5));	
 				lock = new PathLock(needsActCompletion,numActAttemptsNeeded, otherLocReqd);
@@ -133,7 +134,7 @@ public class WorldMap {
 				outboundPaths.get(srcLoc).add(new AbstractMap.SimpleEntry(dstLoc, lock));
 			} else {
 				ArrayList<Map.Entry<Location, PathLock>> outPaths = new ArrayList<>();
-				outPaths.add(new AbstractMap.SimpleEntry(dstLoc, lock));
+				outPaths.add(new AbstractMap.SimpleEntry<>(dstLoc, lock));
 				outboundPaths.put(srcLoc, outPaths);
 			}
 		}
@@ -196,6 +197,28 @@ public class WorldMap {
 	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// TESTER METHODS
 	public static String getAllLocationsString() {
 		StringBuilder sb = new StringBuilder();

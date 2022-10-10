@@ -18,7 +18,7 @@ Rocket HQ,Dark Tunnel,NO,NO,3,NONE
 Rocket HQ,Vault Door,NO,NO,4,NONE
 Dark Tunnel,Underground Lake,NO,NO,2,NONE
 Vault Door,Inside the Vault,NO,YES,0,NONE
-Field B,Field A,YES,NO,0,NONE
+Field B,Field A,NO,NO,0,Inside the Vault
 Pokemon Center,Field B,YES,NO,0,NONE
 Nearby Cave,Field B,YES,NO,0,NONE
 Sticky Hive,Field B,YES,NO,0,NONE

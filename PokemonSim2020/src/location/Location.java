@@ -43,15 +43,24 @@ public abstract class Location {
 		// bookkeeping
 		runActivityIterations++;
 		isVisited = true;
+		boolean newPathUnlocked = false;
 
 		// update locks
 		for(Map.Entry<Location, PathLock> entry : WorldMap.getOutboundPaths(this)) {
 			PathLock lock = entry.getValue();
+			boolean pathWasLocked = !lock.isUnlocked();
 			lock.noteActivityAttempted();
 			if(actComplete)
 				lock.noteActivityCompleted();
+			if(pathWasLocked && lock.isUnlocked()) 
+				newPathUnlocked = true;
 		}
-//		boolean pathUnlocked = checkUnlockPaths(); // updates pathsAway, prints, and stores true if a new path was found
+		
+		// print "path unlocked message" if needed
+		if(newPathUnlocked) {
+			StandardIO.println("...a new path has appeared.");		
+			StandardIO.printLineBreak();
+		}
 	}
 
 	/**
@@ -108,6 +117,7 @@ public abstract class Location {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
 
 
 	// --------------- inner class -----------------
